@@ -1,0 +1,1359 @@
+fileFormatVersion: 2
+guid: a7b3c7188169c8f408f27717c3b58bef
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_0'
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 539
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e35a6a70f4512054faaf0ed0481e6044
+      internalID: 481609910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_1'
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 538
+        width: 42
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae52d0fb0c1271a4f9eba1ecac2ef875
+      internalID: 56239019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_2'
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 539
+        width: 38
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad58d1e0f847dc446ac557168fe95ca4
+      internalID: 2066660651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_3'
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 539
+        width: 49
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a642d8fd94ed9e8498a0560fb57eca0d
+      internalID: -1995420747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_4'
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 539
+        width: 39
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9deb5a572a5e7794c81a0cf591a2b83d
+      internalID: -232373486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_5'
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 539
+        width: 56
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d8504b9db8d08048bcfaf94527a4575
+      internalID: -416370408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_6'
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 484
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75b932ef5d2fde347a37e2f706b225be
+      internalID: 195087213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_7'
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 484
+        width: 17
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e32a4b5bf91bf8440b42dbda71c30b33
+      internalID: -1710234426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_8'
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 484
+        width: 27
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba699b3710acd064188482d76f1c34d6
+      internalID: -1111669603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_9'
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 484
+        width: 28
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b557ddef5728594286066b51be765e6
+      internalID: 935715078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_10'
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 485
+        width: 24
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ed3833cac1531640b5adffc0f08cc16
+      internalID: 919569072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_11'
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 485
+        width: 32
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c95e0ad5359e67e429c11ad78ae4c86d
+      internalID: 1114699269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_12'
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 485
+        width: 38
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a8fd49ecd9e210408b00fba9b83ef79
+      internalID: -2091994902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_13'
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 486
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d71af27451f05849a202fc62732824a
+      internalID: 1192935838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_14'
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 486
+        width: 32
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4093574cf8135544945116d7018f108
+      internalID: 436830989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_15'
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 421
+        width: 29
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95d404e8bb5a7b94d9934a5ea7d640af
+      internalID: 1557862661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_16'
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 421
+        width: 27
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c425e2f4bfe7b344783de492576803b0
+      internalID: 1714339513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_17'
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 422
+        width: 29
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8229c42ccaee6664780afccd5afd2cd8
+      internalID: 153443474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_18'
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 422
+        width: 28
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c6164a48705ca3459bb52395288b7d3
+      internalID: 99622092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_19'
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 422
+        width: 24
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2911592da5d344848a347f892f76df11
+      internalID: -667636214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_20'
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 422
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b81decbe4348c8445af1c984295fe1c9
+      internalID: -1737559040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_21'
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 422
+        width: 21
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a9d0821ae5ff7e418d3d3dba731af93
+      internalID: 334569548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_22'
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 422
+        width: 22
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 379495f2927279f45a57db11d22be594
+      internalID: -1216471478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_23'
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 422
+        width: 22
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77e82a9cbd6f5654a8e79435fc434919
+      internalID: -973143011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_24'
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 421
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8c0f4d2d5aead842867086540874220
+      internalID: -1727273296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_25'
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 422
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bb8ea42e0c2c8f4da4ac2e873829e4e
+      internalID: -898166386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_26'
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 422
+        width: 21
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b43cec4594999994d885f4d08da3e930
+      internalID: -791504961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_27'
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 302
+        width: 22
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17419beff4fc27f45962c680acf63b33
+      internalID: -1336948071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_28'
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 346
+        width: 11
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 141d7fdd7c46cb04eb4b0d4351db4732
+      internalID: 970697753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_29'
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 324
+        width: 14
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 465b5c061d3377d4cb7b754bf400d98b
+      internalID: 159471062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_30'
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 301
+        width: 14
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 161aada0ee2cba14c820d5ddf6056d9e
+      internalID: 1636780864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_31'
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 260
+        width: 13
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 131d1867f30c06246b959430e15ef91b
+      internalID: -1356802718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_32'
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 234
+        width: 13
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db5cfe0d9475528458084fb5282e244a
+      internalID: -1224003949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_33'
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 212
+        width: 15
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd6e183e923908e41b4d31455b158475
+      internalID: -119241467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_34'
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 210
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6357fafac04dd9845be3db4303a78308
+      internalID: -1934213117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_35'
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 209
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6e8ce76b74d2cc4393dfcb272ab5535
+      internalID: 1323878216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_36'
+      rect:
+        serializedVersion: 2
+        x: 254
+        y: 208
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b874d3cda602af646ad7fc9c39a3feb4
+      internalID: -532759608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_37'
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 209
+        width: 34
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bca48f0f90753d14bb71af05c85b0571
+      internalID: 102644797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_38'
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 267
+        width: 54
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a052905174a9db144a9afb325a0b412b
+      internalID: 207100868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_39'
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 267
+        width: 43
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 594ff7cd3df11544a80c8992f4caa78a
+      internalID: 731758687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_40'
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 264
+        width: 39
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2eaf92b0982d06e41bc521c428ea0d31
+      internalID: 187759276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_41'
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 263
+        width: 50
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3156b636c3b63744681001f3cee796f4
+      internalID: 34755929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_42'
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 263
+        width: 36
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59f7194f86881d045ac67f71df5f78d6
+      internalID: 629571837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_43'
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 266
+        width: 50
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7ce890efe4cfc243bd83bc2815f366d
+      internalID: 1064105675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_44'
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 210
+        width: 37
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20860f5e7f0dd3447bd1e7d9d3ebd19b
+      internalID: -1172100837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_45'
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 209
+        width: 42
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea34cacd93db9d645b8fe66b4d5954cc
+      internalID: -1691230006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_46'
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 206
+        width: 42
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 258bfbc553649e34185fbba92405902d
+      internalID: -330094040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_47'
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 206
+        width: 31
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa9f166ef25d170489a9d16d72dfd919
+      internalID: -141427629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_48'
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 91
+        width: 15
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 426fa9da6d00d2f41b7c77d006770e02
+      internalID: 1337202511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_49'
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 345
+        width: 45
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1eca56f0bd00a734d98fcd8cf8cd6a4f
+      internalID: 1445482952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_50'
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 346
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0729f93b4bc5e2340812654296cf9f7c
+      internalID: 903808845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_51'
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 345
+        width: 46
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5447604a0dd6ffa4e92aea4be9e25a8b
+      internalID: -1299555911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_52'
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 343
+        width: 45
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75748d916c2cb5f4ca62f764885bb431
+      internalID: 1134545705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_53'
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 347
+        width: 42
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5b91a49aa1c1954c87eba9d2ca61551
+      internalID: 208651867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_54'
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 347
+        width: 43
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1256eca6ce83ee74c885bb2bdb896186
+      internalID: -833583376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_55'
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 346
+        width: 39
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 319910cd1d8bd224ab9fb4a2644508d8
+      internalID: -2124579198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_0': -750185196
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_1': 481609910
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_10': 1353136184
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_11': 935715078
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_12': 1516511852
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_13': 919569072
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_14': -1394726870
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_15': 1689493001
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_16': 1114699269
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_17': -2091994902
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_18': 1192935838
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_19': 436830989
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_2': 56239019
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_20': 1557862661
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_21': 1714339513
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_22': 153443474
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_23': 99622092
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_24': -667636214
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_25': -1737559040
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_26': 334569548
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_27': -1216471478
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_28': -1487839260
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_29': -973143011
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_3': 2066660651
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_30': 1328959643
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_31': -1727273296
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_32': -898166386
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_33': -791504961
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_34': -1336948071
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_35': -394468756
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_36': 970697753
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_37': 159471062
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_38': 1636780864
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_39': -1356802718
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_4': -1995420747
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_40': -1224003949
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_41': -119241467
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_42': -1934213117
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_43': 1323878216
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_44': 1079865646
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_45': -532759608
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_46': 102644797
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_47': 39205834
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_48': 207100868
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_49': 731758687
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_5': -232373486
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_50': 187759276
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_51': 34755929
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_52': 629571837
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_53': 1789063465
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_54': -126250380
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_55': 978744340
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_6': -416370408
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_7': 195087213
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_8': -1710234426
+      '[removal.ai]_5d8ccae2-ad34-4fcf-bd0f-8c90972b3be7-pc-computer-thems-fightin-herds-cave-foreground_9': -1111669603
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

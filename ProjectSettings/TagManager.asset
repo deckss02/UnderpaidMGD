@@ -3,7 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - KillPlane
+  - Checkpoint
+  - Bullet
+  - Win
+  - Key
+  - Door
+  - OneWayPlatform
+  - Enemy
+  - Boss
+  - WeakPoint
   layers:
   - Default
   - TransparentFX
@@ -11,11 +21,11 @@ TagManager:
   - 
   - Water
   - UI
+  - Background
   - 
-  - 
-  - 
-  - 
-  - 
+  - Ground
+  - Player
+  - Enemy
   - 
   - 
   - 
@@ -40,4 +50,22 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: SAN
+    uniqueID: 1763386151
+    locked: 0
+  - name: sandy stoopy
+    uniqueID: 2069161429
+    locked: 0
+  - name: Background
+    uniqueID: 2013161343
+    locked: 0
+  - name: Midground
+    uniqueID: 3472322439
+    locked: 0
+  - name: Foreground
+    uniqueID: 3372880699
+    locked: 0
+  - name: Claw
+    uniqueID: 1668863877
     locked: 0
