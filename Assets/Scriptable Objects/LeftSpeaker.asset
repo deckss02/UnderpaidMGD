@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47c77bd1f5153284eac8d86383b5828e, type: 3}
+  m_Name: LeftSpeaker
+  m_EditorClassIdentifier: 
+  fullName: April
+  sprite:
+  - {fileID: 21300000, guid: e0fa806084a1c0b48a36fc33c1af788d, type: 3}
+  - {fileID: 21300000, guid: 7f178869cd829df46bb03fc01bc6f909, type: 3}

@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc460288e40694f46b84d2f4296b572e, type: 3}
+  m_Name: Conversation
+  m_EditorClassIdentifier: 
+  speakerLeft: {fileID: 11400000, guid: aefd187fb05149943adf1b6c91a66328, type: 2}
+  speakerRight: {fileID: 11400000, guid: 23f3ffae58e54aa4e9812ce25ddd113a, type: 2}
+  speakerCenter: {fileID: 11400000, guid: 729831a5df842af4cb6a04532963dc62, type: 2}
+  lines:
+  - character: {fileID: 11400000, guid: aefd187fb05149943adf1b6c91a66328, type: 2}
+    number: 0
+    text: Hey dude. What is your name?
+  - character: {fileID: 11400000, guid: 23f3ffae58e54aa4e9812ce25ddd113a, type: 2}
+    number: 0
+    text: I'm June. Where are you from?
+  - character: {fileID: 11400000, guid: aefd187fb05149943adf1b6c91a66328, type: 2}
+    number: 0
+    text: I am from Fire Clan. How about you?
+  - character: {fileID: 11400000, guid: 23f3ffae58e54aa4e9812ce25ddd113a, type: 2}
+    number: 0
+    text: Me too. Your flame seems weak. You want some pointers from me?
+  - character: {fileID: 11400000, guid: aefd187fb05149943adf1b6c91a66328, type: 2}
+    number: 1
+    text: You seems to be over confident with your opponent. So arrogant!
+  - character: {fileID: 11400000, guid: aefd187fb05149943adf1b6c91a66328, type: 2}
+    number: 1
+    text: Who is your master? Let me teach you a lesson today!
+  - character: {fileID: 11400000, guid: 23f3ffae58e54aa4e9812ce25ddd113a, type: 2}
+    number: 1
+    text: He shall not be named... Let's have an exchange to see who is stronger.
+  - character: {fileID: 11400000, guid: aefd187fb05149943adf1b6c91a66328, type: 2}
+    number: 0
+    text: Sounds good. Let's begin then...
