@@ -190,5 +190,7 @@ public class LevelManager : MonoBehaviour
 
         thePlayer.transform.position = thePlayer.respawnPosition; //Move the player to respawn position
         thePlayer.gameObject.SetActive(true); //Reactivate the player in the world
-    }   
+    }
+
 }
+

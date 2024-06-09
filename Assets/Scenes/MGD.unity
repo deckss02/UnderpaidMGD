@@ -20601,11 +20601,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704895f08046f7b469cc782d148adf27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!212 &1660756514 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 9135710595486369639, guid: 7cf4da1d08b8d0c4dafd13485434ce1a, type: 3}
-  m_PrefabInstance: {fileID: 1660756512}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1660756515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20623,10 +20618,11 @@ MonoBehaviour:
   levelManager: {fileID: 2086222564}
   CorneliusHealth: 100
   RheaHealth: 100
-  ChangeNumber: 0
-  SR: {fileID: 1660756514}
   Corn: {fileID: 21300000, guid: 0d308c000709f614690c3a0dc00c340b, type: 3}
   Rhe: {fileID: 21300000, guid: eb572f27d7b575047bb5a501c600eb59, type: 3}
+  p1Anim: {fileID: 9100000, guid: 3cb47bc3fd8dd824d8d0715b0210b5ba, type: 2}
+  p2Anim: {fileID: 9100000, guid: 47fd7e4cc3f85c845afa14a915465baa, type: 2}
+  ChangeNumber: 0
 --- !u!1 &1671800615
 GameObject:
   m_ObjectHideFlags: 0
@@ -23550,6 +23546,7 @@ GameObject:
   - component: {fileID: 1966843411}
   - component: {fileID: 1966843413}
   - component: {fileID: 1966843412}
+  - component: {fileID: 1966843414}
   m_Layer: 5
   m_Name: CharacterProfile -Healer
   m_TagString: Untagged
@@ -23614,6 +23611,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1966843410}
   m_CullTransparentMesh: 1
+--- !u!114 &1966843414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1966843410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1966843412}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1660756515}
+        m_TargetAssemblyTypeName: PlayerSwapButton, Assembly-CSharp
+        m_MethodName: SwitchCharacter
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1968629423
 GameObject:
   m_ObjectHideFlags: 0

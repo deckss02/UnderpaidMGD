@@ -57,12 +57,14 @@ public class PlayerControllera : MonoBehaviour
                   rb.velocity = new Vector2 (moveSpeed, rb.velocity.y); //Move to the right 
                   transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                   facingRight = true;
+                  
              }
              else if (Input.GetAxisRaw("Horizontal") < 0)
              {
                   rb.velocity = new Vector2(-moveSpeed, rb.velocity.y); //Move to the left
                   transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
                   facingRight = false;
+                  
              }
              else
              {
