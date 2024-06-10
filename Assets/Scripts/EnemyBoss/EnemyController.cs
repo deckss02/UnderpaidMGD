@@ -5,14 +5,9 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public Transform LeftPoint; // Reference to the left point position
-    public Transform RightPoint; //Reference to the right point position
+    [SerializeField] float moveSpeed = 1f;
 
-    public float moveSpeed;//How fast the enemy can move 
-
-    private Rigidbody2D enemyRigidbody; //Reference to the Rigidbody2D component of the Enemy
-
-    public bool movingRight;//Check if the enemy should move left or right
+    Rigidbody2D enemyRigidbody;
 
     public EnemyCounter theEnemyCounter;
     // Start is called before the first frame update
@@ -24,43 +19,36 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (movingRight && (transform.position.x > RightPoint.position.x)) // if the enemy is moving right and it has gone past the right point, it should start to move left
+        if (IsFacingRight())
         {
-            movingRight = false;
-            Flip();
-        }
-
-        if (!movingRight && (transform.position.x < LeftPoint.position.x)) // if the enemy is moving left and it has gone past the left point, it should start to move right
-        {
-            movingRight = true;
-            Flip();
-        }
-        if (movingRight)
-        {
-            enemyRigidbody.velocity = new Vector2(moveSpeed, enemyRigidbody.velocity.y);
+            enemyRigidbody.velocity = new Vector2(moveSpeed, 0f);//Move Right
         }
         else
         {
-            enemyRigidbody.velocity = new Vector2(-moveSpeed, enemyRigidbody.velocity.y);
+            enemyRigidbody.velocity = new Vector2(-moveSpeed, 0f);//Move Left
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    private bool IsFacingRight()
     {
-        if (other.tag == "Bullet")
+        return transform.localScale.x > Mathf.Epsilon;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        //Turn
+        transform.localScale = new Vector2(-(Mathf.Sign(enemyRigidbody.velocity.x)), transform.localScale.y);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
         {
-            Destroy(other.gameObject);
+            Destroy(collision.gameObject);
             Destroy(gameObject);
             theEnemyCounter.EnemyKilled(); // Call EnemyKilled without arguments
 
         }
-    }
-
-    private void Flip()
-    {
-        Vector3 localScale = transform.localScale;
-        localScale.x *= -1;
-        transform.localScale = localScale;
     }
 
 }
