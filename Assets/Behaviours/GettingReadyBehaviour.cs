@@ -4,47 +4,33 @@ using UnityEngine;
 
 public class GettingReadyBehaviour : StateMachineBehaviour
 {
+    private Boss boss; // Reference to the Boss script
 
-    public float timer;
-    public float minTime;
-    public float maxTime;
-
-    private Transform playerPos;
-    public float speed;
-
-    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
+    // Called when the state starts evaluating
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        // Find the player's position by looking for the GameObject with the "Player" tag and getting its Transform component
-        playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        // Set the timer to a random value between minTime and maxTime
-        timer = Random.Range(minTime, maxTime);
+        // Get reference to the Boss component
+        boss = animator.GetComponent<Boss>();
+
+        // Perform actions on entering GettingReady state, if any
+        Debug.Log("Entered GettingReady state");
     }
 
-    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
+    // Called on each Update frame while the state is being evaluated
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        // Check if the timer has expired
-        if (timer <= 0)
+        // Transition to HairBall state if the boss is ready for the next attack
+        if (boss != null && boss.IsReadyForNextAttack())
         {
-            // Trigger a transition to the "Idle" state
-            animator.SetTrigger("Idle");
+            animator.SetBool("HairBall", true);
         }
-        else
-        {
-            // Decrease the timer by the time passed since the last frame
-            timer -= Time.deltaTime;
-        }
-
-        // Calculate the target position, maintaining the current y-position of the animator's transform
-        Vector2 target = new Vector2(playerPos.position.x, animator.transform.position.y);
-        // Move the animator's transform towards the target position at the specified speed
-        animator.transform.position = Vector2.MoveTowards(animator.transform.position, target, speed * Time.deltaTime);
     }
 
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
+    // Called when the state stops being evaluated
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
+        // Perform actions on exiting GettingReady state, if any
+        Debug.Log("Exited Ready state");
+        animator.SetBool("GettingReady", false);
     }
 }

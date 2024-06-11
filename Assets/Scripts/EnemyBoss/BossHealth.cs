@@ -7,15 +7,13 @@ using UnityEngine.SceneManagement;
 public class BossHealth : MonoBehaviour
 {
     public float maxHealth = 120f;
-    private float currentHealth;
+    public float currentHealth;
     public Slider healthBar; // Reference to a health bar UI component to display boss health
     public GameObject theWinScreen;
     private Animator animator;
 
-
     void Start()
     {
-
         currentHealth = maxHealth;
         animator = GetComponent<Animator>(); // Get the Animator component
         //theWinScreen.SetActive(false);
@@ -32,38 +30,35 @@ public class BossHealth : MonoBehaviour
         if (currentHealth <= 0) // Check if health is zero or below
         {
             Die(); // Call Die method to handle the boss's death
-            animator.SetBool("Damage", true);
         }
         else
         {
-            TriggerDamageAnimation();
+            // Trigger the damage animation through the animator
+            if (animator != null)
+            {
+                animator.SetTrigger("Damage");
+            }
         }
     }
 
-    void TriggerDamageAnimation()
+    public void StartHairBallRollAttack()
     {
-        if (animator != null)
-        {
-            Debug.Log("Took damage animation");
-            animator.SetBool("Damage", true);
-        }
+        StartCoroutine(HairBallRollAttackCoroutine());
     }
 
-    public void TakeDamageAnimationStart()
+    private IEnumerator HairBallRollAttackCoroutine()
     {
-        if (animator != null)
-        {
-            animator.SetBool("Damage", true);
-        }
-    }
+        // HairBallRoll attack logic
+        // For example:
+        Debug.Log("Starting HairBallRoll attack");
+        yield return new WaitForSeconds(1.0f); // Replace this with your actual hairball attack duration
 
-    public void TakeDamageAnimationEnd()
-    {
+        // After completing the attack, transition to cooldown state
         if (animator != null)
         {
-            animator.SetBool("Damage", false);
+            animator.SetBool("Cooldown", true);
         }
-        // Additional logic when damage animation ends can go here
+        Debug.Log("HairBallRoll attack completed");
     }
 
     void Die()
@@ -71,7 +66,7 @@ public class BossHealth : MonoBehaviour
         // Handle the death of the boss (e.g., play animation, trigger events, etc.)
         Debug.Log("Boss defeated!"); // Log a message for debugging purposes
 
-
+        // Set the "isDead" parameter to true to trigger death animation
         if (animator != null)
         {
             animator.SetBool("isDead", true);
@@ -81,3 +76,4 @@ public class BossHealth : MonoBehaviour
         theWinScreen.SetActive(true);
     }
 }
+

@@ -4,120 +4,52 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
-    public GameObject PawEye;
-    public GameObject PawMouth;
-    public GameObject HairballPrefab;
-    public GameObject ClawPrefab;
-    public GameObject minionPrefab;  //Reference to objects 
-    public Transform[] firePoints; //Array of transform points where abilites will be summoned 
-    public Transform[] summonPoints; // Array of transform points where minions will be summoned
+    // Other variables and references...
 
-    // Enumeration to represent different states/attacks of the boss
-    private enum AttackType { HairBallRoll, Claw, SummonMinions, PawSlam }
+    // Attack stage names
+    private string[] attackStages = { "PawAttack", "HairballAttack", "ClawAttack", "SummonMinions" };
+    private int currentAttackStage = 0; // Current attack stage index
 
-    // Enumeration to represent different states/attacks of the boss
-    private enum State { Idle, HairBallRoll, Claw, SummonMinions,PawSlam }
-    private State currentState = State.Idle; // Variable to keep track of the current state, initialized to Idle
-    // Dictionary to store cooldown times for each state
-    private Dictionary<State, float> stateCooldowns = new Dictionary<State, float>
-    {
-        { State.HairBallRoll, 2f }, // Hairballroll attack has a cooldown of 2 seconds
-        { State.Claw, 3f }, // Clawattack attack has a cooldown of 3 seconds
-        { State.SummonMinions, 5f}, // Summon minions attack has a cooldown of 5 seconds
-        { State.PawSlam, 3f } // Paw Slam has a cooldown of 3 seconds
-    };
-
-    private float nextStateTime = 0f; //Variable to track when the next state can be executed
-    
-    
-    private Animator anim;
+    private Animator myAnim;
+    public bool attacking;
 
     private void Start()
     {
-        StartCoroutine(StateMachine()); // Start the state machine coroutine when the game starts
-        anim = GetComponent<Animator>();
+        myAnim = GetComponent<Animator>();
+        attacking = true;
     }
 
     private void Update()
     {
-    }
-    IEnumerator StateMachine()
-    {
-        while (true) // Infinite loop to continuously check and execute states
-        {
-            if (Time.time >= nextStateTime) // Check if the cooldown period has passed
-            {
-                switch (currentState) // Switch statement to handle different states
-                {
-                    case State.Idle: // If the boss is idle, get the next state
-                        currentState = GetNextState();
-                        break;
-                    case State.HairBallRoll: // If the current state is HairBallRoll
-                        HairBallRollAttack(); // Execute HairBallRoll attack
-                        currentState = State.Idle; // Set the state back to Idle
-                        nextStateTime = Time.time + stateCooldowns[State.HairBallRoll]; // Set the next state time based on  cooldown
-                        break;
-                    case State.SummonMinions: // If the current state is SummonMinions
-                        SummonMinions(); // Execute Summon Minions attack
-                        currentState = State.Idle; // Set the state back to Idle
-                        nextStateTime = Time.time + stateCooldowns[State.SummonMinions]; // Set the next state time based on Summon Minions cooldown
-                        break;
-                    case State.Claw: // If the current state is Claw
-                        ClawAttack(); // Execute Claw attack
-                        currentState = State.Idle; // Set the state back to Idle
-                        nextStateTime = Time.time + stateCooldowns[State.Claw]; // Set the next state time based on Claw cooldown
-                        break;
-                    case State.PawSlam: // If the current state is PawSlam
-                        PawSlamAttack(); // Execute Claw attack
-                        currentState = State.Idle; // Set the state back to Idle
-                        nextStateTime = Time.time + stateCooldowns[State.PawSlam]; // Set the next state time based on PawSlam cooldown
-                        break;
-                }
-            }
-            yield return null; // Wait for the next frame before continuing the loop
-        }
+        // Update logic if needed
     }
 
-    void HairBallRollAttack()
+    // Reset all attack states and set the boss to idle
+    public void ResetAllAttacks()
     {
-        foreach (var firePoint in firePoints) // Loop through all fire points
-        {
-            Instantiate(HairballPrefab, firePoint.position, firePoint.rotation); // Instantiate a fireball at each fire point
-        }
-        Debug.Log("HairBallRoll attack executed"); // Log the attack execution
+        attacking = false;
+        myAnim.SetTrigger("Reset");
+        // Reset any other necessary state here
     }
 
-    void PawSlamAttack()
+    // Check if the boss is ready for the next attack
+    public bool IsReadyForNextAttack()
     {
-        foreach (var firePoint in firePoints) // Loop through all fire points
-        {
-            Instantiate(PawMouth, firePoint.position, firePoint.rotation); // Instantiate a fireball at each fire point
-        }
-        Debug.Log("PawSlam attack executed"); // Log the attack execution
+        // Check if CooldownBehaviour is in cooldown state
+        return !myAnim.GetCurrentAnimatorStateInfo(0).IsName("Cooldown");
     }
 
-
-    void ClawAttack()
+    // Progress to the next attack stage
+    private void ProgressToNextAttackStage()
     {
-        foreach (var firePoint in firePoints) // Loop through all fire points
-        {
-            Instantiate(ClawPrefab, firePoint.position, firePoint.rotation); // Instantiate a laser beam at each fire point
-        }
-        Debug.Log("Claw attack executed"); // Log the attack execution
+        currentAttackStage = (currentAttackStage + 1) % attackStages.Length;
+        string nextAttack = attackStages[currentAttackStage];
+        myAnim.SetTrigger(nextAttack);
     }
 
-    void SummonMinions()
+    // Handle minion spawning logic
+    public void HandleMinionSpawning()
     {
-        foreach (var summonPoint in summonPoints) // Loop through all summon points
-        {
-            Instantiate(minionPrefab, summonPoint.position, summonPoint.rotation); // Instantiate a minion at each summon point
-        }
-        Debug.Log("Minions summoned"); // Log the summoning
-    }
-
-    State GetNextState()
-    {
-        State[] states = { State.HairBallRoll, State.Claw, State.SummonMinions, State.PawSlam }; // Array of possible states/attacks
-        return states[Random.Range(0, states.Length)]; // Randomly select and return one of the states
+        // Implement minion spawning logic here if needed
     }
 }

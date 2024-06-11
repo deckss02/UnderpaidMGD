@@ -4,33 +4,38 @@ using UnityEngine;
 
 public class IdleBehaviour : StateMachineBehaviour
 {
+    private Boss boss;
 
-    public float timer;
-    public float minTime;
-    public float maxTime;
-    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
+    // Called when the state starts evaluating
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        timer = Random.Range(minTime, maxTime);
+
+        // Perform actions on entering Idle state, if any
+        Debug.Log("Entered Idle state");
     }
 
-    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
+    // Called on each Update frame while the state is being evaluated
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (timer <= 0) 
+        // Transition to Ready state if the boss is ready for the next attack
+        if (boss != null && boss.IsReadyForNextAttack())
         {
-            animator.SetTrigger("GettingReady");
-        }
-        else
-        {
-            timer -= Time.deltaTime;
+            animator.SetBool("GettingReady", true);
         }
 
+        // Reset logic
+        if (animator.GetBool("Reset"))
+        {
+            animator.SetBool("Idle", true);
+            animator.SetBool("Reset", false);
+        }
     }
 
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
+    // Called when the state stops being evaluated
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-       
+        // Perform actions on exiting Idle state, if any
+        Debug.Log("Exited Idle state");
+        animator.SetBool("Idle", false);
     }
 }
