@@ -175,15 +175,8 @@ public class PlayerController : MonoBehaviour
                 if (bossHealth != null)
                 {
                     bossHealth.TakeDamage(20f);
+                    Debug.Log("20 Damage Taken");
                 }
-            }
-            if (other.tag == "KillPlane")
-            {
-                //GameObject.SetActive(false);  //Set the PLayer to inactive
-                //transform.position = respawnPosition; //set the position to respawnPosition when it dies
-                theLevelManager.healthCount -= 100;
-                theLevelManager.UpdateHeartMeter();
-                theLevelManager.Respawn();
             }
         }
 

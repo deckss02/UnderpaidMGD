@@ -43,5 +43,6 @@ public class SummonMinionsBehaviour : StateMachineBehaviour
         // Reset triggers or perform cleanup on exiting the state
         boss.attacking = false;
         Debug.Log("Exited Summon Minions state");
+        animator.SetBool("Summon", false);
     }
 }

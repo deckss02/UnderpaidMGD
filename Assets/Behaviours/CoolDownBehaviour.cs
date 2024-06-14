@@ -4,22 +4,63 @@ using UnityEngine;
 
 public class CoolDownBehaviour : StateMachineBehaviour
 {
-    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-   // {
-        
-   // }
+    private Boss boss; // Reference to the Boss script
+    private float cooldownTime = 5.0f; // Duration of the cooldown
+    private float timer;
 
-    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-  //  override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-   // {
-           
-  //  }
+    // Array to store the names of the attack stages
+    private string[] attackStages = { "Attack1", "Attack2", "Attack3", "Attack4" };
 
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-  //  override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-  //  {
-        
- //   }
+    private string previousAttackStage;
 
+    // Called when the state starts evaluating
+    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        // Initialize the boss reference and reset the timer
+        boss = animator.GetComponent<Boss>();
+        timer = cooldownTime;
+
+        // Perform actions on entering Cooldown state, if any
+        Debug.Log("Entered Cooldown state");
+    }
+
+    // Called on each Update frame while the state is being evaluated
+    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        // Decrease the timer
+        timer -= Time.deltaTime;
+
+        // Check if the cooldown has finished
+        if (timer <= 0)
+        {
+            string nextAttackStage = GetRandomAttackStage();
+
+            // Trigger transition to the selected attack stage
+            animator.SetTrigger(nextAttackStage);
+
+            // Store the selected attack stage as the previous one
+            previousAttackStage = nextAttackStage;
+        }
+    }
+
+    // Called when the state stops being evaluated
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        // Perform actions on exiting Cooldown state, if any
+        Debug.Log("Exited Cooldown state");
+
+        // Reset the Cooldown parameter to false
+        animator.SetBool("Cooldown", false);
+    }
+
+    // Get a random attack stage that is different from the previous one
+    private string GetRandomAttackStage()
+    {
+        string randomAttackStage;
+        do
+        {
+            randomAttackStage = attackStages[Random.Range(0, attackStages.Length)];
+        } while (randomAttackStage == previousAttackStage);
+        return randomAttackStage;
+    }
 }

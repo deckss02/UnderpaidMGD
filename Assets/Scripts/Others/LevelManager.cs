@@ -61,10 +61,10 @@ public class LevelManager : MonoBehaviour
         UpdateHeartMeter(); //Update the heart meter when pkayer respawns
         thePlayer.Knockback();
         thePlayer.hurtSound.Play();
-        StartCoroutine(Invnerability());
+        StartCoroutine(Invincibility());
     }
 
-    private IEnumerator Invnerability()
+    private IEnumerator Invincibility()
     {
         Physics2D.IgnoreLayerCollision(9, 10, true);
         for (int i = 0; i < numberOfFlashes; i++)
