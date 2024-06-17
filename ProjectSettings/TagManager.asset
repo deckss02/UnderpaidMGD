@@ -14,6 +14,7 @@ TagManager:
   - Enemy
   - Boss
   - WeakPoint
+  - BossAtk
   layers:
   - Default
   - TransparentFX

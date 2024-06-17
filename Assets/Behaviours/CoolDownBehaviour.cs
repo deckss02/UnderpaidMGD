@@ -1,26 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CoolDownBehaviour : StateMachineBehaviour
 {
     private Boss boss; // Reference to the Boss script
+    private BossHealth bossHealth; // Reference to the BossHealth script
     private float cooldownTime = 5.0f; // Duration of the cooldown
     private float timer;
-
-    // Array to store the names of the attack stages
-    private string[] attackStages = { "Attack1", "Attack2", "Attack3", "Attack4" };
-
-    private string previousAttackStage;
+    private AttackStageManager attackStageManager; // Reference to the AttackStageManager
 
     // Called when the state starts evaluating
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        // Initialize the boss reference and reset the timer
+        // Initialize references, reset the timer, and get AttackStageManager
         boss = animator.GetComponent<Boss>();
+        bossHealth = animator.GetComponent<BossHealth>();
         timer = cooldownTime;
+        attackStageManager = FindObjectOfType<AttackStageManager>(); // Find the AttackStageManager in the scene
 
-        // Perform actions on entering Cooldown state, if any
+        // Enable the weak point collider and disable invincibility
+        if (bossHealth != null)
+        {
+            bossHealth.EnableWeakPoints(true);
+            bossHealth.DisableInvincibility();
+        }
+
         Debug.Log("Entered Cooldown state");
     }
 
@@ -33,13 +36,37 @@ public class CoolDownBehaviour : StateMachineBehaviour
         // Check if the cooldown has finished
         if (timer <= 0)
         {
-            string nextAttackStage = GetRandomAttackStage();
+            // Get the next attack stage from AttackStageManager
+            string nextAttackStage = attackStageManager.GetNextAttackStage();
 
             // Trigger transition to the selected attack stage
-            animator.SetTrigger(nextAttackStage);
+            switch (nextAttackStage)
+            {
+                case "SummonMinions":
+                    SummonMinionsPicked(animator);
+                    break;
+                case "PawSlam":
+                    PawSlamPicked(animator);
+                    break;
+                case "Claw":
+                    ClawPicked(animator);
+                    break;
+                case "HairBallRoll":
+                    HairBallRollPicked(animator);
+                    break;
+                default:
+                    Debug.LogError("Invalid attack stage: " + nextAttackStage);
+                    break;
+            }
 
-            // Store the selected attack stage as the previous one
-            previousAttackStage = nextAttackStage;
+            // Reset the NextStage parameter to false before setting it to true later
+            animator.SetBool("NextStage", false);
+
+            // Set the NextStage boolean to indicate readiness to change state
+            animator.SetBool("NextStage", true);
+
+            // Reset the timer
+            timer = cooldownTime;
         }
     }
 
@@ -49,18 +76,54 @@ public class CoolDownBehaviour : StateMachineBehaviour
         // Perform actions on exiting Cooldown state, if any
         Debug.Log("Exited Cooldown state");
 
-        // Reset the Cooldown parameter to false
-        animator.SetBool("Cooldown", false);
+        // Disable the weak point collider and enable invincibility
+        if (bossHealth != null)
+        {
+            bossHealth.EnableWeakPoints(false);
+            bossHealth.EnableInvincibility();
+        }
+
     }
 
-    // Get a random attack stage that is different from the previous one
-    private string GetRandomAttackStage()
+    // Methods to activate specific attack stages
+    private void SummonMinionsPicked(Animator animator)
     {
-        string randomAttackStage;
-        do
-        {
-            randomAttackStage = attackStages[Random.Range(0, attackStages.Length)];
-        } while (randomAttackStage == previousAttackStage);
-        return randomAttackStage;
+        animator.SetBool("Summon", true);
+        // Reset other attack stage Bools if needed
+        animator.SetBool("Slam", false);
+        animator.SetBool("Claw", false);
+        animator.SetBool("HairBall", false);
+        animator.SetBool("CoolDown", false);
+    }
+
+    private void PawSlamPicked(Animator animator)
+    {
+        animator.SetBool("Slam", true);
+        animator.SetTrigger("IsPaw");
+        // Reset other attack stage Bools if needed
+        animator.SetBool("Summon", false);
+        animator.SetBool("Claw", false);
+        animator.SetBool("HairBall", false);
+        animator.SetBool("CoolDown", false);
+    }
+
+    private void ClawPicked(Animator animator)
+    {
+        animator.SetBool("Claw", true);
+        // Reset other attack stage Bools if needed
+        animator.SetBool("Summon", false);
+        animator.SetBool("Slam", false);
+        animator.SetBool("HairBall", false);
+        animator.SetBool("CoolDown", false);
+    }
+
+    private void HairBallRollPicked(Animator animator)
+    {
+        animator.SetBool("HairBall", true);
+        // Reset other attack stage Bools if needed
+        animator.SetBool("Summon", false);
+        animator.SetBool("Slam", false);
+        animator.SetBool("Claw", false);
+        animator.SetBool("CoolDown", false);
     }
 }

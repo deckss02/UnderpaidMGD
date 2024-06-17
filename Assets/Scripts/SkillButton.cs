@@ -9,9 +9,11 @@ public class SkillButton : MonoBehaviour
     private LevelManager theLevelManager;
     public int healAmount = 200; // Amount of health to restore
 
+
     void Start()
     {
         theLevelManager = FindObjectOfType<LevelManager>();
+
         // Ensure the skill button is assigned
         if (skillButton != null)
         {
@@ -31,4 +33,5 @@ public class SkillButton : MonoBehaviour
             theLevelManager.Heal(healAmount);
         }
     }
+
 }

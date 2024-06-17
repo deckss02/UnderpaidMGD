@@ -13,11 +13,11 @@ public class IntroBehaviour : StateMachineBehaviour
 
         if (rand == 1)
         {
-            animator.SetTrigger("Idle");
+            animator.SetBool("Idle", true);
         }
         else
         {
-            animator.SetTrigger("GettingReady");
+            animator.SetBool("GettingReady", true);
         }
 
     }

@@ -39,9 +39,6 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: CoolDown
     m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: HairBall
-    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6950570389153798895}
   m_Solo: 0
@@ -63,7 +60,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Damage
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3735698663430374328}
   m_Solo: 0
@@ -274,7 +274,7 @@ AnimatorStateTransition:
     m_ConditionEvent: CoolDown
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: AttackOne
+    m_ConditionEvent: HairBall
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -4520723152693983788}
@@ -330,31 +330,6 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1101 &-3107163104247795098
-AnimatorStateTransition:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: Idle
-    m_EventTreshold: 0
-  m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: -6564917275591137967}
-  m_Solo: 0
-  m_Mute: 0
-  m_IsExit: 0
-  serializedVersion: 3
-  m_TransitionDuration: 0.25
-  m_TransitionOffset: 0
-  m_ExitTime: 0.75
-  m_HasExitTime: 1
-  m_HasFixedDuration: 1
-  m_InterruptionSource: 0
-  m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
 --- !u!1101 &-2828169940774016342
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -370,7 +345,10 @@ AnimatorStateTransition:
     m_ConditionEvent: NextStage
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: AttackFour
+    m_ConditionEvent: IsPaw
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: Slam
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7922748250300666934}
@@ -499,18 +477,6 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: Idle
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
-  - m_Name: GettingReady
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
   - m_Name: CoolDown
     m_Type: 4
     m_DefaultFloat: 0
@@ -553,26 +519,20 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: AttackOne
+  - m_Name: Idle
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: IsPaw
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: AttackTwo
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
-  - m_Name: AttackThree
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
-  - m_Name: AttackFour
-    m_Type: 9
+  - m_Name: GettingReady
+    m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
@@ -717,7 +677,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -6564917275591137967}
-    m_Position: {x: 520, y: 360, z: 0}
+    m_Position: {x: 530, y: 360, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3735698663430374328}
     m_Position: {x: 530, y: -80, z: 0}
@@ -888,7 +848,7 @@ AnimatorStateTransition:
     m_ConditionEvent: NextStage
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: AttackTwo
+    m_ConditionEvent: Summon
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2742567394121983614}
@@ -983,7 +943,7 @@ AnimatorStateTransition:
     m_ConditionEvent: NextStage
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: AttackThree
+    m_ConditionEvent: Claw
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6329166188803643156}
@@ -1051,7 +1011,6 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -6668365458057722616}
-  - {fileID: -3107163104247795098}
   m_StateMachineBehaviours:
   - {fileID: 4236755237513904065}
   m_Position: {x: 50, y: 50, z: 0}

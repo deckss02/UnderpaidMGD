@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class BossHealth : MonoBehaviour
 {
@@ -18,12 +17,12 @@ public class BossHealth : MonoBehaviour
     [SerializeField] private int numberOfFlashes = 1;
 
     private Collider2D[] weakPointColliders; // References to all weak point colliders
+    private bool isInvincible = false;
 
     void Start()
     {
         currentHealth = maxHealth;
         animator = GetComponent<Animator>(); // Get the Animator component
-        //theWinScreen.SetActive(false);
         bossSpriteRenderer = GetComponent<SpriteRenderer>(); // Get the SpriteRenderer component from the current GameObject
         // Find all game objects with the tag "WeakPoint" and get their colliders
         GameObject[] weakPoints = GameObject.FindGameObjectsWithTag("WeakPoint");
@@ -42,6 +41,8 @@ public class BossHealth : MonoBehaviour
 
     public void TakeDamage(float damageAmount)
     {
+        if (isInvincible) return; // Ignore damage if invincible
+
         currentHealth -= damageAmount; // Decrease current health by the damage amount
         if (currentHealth <= 0) // Check if health is zero or below
         {
@@ -54,13 +55,13 @@ public class BossHealth : MonoBehaviour
             {
                 animator.SetTrigger("Damage");
                 StartCoroutine(Invincibility());
-
             }
         }
     }
 
     private IEnumerator Invincibility()
     {
+        isInvincible = true; // Set invincibility to true
         GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");
         List<Collider2D> bulletColliders = new List<Collider2D>();
 
@@ -86,25 +87,18 @@ public class BossHealth : MonoBehaviour
         {
             Physics2D.IgnoreCollision(bulletCollider, GetComponent<Collider2D>(), false);
         }
-    }
-    public void StartHairBallRollAttack()
-    {
-        StartCoroutine(HairBallRollAttackCoroutine());
+
+        isInvincible = false; // Set invincibility to false
     }
 
-    private IEnumerator HairBallRollAttackCoroutine()
+    public void EnableInvincibility()
     {
-        // HairBallRoll attack logic
-        // For example:
-        Debug.Log("Starting HairBallRoll attack");
-        yield return new WaitForSeconds(1.0f); // Replace this with your actual hairball attack duration
+        isInvincible = true;
+    }
 
-        // After completing the attack, transition to cooldown state
-        if (animator != null)
-        {
-            animator.SetBool("Cooldown", true);
-        }
-        Debug.Log("HairBallRoll attack completed");
+    public void DisableInvincibility()
+    {
+        isInvincible = false;
     }
 
     void Die()

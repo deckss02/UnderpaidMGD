@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
-    // Other variables and references...
+    public GameObject hairballPrefab;
+    public Transform[] firePoints;
+    public int minHairballs = 3;
+    public int maxHairballs = 4;
+    public float minDelayBetweenShots = 0.1f;
+    public float maxDelayBetweenShots = 1.0f;
 
     // Attack stage names
     private string[] attackStages = { "PawAttack", "HairballAttack", "ClawAttack", "SummonMinions" };
@@ -16,12 +21,52 @@ public class Boss : MonoBehaviour
     private void Start()
     {
         myAnim = GetComponent<Animator>();
-        attacking = true;
+        attacking = false;
     }
 
     private void Update()
     {
         // Update logic if needed
+    }
+
+    public void StartHairBallRollAttack(System.Action onComplete)
+    {
+        attacking = true;
+        StartCoroutine(HairBallRollAttackCoroutine(onComplete));
+    }
+
+    private IEnumerator HairBallRollAttackCoroutine(System.Action onComplete)
+    {
+        Debug.Log("Starting HairBallRoll attack");
+
+        // Randomize the number of hairballs
+        int numberOfHairballs = Random.Range(minHairballs, maxHairballs);
+        List<Transform> usedFirePoints = new List<Transform>();
+
+        for (int i = 0; i < numberOfHairballs; i++)
+        {
+            // Select a random fire point that hasn't been used yet
+            Transform firePoint;
+            do
+            {
+                firePoint = firePoints[Random.Range(0, firePoints.Length)];
+            } while (usedFirePoints.Contains(firePoint));
+
+            // Add the selected fire point to the used list
+            usedFirePoints.Add(firePoint);
+
+            // Instantiate the hairball at the selected fire point
+            Instantiate(hairballPrefab, firePoint.position, firePoint.rotation);
+
+            // Randomize the delay between shots
+            float delayBetweenShots = Random.Range(minDelayBetweenShots, maxDelayBetweenShots);
+            yield return new WaitForSeconds(delayBetweenShots);
+        }
+
+        Debug.Log("HairBallRoll attack completed");
+
+        // Call the callback to signal completion
+        onComplete?.Invoke();
     }
 
     // Reset all attack states and set the boss to idle

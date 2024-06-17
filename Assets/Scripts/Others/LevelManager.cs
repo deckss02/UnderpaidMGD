@@ -18,6 +18,8 @@ public class LevelManager : MonoBehaviour
     public int maxHealth;
     public int healthCount;
 
+    private Animator playerAnimator; // Reference to the player's Animator component
+
     [Header("iFrames")]
     [SerializeField] private float iFramesDuration;
     [SerializeField] private int numberOfFlashes;
@@ -43,6 +45,11 @@ public class LevelManager : MonoBehaviour
         expText.text = "Exp: " + expCount;
         healthCount = maxHealth;
         playerSpriteRenderer = thePlayer.GetComponent<SpriteRenderer>();
+        playerAnimator = thePlayer.GetComponent<Animator>(); // Get the Animator component from the player
+        if (playerAnimator == null)
+        {
+            Debug.LogError("Player's Animator component is missing.");
+        }
     }
 
     // Update is called once per frame
@@ -140,13 +147,20 @@ public class LevelManager : MonoBehaviour
             healthCount = maxHealth;
         }
         coinSound.Play();
-
         UpdateHeartMeter();
-
+        PlayHealingAnimation();
         // Update the health UI here if you have one
         Debug.Log("Player healed. Current health: " + healAmount);
     }
 
+    private void PlayHealingAnimation()
+    {
+        if (playerAnimator != null)
+        {
+            // Trigger the impact animation
+            playerAnimator.SetBool("IsHealing", true);
+        }
+    }
 
     public void AddExp(int ExpToAdd)
     {
