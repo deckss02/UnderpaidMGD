@@ -18,12 +18,15 @@ public class BossHealth : MonoBehaviour
 
     private Collider2D[] weakPointColliders; // References to all weak point colliders
     private bool isInvincible = false;
+    private PlayerController playerController; // Reference to the player's controller script
 
     void Start()
     {
+        // Initialize health and components
         currentHealth = maxHealth;
         animator = GetComponent<Animator>(); // Get the Animator component
         bossSpriteRenderer = GetComponent<SpriteRenderer>(); // Get the SpriteRenderer component from the current GameObject
+
         // Find all game objects with the tag "WeakPoint" and get their colliders
         GameObject[] weakPoints = GameObject.FindGameObjectsWithTag("WeakPoint");
         weakPointColliders = new Collider2D[weakPoints.Length];
@@ -32,21 +35,36 @@ public class BossHealth : MonoBehaviour
             weakPointColliders[i] = weakPoints[i].GetComponent<Collider2D>();
             weakPointColliders[i].enabled = false; // Disable the weak point colliders at the start
         }
+
+        // Find the player controller in the scene
+        playerController = FindObjectOfType<PlayerController>();
     }
 
     void Update()
     {
+        // Update the health bar value
         healthBar.value = currentHealth;
+
+        // Check if the boss is dead and ensure all attacks and cooldowns are stopped
+        if (animator.GetBool("isDead"))
+        {
+            StopAllActions();
+        }
     }
 
     public void TakeDamage(float damageAmount)
     {
-        if (isInvincible) return; // Ignore damage if invincible
+        // Ignore damage if invincible
+        if (isInvincible) return;
 
-        currentHealth -= damageAmount; // Decrease current health by the damage amount
-        if (currentHealth <= 0) // Check if health is zero or below
+        // Decrease current health by the damage amount
+        currentHealth -= damageAmount;
+
+        // Check if health is zero or below
+        if (currentHealth <= 0)
         {
-            Die(); // Call Die method to handle the boss's death
+            // Call Die method to handle the boss's death
+            Die();
         }
         else
         {
@@ -62,6 +80,8 @@ public class BossHealth : MonoBehaviour
     private IEnumerator Invincibility()
     {
         isInvincible = true; // Set invincibility to true
+
+        // Ignore collisions with bullets during invincibility
         GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");
         List<Collider2D> bulletColliders = new List<Collider2D>();
 
@@ -75,6 +95,7 @@ public class BossHealth : MonoBehaviour
             }
         }
 
+        // Flashing effect to indicate invincibility
         for (int i = 0; i < numberOfFlashes; i++)
         {
             bossSpriteRenderer.color = new Color(1, 0, 0, 0.5f);
@@ -83,6 +104,7 @@ public class BossHealth : MonoBehaviour
             yield return new WaitForSeconds(iFramesDuration / (numberOfFlashes * 2));
         }
 
+        // Re-enable collisions with bullets after invincibility
         foreach (Collider2D bulletCollider in bulletColliders)
         {
             Physics2D.IgnoreCollision(bulletCollider, GetComponent<Collider2D>(), false);
@@ -112,12 +134,42 @@ public class BossHealth : MonoBehaviour
             animator.SetBool("isDead", true);
         }
 
-        Destroy(gameObject); // Destroy the boss GameObject
+        // Freeze player controls
+        if (playerController != null)
+        {
+            playerController.enabled = false;
+        }
+
+        // Optionally, destroy the boss after the death animation finishes
+        // Destroy(gameObject); 
+    }
+
+    public void StopAllActions()
+    {
+        // Stop all attacks and cooldowns
+        animator.SetBool("Summon", false);
+        animator.SetBool("Slam", false);
+        animator.SetBool("Claw", false);
+        animator.SetBool("HairBall", false);
+        animator.SetBool("CoolDown", false);
+        animator.SetBool("Damage", false);
+        animator.SetBool("Idle", false);
+    }
+
+    public void TriggerWinScreen()
+    {
+        StartCoroutine(TriggerWinScreenCoroutine());
+    }
+
+    private IEnumerator TriggerWinScreenCoroutine()
+    {
+        yield return new WaitForSeconds(1.0f); // Adjust this delay if needed
         theWinScreen.SetActive(true);
     }
 
     public void EnableWeakPoints(bool enable)
     {
+        // Enable or disable weak point colliders
         foreach (var collider in weakPointColliders)
         {
             if (collider != null)
@@ -127,4 +179,5 @@ public class BossHealth : MonoBehaviour
         }
     }
 }
+
 

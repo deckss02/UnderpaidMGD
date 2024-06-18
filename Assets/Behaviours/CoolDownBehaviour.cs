@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CoolDownBehaviour : StateMachineBehaviour
@@ -6,16 +8,15 @@ public class CoolDownBehaviour : StateMachineBehaviour
     private BossHealth bossHealth; // Reference to the BossHealth script
     private float cooldownTime = 5.0f; // Duration of the cooldown
     private float timer;
-    private AttackStageManager attackStageManager; // Reference to the AttackStageManager
+    private int stagesCompleted = 0; // Counter to track completed stages
 
     // Called when the state starts evaluating
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        // Initialize references, reset the timer, and get AttackStageManager
+        // Initialize references, reset the timer
         boss = animator.GetComponent<Boss>();
         bossHealth = animator.GetComponent<BossHealth>();
         timer = cooldownTime;
-        attackStageManager = FindObjectOfType<AttackStageManager>(); // Find the AttackStageManager in the scene
 
         // Enable the weak point collider and disable invincibility
         if (bossHealth != null)
@@ -36,8 +37,8 @@ public class CoolDownBehaviour : StateMachineBehaviour
         // Check if the cooldown has finished
         if (timer <= 0)
         {
-            // Get the next attack stage from AttackStageManager
-            string nextAttackStage = attackStageManager.GetNextAttackStage();
+            // Get the next attack stage based on stagesCompleted
+            string nextAttackStage = GetNextAttackStage();
 
             // Trigger transition to the selected attack stage
             switch (nextAttackStage)
@@ -59,12 +60,6 @@ public class CoolDownBehaviour : StateMachineBehaviour
                     break;
             }
 
-            // Reset the NextStage parameter to false before setting it to true later
-            animator.SetBool("NextStage", false);
-
-            // Set the NextStage boolean to indicate readiness to change state
-            animator.SetBool("NextStage", true);
-
             // Reset the timer
             timer = cooldownTime;
         }
@@ -82,48 +77,53 @@ public class CoolDownBehaviour : StateMachineBehaviour
             bossHealth.EnableWeakPoints(false);
             bossHealth.EnableInvincibility();
         }
+    }
 
+    // Get the next attack stage based on stagesCompleted
+    private string GetNextAttackStage()
+    {
+        string[] attackStages = { "SummonMinions", "PawSlam", "Claw", "HairBallRoll" };
+        int index = stagesCompleted % attackStages.Length; // Loop through stages
+        stagesCompleted++; // Increment the counter
+        return attackStages[index];
     }
 
     // Methods to activate specific attack stages
     private void SummonMinionsPicked(Animator animator)
     {
+        ResetAttackBools(animator);
         animator.SetBool("Summon", true);
-        // Reset other attack stage Bools if needed
-        animator.SetBool("Slam", false);
-        animator.SetBool("Claw", false);
-        animator.SetBool("HairBall", false);
         animator.SetBool("CoolDown", false);
     }
 
     private void PawSlamPicked(Animator animator)
     {
+        ResetAttackBools(animator);
         animator.SetBool("Slam", true);
         animator.SetTrigger("IsPaw");
-        // Reset other attack stage Bools if needed
-        animator.SetBool("Summon", false);
-        animator.SetBool("Claw", false);
-        animator.SetBool("HairBall", false);
         animator.SetBool("CoolDown", false);
     }
 
     private void ClawPicked(Animator animator)
     {
+        ResetAttackBools(animator);
         animator.SetBool("Claw", true);
-        // Reset other attack stage Bools if needed
-        animator.SetBool("Summon", false);
-        animator.SetBool("Slam", false);
-        animator.SetBool("HairBall", false);
         animator.SetBool("CoolDown", false);
     }
 
     private void HairBallRollPicked(Animator animator)
     {
+        ResetAttackBools(animator);
         animator.SetBool("HairBall", true);
-        // Reset other attack stage Bools if needed
+        animator.SetBool("CoolDown", false);
+    }
+
+    // Reset all attack bools
+    private void ResetAttackBools(Animator animator)
+    {
         animator.SetBool("Summon", false);
         animator.SetBool("Slam", false);
         animator.SetBool("Claw", false);
-        animator.SetBool("CoolDown", false);
+        animator.SetBool("HairBall", false);
     }
 }

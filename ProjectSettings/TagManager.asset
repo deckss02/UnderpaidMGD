@@ -4,17 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - KillPlane
-  - Checkpoint
   - Bullet
-  - Win
-  - Key
-  - Door
   - OneWayPlatform
   - Enemy
   - Boss
   - WeakPoint
-  - BossAtk
+  - Trigger
   layers:
   - Default
   - TransparentFX

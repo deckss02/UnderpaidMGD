@@ -4,45 +4,49 @@ using UnityEngine;
 
 public class SummonMinionsBehaviour : StateMachineBehaviour
 {
-
-    private Boss boss; // Reference to the Boss script
+    private Boss boss;
+    private bool hasSummoned;
 
     // Called when the state starts evaluating
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        // Get the Boss component from the animator's GameObject
         if (boss == null)
+        {
             boss = animator.GetComponent<Boss>();
+        }
 
-        // Start the Summon Minions coroutine
-        boss.StartCoroutine(SummonMinions(animator));
+        if (boss != null)
+        {
+            boss.StartSummoningAttack(OnSummonComplete);
+        }
+        else
+        {
+            Debug.LogError("Boss component is not assigned.");
+        }
+
+        hasSummoned = false;
     }
 
-    // Coroutine to handle summoning minions
-    private IEnumerator SummonMinions(Animator animator)
+    // Callback method to be called when the summon attack is complete
+    private void OnSummonComplete()
     {
-        boss.attacking = true;
-        // Call the minion spawning logic
-        boss.HandleMinionSpawning();
-        yield return new WaitForSeconds(1f); // Example duration
-
-        // After summoning minions, reset the attack state
-        boss.ResetAllAttacks();
-        Debug.Log("Minions summoned");
+        hasSummoned = true;
     }
 
     // Called on each Update frame while the state is being evaluated
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        // Perform ongoing actions during Summon Minions, if any
+        // Check if all minions are dead after summoning is complete
+        if (hasSummoned && boss.AreAllMinionsDead())
+        {
+            boss.GoToCooldown(); // Transition to cooldown
+        }
     }
 
     // Called when the state stops being evaluated
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        // Reset triggers or perform cleanup on exiting the state
-        boss.attacking = false;
-        Debug.Log("Exited Summon Minions state");
-        animator.SetBool("Summon", false);
+        hasSummoned = false;
     }
 }
+

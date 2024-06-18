@@ -17,12 +17,7 @@ public class IdleBehaviour : StateMachineBehaviour
     // Called on each Update frame while the state is being evaluated
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        // Reset logic
-        if (animator.GetBool("Reset"))
-        {
-            animator.SetBool("Idle", true);
-            animator.SetBool("Reset", false);
-        }
+
     }
 
     // Called when the state stops being evaluated
