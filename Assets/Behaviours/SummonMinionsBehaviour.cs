@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class SummonMinionsBehaviour : StateMachineBehaviour
 {
-    private Boss boss;
-    private bool hasSummoned;
+    private Boss boss; // Reference to the Boss script
 
     // Called when the state starts evaluating
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        // Get the Boss component from the animator's GameObject
         if (boss == null)
-        {
             boss = animator.GetComponent<Boss>();
-        }
 
+        // Start the summoning minions attack with a callback to this behaviour
         if (boss != null)
         {
             boss.StartSummoningAttack(OnSummonComplete);
@@ -23,30 +22,31 @@ public class SummonMinionsBehaviour : StateMachineBehaviour
         {
             Debug.LogError("Boss component is not assigned.");
         }
-
-        hasSummoned = false;
     }
 
     // Callback method to be called when the summon attack is complete
     private void OnSummonComplete()
     {
-        hasSummoned = true;
+        // Nothing needed here; the Boss class will handle transitioning to cooldown when all minions are dead
     }
 
     // Called on each Update frame while the state is being evaluated
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        // Check if all minions are dead after summoning is complete
-        if (hasSummoned && boss.AreAllMinionsDead())
+        // Check if all summoned minions are dead and transition to cooldown state
+        if (boss != null && boss.HasDied())
         {
-            boss.GoToCooldown(); // Transition to cooldown
+            animator.SetBool("CoolDown", true); // Transition to cooldown state
+            Debug.Log("All minions dead, transitioning to CoolDown state");
         }
     }
 
     // Called when the state stops being evaluated
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        hasSummoned = false;
+        // Reset the cooldown flag for the next time this state is entered
+        animator.SetBool("Summon", false); // Reset summoning trigger
     }
 }
+
 

@@ -9,9 +9,9 @@ public class LevelManager : MonoBehaviour
 {
 
     public float waitToRespawn;
-    public PlayerController thePlayer; //Make a reference to an object of PlayerController
+    public PlayerControllera thePlayer; // Reference to the player's controller script
     public GameObject deathSplosion;
-
+    //
     public AudioSource coinSound;
     public AudioSource levelMusic;
     public AudioSource gameOverMusic;
@@ -41,7 +41,7 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        thePlayer = FindObjectOfType<PlayerController>();
+        thePlayer = FindObjectOfType<PlayerControllera>();
         expText.text = "Exp: " + expCount;
         healthCount = maxHealth;
         playerSpriteRenderer = thePlayer.GetComponent<SpriteRenderer>();
@@ -184,6 +184,6 @@ public class LevelManager : MonoBehaviour
         //UpdateHeartMeter(); //Update the heart meter when player respawns
 
         thePlayer.transform.position = thePlayer.respawnPosition; //Move the player to respawn position
-        thePlayer.gameObject.SetActive(true); //Reactivate the player in the world
+        thePlayer.gameObject.SetActive(true); //Reactivate the player in the world omg 
     }   
 }

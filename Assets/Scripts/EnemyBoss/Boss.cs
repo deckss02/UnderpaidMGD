@@ -11,11 +11,14 @@ public class Boss : MonoBehaviour
     public float minDelayBetweenShots = 0.1f;
     public float maxDelayBetweenShots = 1.0f;
 
+    public PawAI paw; // Reference to the Paw Movements
     public GameObject ratPrefab; // Reference to the rat prefab
     public Transform[] spawnPoints; // References to the spawn points
-    public int minRats = 5;
-    public int maxRats = 7;
-    public PlayerController playerController; // Reference to the player's controller script
+    public int numberOfRats = 5; // Number of rats to spawn
+    public PlayerControllera playerController; // Reference to the player's controller script
+
+    private int summonsLeftToKill = 0;
+    private bool died = false; // Flag to track if all summons are dead
 
     // Attack stage names
     private string[] attackStages = { "PawAttack", "HairballAttack", "ClawAttack", "SummonMinions" };
@@ -23,9 +26,6 @@ public class Boss : MonoBehaviour
 
     private Animator myAnim;
     public bool attacking;
-
-    // List to track summoned minions
-    private List<GameObject> summonedMinions = new List<GameObject>();
 
     private void Start()
     {
@@ -60,6 +60,15 @@ public class Boss : MonoBehaviour
     {
         attacking = true;
         StartCoroutine(SummoningAttackCoroutine(onComplete));
+    }
+
+    // Method to freeze or unfreeze the player
+    private void FreezePlayer(bool freeze)
+    {
+        if (playerController != null)
+        {
+            playerController.canMove = !freeze;
+        }
     }
 
     private IEnumerator HairBallRollAttackCoroutine(System.Action onComplete)
@@ -101,6 +110,8 @@ public class Boss : MonoBehaviour
     {
         Debug.Log("Starting Claw attack");
 
+
+
         // Simulate the Claw attack duration
         yield return new WaitForSeconds(1.0f);
 
@@ -130,28 +141,28 @@ public class Boss : MonoBehaviour
         Debug.Log("Starting Summoning attack");
 
         // Freeze the player controls
-        if (playerController != null)
-        {
-            playerController.enabled = false;
-        }
+        FreezePlayer(true);
 
-        // Randomize the number of rats to spawn
-        int numberOfRats = Random.Range(minRats, maxRats);
-        List<Transform> usedSpawnPoints = new List<Transform>();
+        // Initialize the number of rats to be killed
+        summonsLeftToKill = numberOfRats;
+        Debug.Log("Number of rats to summon: " + numberOfRats);
 
         for (int i = 0; i < numberOfRats; i++)
         {
-            Transform spawnPoint;
-            do
-            {
-                spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-            } while (usedSpawnPoints.Contains(spawnPoint));
-
-            usedSpawnPoints.Add(spawnPoint);
+            // Select a random spawn point
+            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+            Debug.Log("Spawning rat at: " + spawnPoint.position);
 
             // Instantiate the rat at the selected spawn point
             GameObject ratInstance = Instantiate(ratPrefab, spawnPoint.position, spawnPoint.rotation);
-            summonedMinions.Add(ratInstance);
+
+            // Attach the SummonKilled method to the rat's death event
+            RatController ratController = ratInstance.GetComponent<RatController>();
+            if (ratController != null)
+            {
+                ratController.OnDeath += SummonKilled;
+                Debug.Log("Attached SummonKilled to rat instance.");
+            }
 
             // Add a slight delay between each spawn
             yield return new WaitForSeconds(0.2f);
@@ -159,32 +170,27 @@ public class Boss : MonoBehaviour
 
         Debug.Log("Summoning attack completed");
 
-        // Re-enable the player controls
-        if (playerController != null)
+        // Unfreeze the player controls
+        FreezePlayer(false);
+
+        // If no summons were created, call onComplete immediately
+        if (summonsLeftToKill == 0)
         {
-            playerController.enabled = true;
+            died = true;
+            onComplete?.Invoke();
         }
-
-        // Call the callback to signal completion
-        onComplete?.Invoke();
-        attacking = false;
     }
 
-    // Check if all summoned minions are killed
-    public bool AreAllMinionsDead()
+    private void SummonKilled()
     {
-        // Remove any null entries from the list (destroyed minions)
-        summonedMinions.RemoveAll(minion => minion == null);
-        return summonedMinions.Count == 0;
-    }
-
-    // Transition the boss to the cooldown state
-    public void GoToCooldown()
-    {
-        Debug.Log("All minions are killed. Boss is going to cooldown.");
-        myAnim.SetBool("CoolDown", true);
-        myAnim.SetBool("Summon", false);
-        attacking = false;
+        summonsLeftToKill--;
+        Debug.Log("Summon killed, remaining: " + summonsLeftToKill);
+        if (summonsLeftToKill <= 0)
+        {
+            Debug.Log("All summoned minions have been killed.");
+            died = true;
+            myAnim.SetBool("CoolDown", true);
+        }
     }
 
     // Check if the boss is ready for the next attack
@@ -201,4 +207,10 @@ public class Boss : MonoBehaviour
         string nextAttack = attackStages[currentAttackStage];
         myAnim.SetTrigger(nextAttack);
     }
+
+    public bool HasDied()
+    {
+        return died;
+    }
 }
+
