@@ -7,16 +7,17 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
-
     public float waitToRespawn;
     public PlayerControllera thePlayer; // Reference to the player's controller script
     public GameObject deathSplosion;
-    //
     public AudioSource coinSound;
     public AudioSource levelMusic;
     public AudioSource gameOverMusic;
     public int maxHealth;
     public int healthCount;
+
+    public GameObject mobileUI;
+    public bool showMobileUI;
 
     private Animator playerAnimator; // Reference to the player's Animator component
 
@@ -25,10 +26,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private int numberOfFlashes;
     private SpriteRenderer playerSpriteRenderer;
 
-    public int expCount; //Keep track of number of coins that tha player collected
+    public int expCount; //Keep track of number of coins that the player collected
     public TextMeshProUGUI expText;
     public GameObject gameOverScreen; //Referring to the Game Over Screen game object
-
 
     public Image heart1;
     public Image heart2; //Make a reference to 2 heart images
@@ -36,8 +36,10 @@ public class LevelManager : MonoBehaviour
     public Sprite heartFull;
     public Sprite heartHalf;
     public Sprite heartEmpty; //Store sprites images heartFull, heartHalf & heartEmpty
-    
+
     private bool respawning;
+    private float moveDirection; // Added declaration for moveDirection
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,26 +48,32 @@ public class LevelManager : MonoBehaviour
         healthCount = maxHealth;
         playerSpriteRenderer = thePlayer.GetComponent<SpriteRenderer>();
         playerAnimator = thePlayer.GetComponent<Animator>(); // Get the Animator component from the player
-        if (playerAnimator == null)
-        {
-            Debug.LogError("Player's Animator component is missing.");
-        }
+        mobileUI.SetActive(showMobileUI);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(healthCount <= 0 && !respawning)
+        if (healthCount <= 0 && !respawning)
         {
             Respawn();
             respawning = true;
         }
+        if (!showMobileUI) // Corrected reference to showMobileUI
+        {
+            Move(Input.GetAxisRaw("Horizontal"));
+        }
+        else
+        {
+            // Since the EventTrigger only works once, we need to constantly apply a force after the button is pressed
+            Move(moveDirection);
+        }
     }
+
     public void HurtPlayer(int damageToTake)
     {
-        //healthCount = healthCount - damageToTake;
         healthCount -= damageToTake;
-        UpdateHeartMeter(); //Update the heart meter when pkayer respawns
+        UpdateHeartMeter(); // Update the heart meter when player respawns
         thePlayer.Knockback();
         thePlayer.hurtSound.Play();
         StartCoroutine(Invincibility());
@@ -88,50 +96,48 @@ public class LevelManager : MonoBehaviour
     {
         if (healthCount > 0)
         {
-           StartCoroutine("RespawnCo");  //In the () is the string name of the Coroutine
+            StartCoroutine("RespawnCo");  // In the () is the string name of the Coroutine
         }
         else
         {
-           thePlayer.gameObject.SetActive(false); //Deactivate the player in the world
-           Instantiate(deathSplosion, thePlayer.transform.position, thePlayer.transform.rotation);
-           gameOverScreen.SetActive(true);
-           levelMusic.Stop();
-           gameOverMusic.Play();
+            thePlayer.gameObject.SetActive(false); // Deactivate the player in the world
+            Instantiate(deathSplosion, thePlayer.transform.position, thePlayer.transform.rotation);
+            gameOverScreen.SetActive(true);
+            levelMusic.Stop();
+            gameOverMusic.Play();
         }
     }
-    //Update the heart meter
+
+    // Update the heart meter
     public void UpdateHeartMeter()
     {
-        switch(healthCount)
+        switch (healthCount)
         {
-
-            //When healthCount = 600, full healthCount
             case 400:
-            heart1.sprite = heartFull;
-            heart2.sprite = heartFull;
-            break;  //Keyword, jumps the code execution of the switch
+                heart1.sprite = heartFull;
+                heart2.sprite = heartFull;
+                break;
 
             case 300:
-            heart1.sprite = heartFull;
-            heart2.sprite = heartHalf;
-            break;
+                heart1.sprite = heartFull;
+                heart2.sprite = heartHalf;
+                break;
 
             case 200:
-            heart1.sprite = heartFull;
-            heart2.sprite = heartEmpty;
-            break;
+                heart1.sprite = heartFull;
+                heart2.sprite = heartEmpty;
+                break;
 
             case 100:
-            heart1.sprite = heartHalf;
-            heart2.sprite = heartEmpty;
-            break;
+                heart1.sprite = heartHalf;
+                heart2.sprite = heartEmpty;
+                break;
 
             case 0:
-            heart1.sprite = heartEmpty;
-            heart2.sprite = heartEmpty;
-            break;
+                heart1.sprite = heartEmpty;
+                heart2.sprite = heartEmpty;
+                break;
 
-            //Any other situations 
             default:
                 heart1.sprite = heartEmpty;
                 heart2.sprite = heartEmpty;
@@ -149,7 +155,6 @@ public class LevelManager : MonoBehaviour
         coinSound.Play();
         UpdateHeartMeter();
         PlayHealingAnimation();
-        // Update the health UI here if you have one
         Debug.Log("Player healed. Current health: " + healAmount);
     }
 
@@ -157,33 +162,49 @@ public class LevelManager : MonoBehaviour
     {
         if (playerAnimator != null)
         {
-            // Trigger the impact animation
             playerAnimator.SetBool("IsHealing", true);
         }
     }
 
     public void AddExp(int ExpToAdd)
     {
-        //coinCount = coinCount + coinsToAdd
-        expCount += ExpToAdd; //Short form
-        expText.text = "Exp: " + expCount; //When coin is collected, update the coinCount value and display in the text UI
-
+        expCount += ExpToAdd;
+        expText.text = "Exp: " + expCount; // When coin is collected, update the expCount value and display in the text UI
         coinSound.Play();
     }
 
     public IEnumerator RespawnCo()
     {
-        thePlayer.gameObject.SetActive(false); //Deactivate the player in the world
-
-        Instantiate(deathSplosion, thePlayer.transform.position, thePlayer.transform.rotation); //Create Object
-
-        yield return new WaitForSeconds(waitToRespawn); //How many seconds we want the game to wait for
-
-        //healthCount = maxHealth;
+        thePlayer.gameObject.SetActive(false); // Deactivate the player in the world
+        Instantiate(deathSplosion, thePlayer.transform.position, thePlayer.transform.rotation); // Create Object
+        yield return new WaitForSeconds(waitToRespawn); // How many seconds we want the game to wait for
         respawning = false;
-        //UpdateHeartMeter(); //Update the heart meter when player respawns
+        thePlayer.transform.position = thePlayer.respawnPosition; // Move the player to respawn position
+        thePlayer.gameObject.SetActive(true); // Reactivate the player in the world
+    }
 
-        thePlayer.transform.position = thePlayer.respawnPosition; //Move the player to respawn position
-        thePlayer.gameObject.SetActive(true); //Reactivate the player in the world omg 
-    }   
+    // Method to move the player
+    public void Move(float dir)
+    {
+        if (dir > 0)
+        {
+            thePlayer.GetComponent<Rigidbody2D>().velocity = new Vector2(thePlayer.moveSpeed, thePlayer.GetComponent<Rigidbody2D>().velocity.y);
+            thePlayer.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        }
+        else if (dir < 0)
+        {
+            thePlayer.GetComponent<Rigidbody2D>().velocity = new Vector2(-thePlayer.moveSpeed, thePlayer.GetComponent<Rigidbody2D>().velocity.y);
+            thePlayer.transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
+        }
+        else
+        {
+            thePlayer.GetComponent<Rigidbody2D>().velocity = new Vector2(0, thePlayer.GetComponent<Rigidbody2D>().velocity.y);
+        }
+    }
+
+    // Method to set the move direction from external inputs
+    public void SetMoveDirection(float direction)
+    {
+        moveDirection = direction;
+    }
 }
