@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor.Build;
 using UnityEngine;
 
-public class PlayerSwapButton : MonoBehaviour
+public class PlayerSwap_Button : MonoBehaviour
 {
     public PlayerControllera controller;
     public GameObject Player; //Make a direct reference to the Player
@@ -28,9 +28,7 @@ public class PlayerSwapButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Player = GetComponent<GameObject>();
-        controller = GetComponent<PlayerControllera>();
-        FollowingPlayer = GetComponent<GameObject>();
+        controller = FindObjectOfType<PlayerControllera>();
     }
 
     // Update is called once per frame
