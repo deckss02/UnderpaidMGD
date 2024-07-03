@@ -7,20 +7,21 @@ public class PawAI : MonoBehaviour
     public float stopDuration = 10f; // Time to stop before returning to the original position
     public float circleRadius = 3f; // Radius of the circular path
 
-    private Transform player; // Reference to the player's transform
-    private Vector3 originalPosition; // Store the initial position to return to
-    private Rigidbody2D rb; // Reference to the Rigidbody2D component
+    protected Transform player; // Reference to the player's transform
+    protected Vector3 originalPosition; // Store the initial position to return to
+    protected Rigidbody2D rb; // Reference to the Rigidbody2D component
 
     public float minRotationSpeed = 80.0f;
     public float maxRotationSpeed = 120.0f;
     public float minMovementSpeed = 1.75f;
     public float maxMovementSpeed = 2.25f;
-    private float rotationSpeed; // Degrees per second
-    private float movementSpeed; // Units per second
+    protected float rotationSpeed; // Degrees per second
+    protected float movementSpeed; // Units per second
 
-    private bool isReturning = false; // Flag to check if the paw is returning to its original position
+    protected bool isReturning = false; // Flag to check if the paw is returning to its original position
+    protected bool isActive = false; // Flag to control activation of the paw
 
-    void Start()
+    protected virtual void Start()
     {
         rotationSpeed = Random.Range(minRotationSpeed, maxRotationSpeed);
         movementSpeed = Random.Range(minMovementSpeed, maxMovementSpeed);
@@ -42,13 +43,13 @@ public class PawAI : MonoBehaviour
     }
 
     // Coroutine to start moving in a circle around the player
-    public IEnumerator MoveInCircle()
+    protected virtual IEnumerator MoveInCircle()
     {
         float angle = 0f;
 
         while (true)
         {
-            if (!isReturning)
+            if (isActive && !isReturning)
             {
                 // Calculate the new position in a circle around the player
                 float x = player.position.x + Mathf.Cos(angle) * circleRadius;
@@ -89,7 +90,7 @@ public class PawAI : MonoBehaviour
     }
 
     // Coroutine to return to the original position
-    private IEnumerator ReturnToOriginalPositionCoroutine()
+    protected IEnumerator ReturnToOriginalPositionCoroutine()
     {
         while (Vector2.Distance(transform.position, originalPosition) > 0.1f)
         {
@@ -106,7 +107,24 @@ public class PawAI : MonoBehaviour
         }
         isReturning = false; // Reset the flag once the paw reaches the original position
 
-        // Resume moving in a circle
-        StartCoroutine(MoveInCircle());
+        // Resume moving in a circle if still active
+        if (isActive)
+        {
+            StartCoroutine(MoveInCircle());
+        }
+    }
+
+    // Method to activate the paw movement
+    public void ActivatePaw()
+    {
+        isActive = true;
+    }
+
+    // Method to deactivate the paw movement
+    public void DeactivatePaw()
+    {
+        isActive = false;
+        ReturnToOriginalPosition();
     }
 }
+

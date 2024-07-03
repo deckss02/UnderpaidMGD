@@ -8,16 +8,13 @@ using UnityEngine.UI;
 public class LevelManager : MonoBehaviour
 {
     public float waitToRespawn;
-    public PlayerControllera thePlayer; // Reference to the player's controller script
+    public PlayerController thePlayer; // Reference to the player's controller script
     public GameObject deathSplosion;
     public AudioSource coinSound;
     public AudioSource levelMusic;
     public AudioSource gameOverMusic;
     public int maxHealth;
     public int healthCount;
-
-    public GameObject mobileUI;
-    public bool showMobileUI;
 
     private Animator playerAnimator; // Reference to the player's Animator component
 
@@ -43,12 +40,11 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        thePlayer = FindObjectOfType<PlayerControllera>();
+        thePlayer = FindObjectOfType<PlayerController>();
         expText.text = "Exp: " + expCount;
         healthCount = maxHealth;
         playerSpriteRenderer = thePlayer.GetComponent<SpriteRenderer>();
         playerAnimator = thePlayer.GetComponent<Animator>(); // Get the Animator component from the player
-        mobileUI.SetActive(showMobileUI);
     }
 
     // Update is called once per frame
@@ -59,15 +55,7 @@ public class LevelManager : MonoBehaviour
             Respawn();
             respawning = true;
         }
-        if (!showMobileUI) // Corrected reference to showMobileUI
-        {
-            Move(Input.GetAxisRaw("Horizontal"));
-        }
-        else
-        {
-            // Since the EventTrigger only works once, we need to constantly apply a force after the button is pressed
-            Move(moveDirection);
-        }
+
     }
 
     public void HurtPlayer(int damageToTake)

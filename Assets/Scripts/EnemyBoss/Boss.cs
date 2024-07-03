@@ -11,7 +11,6 @@ public class Boss : MonoBehaviour
     public float minDelayBetweenShots = 0.1f;
     public float maxDelayBetweenShots = 1.0f;
 
-    public PawAI paw; // Reference to the Paw Movements
     public GameObject ratPrefab; // Reference to the rat prefab
     public Transform[] spawnPoints; // References to the spawn points
     public int numberOfRats = 5; // Number of rats to spawn
@@ -26,6 +25,9 @@ public class Boss : MonoBehaviour
 
     private Animator myAnim;
     public bool attacking;
+
+    public PawEye pawEye;
+    public PawMouth pawMouth;
 
     private void Start()
     {
@@ -110,13 +112,14 @@ public class Boss : MonoBehaviour
     {
         Debug.Log("Starting Claw attack");
 
-
+        pawMouth.ActivatePaw();
 
         // Simulate the Claw attack duration
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(20.0f);
 
         Debug.Log("Claw attack completed");
 
+        pawMouth.DeactivatePaw();
         // Call the callback to signal completion
         onComplete?.Invoke();
         attacking = false;
@@ -125,12 +128,16 @@ public class Boss : MonoBehaviour
     private IEnumerator SlamingAttackCoroutine(System.Action onComplete)
     {
         Debug.Log("Starting Paw Slamming attack");
+        pawMouth.ActivatePaw();
+        pawEye.ActivatePaw();
 
         // Simulate the Paw Slamming attack duration
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(20.0f);
 
         Debug.Log("Paw Slamming attack completed");
 
+        pawEye.DeactivatePaw();
+        pawMouth.DeactivatePaw();
         // Call the callback to signal completion
         onComplete?.Invoke();
         attacking = false;
