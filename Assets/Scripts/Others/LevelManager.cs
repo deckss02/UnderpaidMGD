@@ -18,14 +18,6 @@ public class LevelManager : MonoBehaviour
     public int maxHealth;
     public int healthCount;
 
-    public PlayerSwap_Button swap_Button;
-    public GameObject FollowingPlayer;
-    public int CornHealth;
-    public int RheaHealth;
-
-    public bool CornDeath;
-    public bool RheaDeath;
-
     [Header("iFrames")]
     [SerializeField] private float iFramesDuration;
     [SerializeField] private int numberOfFlashes;
@@ -49,7 +41,6 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         thePlayer = FindObjectOfType<PlayerController>();
-        swap_Button = FindObjectOfType<PlayerSwap_Button>();
         expText.text = "Exp: " + expCount;
         healthCount = maxHealth;
         playerSpriteRenderer = thePlayer.GetComponent<SpriteRenderer>();
@@ -58,66 +49,20 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (swap_Button.ChangeNumber == 0 && CornDeath == false)
+        if(healthCount <= 0 && !respawning)
         {
-            CornHealth = healthCount;
-            Debug.Log("Player swapped to Cornelius");
-        }
-        else if (swap_Button.ChangeNumber == 1 && RheaDeath == false)
-        {
-            RheaHealth = healthCount;
-            Debug.Log("Player swapped to Rhea");
-        }
-
-        if (healthCount <= 0 && !respawning)
-        {
-            if (/*swap_Button.ChangeNumber == 0 &&*/ CornHealth <= 0)
-            {
-                CornDeath = true;
-                swap_Button.ChangeNumber = 1;
-                FollowingPlayer.transform.position = FollowingPlayer.transform.position;
-            }
-            else if (/*swap_Button.ChangeNumber == 1 && */ RheaHealth <= 0)
-            {
-                RheaDeath = true;
-                swap_Button.ChangeNumber = 0;
-                FollowingPlayer.transform.position = FollowingPlayer.transform.position;
-            }
-
-            else if (RheaDeath && CornDeath == true)
-            {
-                Respawn();
-                respawning = true;
-            }
+            Respawn();
+            respawning = true;
         }
     }
     public void HurtPlayer(int damageToTake)
     {
         //healthCount = healthCount - damageToTake;
-        if (swap_Button.ChangeNumber == 0)
-        {
-            CornHealth -= damageToTake;
-        }
-        else if (swap_Button.ChangeNumber == 1)
-        {
-            RheaHealth -= damageToTake;
-        }
+        healthCount -= damageToTake;
         UpdateHeartMeter(); //Update the heart meter when pkayer respawns
         thePlayer.Knockback();
         thePlayer.hurtSound.Play();
         StartCoroutine(Invnerability());
-    }
-
-    public void SwapHealth()
-    {
-        if (swap_Button.ChangeNumber == 0 && CornDeath == false)
-        {
-            CornHealth = healthCount;
-        }
-        if (swap_Button.ChangeNumber == 1 && RheaDeath == false)
-        {
-            RheaHealth = healthCount;
-        }
     }
 
     private IEnumerator Invnerability()
@@ -135,7 +80,7 @@ public class LevelManager : MonoBehaviour
 
     public void Respawn()
     {
-        if (RheaDeath == true && CornDeath == true)
+        if (healthCount > 0)
         {
            StartCoroutine("RespawnCo");  //In the () is the string name of the Coroutine
         }

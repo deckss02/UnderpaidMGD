@@ -12,6 +12,9 @@ public class PlayerSwap_Button : MonoBehaviour
 
     public LevelManager levelManager;
 
+    public int CorneliusHealth;
+    public int RheaHealth;
+
     public Sprite Corn; //Sprites of Player Characters
     public Sprite Rhe;
     public RuntimeAnimatorController p1Anim; //Switches the player's animation controller during gameplay.
