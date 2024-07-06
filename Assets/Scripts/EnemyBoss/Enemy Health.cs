@@ -10,14 +10,18 @@ public class EnemyHealth : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+        Debug.Log($"Enemy Health initialized with {currentHealth} health points.");
     }
 
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
+        Debug.Log($"Enemy took {amount} damage. Current health: {currentHealth}");
+
         if (currentHealth <= 0)
         {
-            Destroy(gameObject); // Destroy the enemy object when health reaches zero
+            Debug.Log("Enemy health reached zero. Destroying enemy.");
+            Destroy(gameObject);
         }
     }
 }

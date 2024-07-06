@@ -11,34 +11,45 @@ public class EnemyDamageReceiver : MonoBehaviour
 
     void Start()
     {
-        // If the enemy is not set, try to find the EnemyHealth in the parent
         if (enemy == null)
         {
             enemyHealth = GetComponentInParent<EnemyHealth>();
+            Debug.Log("No enemy specified, checking parent for EnemyHealth component.");
         }
         else
         {
             enemyHealth = enemy.GetComponent<EnemyHealth>();
+            Debug.Log($"Checking specified enemy object: {enemy.name} for EnemyHealth component.");
         }
 
-        // Check if the EnemyHealth component was found
         if (enemyHealth == null)
         {
             Debug.LogError("EnemyHealth component not found on the specified boss object or its parents.");
         }
+        else
+        {
+            Debug.Log("EnemyHealth component found.");
+        }
     }
 
-    // Called when another collider enters the trigger collider attached to the enemy
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Check if the collider has the tag "Bullet"
         if (collision.CompareTag("Bullet") && enemyHealth != null)
         {
-            // Inform the EnemyHealth component to take damage
+            Debug.Log($"Bullet hit enemy. Applying {damageAmount} damage.");
             enemyHealth.TakeDamage(damageAmount);
-
-            // Optionally, you might want to destroy the bullet upon collision
             Destroy(collision.gameObject);
+        }
+        else
+        {
+            if (!collision.CompareTag("Bullet"))
+            {
+                Debug.Log("Collision detected but not with a Bullet.");
+            }
+            if (enemyHealth == null)
+            {
+                Debug.Log("Cannot apply damage because EnemyHealth component is missing.");
+            }
         }
     }
 }
