@@ -34,7 +34,7 @@ public class SummonMinionsBehaviour : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         // Check if all summoned minions are dead and transition to cooldown state
-        if (boss != null && boss.HasDied())
+        if (boss != null && boss.HasDied)
         {
             animator.SetBool("CoolDown", true); // Transition to cooldown state
             Debug.Log("All minions dead, transitioning to CoolDown state");

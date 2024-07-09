@@ -14,12 +14,18 @@ public class EnemyDamageReceiver : MonoBehaviour
         if (enemy == null)
         {
             enemyHealth = GetComponentInParent<EnemyHealth>();
-            Debug.Log("No enemy specified, checking parent for EnemyHealth component.");
+            if (enemyHealth == null)
+                Debug.Log("No EnemyHealth component found in parent objects.");
+            else
+                Debug.Log("Found EnemyHealth component in parent object.");
         }
         else
         {
             enemyHealth = enemy.GetComponent<EnemyHealth>();
-            Debug.Log($"Checking specified enemy object: {enemy.name} for EnemyHealth component.");
+            if (enemyHealth == null)
+                Debug.Log($"No EnemyHealth component found on {enemy.name}.");
+            else
+                Debug.Log($"Found EnemyHealth component on {enemy.name}.");
         }
 
         if (enemyHealth == null)

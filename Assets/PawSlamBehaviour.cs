@@ -22,7 +22,7 @@ public class PawSlamBehaviour : StateMachineBehaviour
         // Start the coroutine for the Paw Slam attack
         if (boss != null && pawAI != null)
         {
-            boss.StartSlamingAttack(OnSlamComplete);
+            boss.StartSlammingAttack(OnSlamComplete);
         }
         else
         {

@@ -10,6 +10,9 @@ TagManager:
   - Boss
   - WeakPoint
   - Trigger
+  - Win
+  - BossAtk
+  - Boundary
   layers:
   - Default
   - TransparentFX
