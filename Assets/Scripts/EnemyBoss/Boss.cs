@@ -4,120 +4,336 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
-    public GameObject PawEye;
-    public GameObject PawMouth;
-    public GameObject HairballPrefab;
-    public GameObject ClawPrefab;
-    public GameObject minionPrefab;  //Reference to objects 
-    public Transform[] firePoints; //Array of transform points where abilites will be summoned 
-    public Transform[] summonPoints; // Array of transform points where minions will be summoned
+    public GameObject hairballPrefab; // Prefab for the hairball projectile
+    public Transform[] firePoints; // Points from which hairballs will be fired
 
-    // Enumeration to represent different states/attacks of the boss
-    private enum AttackType { HairBallRoll, Claw, SummonMinions, PawSlam }
+    public GameObject ratPrefab; // Prefab for the rat enemy
+    public Transform[] spawnPoints; // Points where rats will be spawned
+    public int numberOfRats = 5; // Number of rats to spawn
+    public PlayerController playerController; // Reference to the player's controller script
 
-    // Enumeration to represent different states/attacks of the boss
-    private enum State { Idle, HairBallRoll, Claw, SummonMinions,PawSlam }
-    private State currentState = State.Idle; // Variable to keep track of the current state, initialized to Idle
-    // Dictionary to store cooldown times for each state
-    private Dictionary<State, float> stateCooldowns = new Dictionary<State, float>
-    {
-        { State.HairBallRoll, 2f }, // Hairballroll attack has a cooldown of 2 seconds
-        { State.Claw, 3f }, // Clawattack attack has a cooldown of 3 seconds
-        { State.SummonMinions, 5f}, // Summon minions attack has a cooldown of 5 seconds
-        { State.PawSlam, 3f } // Paw Slam has a cooldown of 3 seconds
-    };
+    private int summonsLeftToKill = 0; // Number of summoned rats that need to be killed
+    private bool died = false; // Flag to track if all summons are dead
 
-    private float nextStateTime = 0f; //Variable to track when the next state can be executed
-    
-    
-    private Animator anim;
+    // Array of attack stage names
+    private string[] attackStages = { "PawAttack", "HairballAttack", "ClawAttack", "SummonMinions" };
+    private int currentAttackStage = 0; // Current attack stage index
+
+    private Animator myAnim; // Animator component
+    public bool attacking; // Flag to indicate if the boss is currently attacking
+
+    public PawEye pawEye; // Reference to the PawEye component
+    public GameObject Claw;
+    public PawMouth pawMouth; // Reference to the PawMouth component
+    public GameObject pawEyePrefab; // Prefab for the pawEye GameObject
+    public GameObject SavePaw; // Prefab for safe lane
+    public float fadeDuration = 1.0f; // Duration for the pawEye to fade away
+    private Vector3 pawStopPosition; // Variable to store the position where the paw stops
 
     private void Start()
     {
-        StartCoroutine(StateMachine()); // Start the state machine coroutine when the game starts
-        anim = GetComponent<Animator>();
+        myAnim = GetComponent<Animator>(); // Get the Animator component
+        attacking = false; // Initialize attacking flag to false
     }
 
     private void Update()
     {
+        // Handle updates (if needed)
     }
-    IEnumerator StateMachine()
+
+    // Method to start the HairBallRoll attack
+    public void StartHairBallRollAttack(System.Action onComplete)
     {
-        while (true) // Infinite loop to continuously check and execute states
+        attacking = true; // Set attacking flag to true
+        StartCoroutine(HairBallRollAttackCoroutine(onComplete)); // Start the HairBallRoll attack coroutine
+    }
+
+    // Method to start the Claw attack
+    public void StartClawAttack(System.Action onComplete)
+    {
+        attacking = true; // Set attacking flag to true
+        StartCoroutine(ClawAttackCoroutine(onComplete)); // Start the Claw attack coroutine
+    }
+
+    // Method to start the Slamming attack
+    public void StartSlammingAttack(System.Action onComplete)
+    {
+        attacking = true; // Set attacking flag to true
+        StartCoroutine(SlammingAttackCoroutine(onComplete)); // Start the Slamming attack coroutine
+    }
+
+    // Method to start the Summoning attack
+    public void StartSummoningAttack(System.Action onComplete)
+    {
+        attacking = true; // Set attacking flag to true
+        StartCoroutine(SummoningAttackCoroutine(onComplete)); // Start the Summoning attack coroutine
+    }
+
+    // Method to freeze or unfreeze the player
+    private void FreezePlayer(bool freeze)
+    {
+        if (playerController != null)
         {
-            if (Time.time >= nextStateTime) // Check if the cooldown period has passed
+            playerController.canMove = !freeze; // Set the player's canMove property
+        }
+    }
+
+    // Coroutine for the HairBallRoll attack
+    private IEnumerator HairBallRollAttackCoroutine(System.Action onComplete)
+    {
+        Debug.Log("Starting HairBallRoll attack");
+        pawEye.gameObject.SetActive(false);
+
+        // Fixed number of hairballs to spawn
+        int[] hairballOptions = {3, 4 };
+        int numberOfHairballs = hairballOptions[Random.Range(0, hairballOptions.Length)];
+        List<GameObject> pawEyeInstances = new List<GameObject>();
+        List<GameObject> savePawInstances = new List<GameObject>();
+
+        // Iterate through fire points
+        foreach (Transform firePoint in firePoints)
+        {
+            // Determine if this fire point should spawn a hairball
+            bool spawnHairball = Random.value < 0.5f; // Example condition, adjust as needed
+
+            if (spawnHairball)
             {
-                switch (currentState) // Switch statement to handle different states
-                {
-                    case State.Idle: // If the boss is idle, get the next state
-                        currentState = GetNextState();
-                        break;
-                    case State.HairBallRoll: // If the current state is HairBallRoll
-                        HairBallRollAttack(); // Execute HairBallRoll attack
-                        currentState = State.Idle; // Set the state back to Idle
-                        nextStateTime = Time.time + stateCooldowns[State.HairBallRoll]; // Set the next state time based on  cooldown
-                        break;
-                    case State.SummonMinions: // If the current state is SummonMinions
-                        SummonMinions(); // Execute Summon Minions attack
-                        currentState = State.Idle; // Set the state back to Idle
-                        nextStateTime = Time.time + stateCooldowns[State.SummonMinions]; // Set the next state time based on Summon Minions cooldown
-                        break;
-                    case State.Claw: // If the current state is Claw
-                        ClawAttack(); // Execute Claw attack
-                        currentState = State.Idle; // Set the state back to Idle
-                        nextStateTime = Time.time + stateCooldowns[State.Claw]; // Set the next state time based on Claw cooldown
-                        break;
-                    case State.PawSlam: // If the current state is PawSlam
-                        PawSlamAttack(); // Execute Claw attack
-                        currentState = State.Idle; // Set the state back to Idle
-                        nextStateTime = Time.time + stateCooldowns[State.PawSlam]; // Set the next state time based on PawSlam cooldown
-                        break;
-                }
+                // Instantiate PawEye prefab
+                GameObject pawEyeInstance = Instantiate(pawEyePrefab, firePoint.position, firePoint.rotation);
+                pawEyeInstances.Add(pawEyeInstance);
+
+                // Spawn hairball at the selected fire point
+                yield return new WaitForSeconds(0.3f);
+                Instantiate(hairballPrefab, firePoint.position, firePoint.rotation);
             }
-            yield return null; // Wait for the next frame before continuing the loop
+            else
+            {
+                // Instantiate SavePaw prefab at the fire point
+                GameObject savePawInstance = Instantiate(SavePaw, firePoint.position, firePoint.rotation);
+                savePawInstances.Add(savePawInstance);
+            }
         }
-    }
 
-    void HairBallRollAttack()
-    {
-        foreach (var firePoint in firePoints) // Loop through all fire points
+        // Schedule deactivation of pawEyes and savePaws after the fade duration
+        foreach (GameObject pawEyeInstance in pawEyeInstances)
         {
-            Instantiate(HairballPrefab, firePoint.position, firePoint.rotation); // Instantiate a fireball at each fire point
+            StartCoroutine(FadeAwayPawEye(pawEyeInstance));
         }
-        Debug.Log("HairBallRoll attack executed"); // Log the attack execution
-    }
 
-    void PawSlamAttack()
-    {
-        foreach (var firePoint in firePoints) // Loop through all fire points
+        foreach (GameObject savePawInstance in savePawInstances)
         {
-            Instantiate(PawMouth, firePoint.position, firePoint.rotation); // Instantiate a fireball at each fire point
+            StartCoroutine(FadeAwaySavePaw(savePawInstance));
         }
-        Debug.Log("PawSlam attack executed"); // Log the attack execution
+
+        // Reactivate PawEye at the end of the attack
+        pawEye.gameObject.SetActive(true);
+
+        Debug.Log("HairBallRoll attack completed");
+
+        // Call the callback to signal completion
+        onComplete?.Invoke();
+        attacking = false; // Reset attacking flag
     }
 
 
-    void ClawAttack()
+    // Coroutine to fade away the spawned PawEye
+    private IEnumerator FadeAwayPawEye(GameObject pawEyeInstance)
     {
-        foreach (var firePoint in firePoints) // Loop through all fire points
+        yield return new WaitForSeconds(fadeDuration); // Wait for fade duration
+        Destroy(pawEyeInstance); // Destroy the PawEye instance
+    }
+
+    // Coroutine to fade away the spawned SavePaw
+    private IEnumerator FadeAwaySavePaw(GameObject savePawInstance)
+    {
+        yield return new WaitForSeconds(fadeDuration); // Wait for fade duration
+        Destroy(savePawInstance); // Destroy the SavePaw instance
+    }
+
+    // Coroutine for the Claw attack
+    private IEnumerator ClawAttackCoroutine(System.Action onComplete)
+    {
+        Debug.Log("Starting Claw attack");
+
+        // Variables for the attack logic
+        float followDuration = 10.0f; // Duration to follow the player before spawning claws
+        float clawSpawnInterval = 12.0f; // Interval between spawning claws
+        int maxClawSpawns = 3; // Maximum number of claws to spawn before cooldown
+        int clawSpawnCount = 3; // Counter for claws spawned
+        float attackTimer = 10.0f; // Timer for tracking attack duration
+
+        // Loop until attack conditions are met
+        while (clawSpawnCount < maxClawSpawns)
         {
-            Instantiate(ClawPrefab, firePoint.position, firePoint.rotation); // Instantiate a laser beam at each fire point
+            // Move PawEye towards the player
+            pawEye.ActivatePaw();
+            yield return new WaitForSeconds(followDuration / 2); // Follow for half the duration
+            pawStopPosition = pawEye.transform.position; // Store the position where PawEye stopped
+
+            // Move PawMouth towards the player
+            pawMouth.ActivatePaw();
+            yield return new WaitForSeconds(followDuration / 2); // Follow for the remaining half duration
+            pawStopPosition = pawMouth.transform.position; // Store the position where PawMouth stopped
+
+            // Check if attack duration has reached the claw spawn interval
+            attackTimer += followDuration;
+            if (attackTimer >= clawSpawnInterval)
+            {
+                // Spawn a claw at the stored position
+                SpawnClaw(pawStopPosition);
+
+                // Reset the attack timer
+                attackTimer = 0.0f;
+                clawSpawnCount++;
+            }
         }
-        Debug.Log("Claw attack executed"); // Log the attack execution
+
+        Debug.Log("Claw attack completed");
+
+        // Deactivate PawEye and PawMouth
+        pawEye.DeactivatePaw();
+        pawMouth.DeactivatePaw();
+
+        // Call the callback to signal completion
+        onComplete?.Invoke();
+        attacking = false; // Reset attacking flag
     }
 
-    void SummonMinions()
+    // Method to spawn a claw at a specific position
+    private void SpawnClaw(Vector3 spawnPosition)
     {
-        foreach (var summonPoint in summonPoints) // Loop through all summon points
+        Debug.Log("Spawning Claw at: " + spawnPosition);
+        // Instantiate your claw prefab or perform any claw attack logic here
+        Instantiate(Claw, spawnPosition, Quaternion.identity);
+    }
+
+    // Coroutine for the Slamming attack
+    private IEnumerator SlammingAttackCoroutine(System.Action onComplete)
+    {
+        Debug.Log("Starting Paw Slamming attack");
+        pawMouth.ActivatePaw(); // Activate PawMouth
+        pawEye.ActivatePaw(); // Activate PawEye
+
+        // Simulate the Paw Slamming attack duration
+        yield return new WaitForSeconds(20.0f);
+
+        Debug.Log("Paw Slamming attack completed");
+
+        pawEye.DeactivatePaw(); // Deactivate PawEye
+        pawMouth.DeactivatePaw(); // Deactivate PawMouth
+        // Call the callback to signal completion
+        onComplete?.Invoke();
+        attacking = false; // Reset attacking flag
+    }
+
+    // Coroutine for the Summoning attack
+    private IEnumerator SummoningAttackCoroutine(System.Action onComplete)
+    {
+        Debug.Log("Starting Summoning attack");
+
+        // Freeze the player controls
+        FreezePlayer(true);
+
+        // Initialize the number of rats to be killed
+        summonsLeftToKill = numberOfRats;
+        Debug.Log("Number of rats to summon: " + numberOfRats);
+
+        List<GameObject> pawInstances = new List<GameObject>();
+
+        // Loop to summon rats and paws at the same spawn points
+        for (int i = 0; i < numberOfRats; i++)
         {
-            Instantiate(minionPrefab, summonPoint.position, summonPoint.rotation); // Instantiate a minion at each summon point
+            // Select a spawn point from the spawnPoints array
+            Transform spawnPoint = spawnPoints[i % spawnPoints.Length];
+            Debug.Log("Spawning rat at: " + spawnPoint.position);
+
+            // Instantiate a paw at the boss's position
+            GameObject pawInstance = Instantiate(pawEyePrefab, transform.position, Quaternion.identity);
+            pawInstances.Add(pawInstance);
+
+            // Calculate duration based on distance and speed
+            float distance = Vector3.Distance(transform.position, spawnPoint.position);
+            float speed = 5.0f; // Adjust speed as needed
+            float duration = distance / speed;
+
+            // Move the paw towards the spawn point
+            yield return StartCoroutine(MovePawTowardsTarget(pawInstance, spawnPoint.position, duration));
+
+            // Instantiate the rat at the selected spawn point
+            GameObject ratInstance = Instantiate(ratPrefab, spawnPoint.position, spawnPoint.rotation);
+
+            // Attach the SummonKilled method to the rat's death event
+            RatController ratController = ratInstance.GetComponent<RatController>();
+            if (ratController != null)
+            {
+                ratController.OnDeath += SummonKilled;
+                Debug.Log("Attached SummonKilled to rat instance.");
+            }
+
+            // Add a slight delay between each spawn
+            yield return new WaitForSeconds(0.2f);
         }
-        Debug.Log("Minions summoned"); // Log the summoning
+
+        Debug.Log("Summoning attack completed");
+
+        // Unfreeze the player controls
+        FreezePlayer(false);
+
+        // If no summons were created, call onComplete immediately
+        if (summonsLeftToKill == 0)
+        {
+            died = true;
+            onComplete?.Invoke();
+        }
     }
 
-    State GetNextState()
+    // Method called when a summon is killed
+    private void SummonKilled()
     {
-        State[] states = { State.HairBallRoll, State.Claw, State.SummonMinions, State.PawSlam }; // Array of possible states/attacks
-        return states[Random.Range(0, states.Length)]; // Randomly select and return one of the states
+        summonsLeftToKill--; // Decrease the number of summons left to kill
+        Debug.Log("Summon killed, remaining: " + summonsLeftToKill);
+        if (summonsLeftToKill <= 0)
+        {
+            Debug.Log("All summoned minions have been killed.");
+            died = true;
+            myAnim.SetBool("CoolDown", true); // Set the CoolDown animation state
+        }
+    }
+
+    // Check if the boss is ready for the next attack
+    public bool IsReadyForNextAttack()
+    {
+        // Check if CooldownBehaviour is in cooldown state
+        return !myAnim.GetCurrentAnimatorStateInfo(0).IsName("CoolDown");
+    }
+
+    // Progress to the next attack stage
+    private void ProgressToNextAttackStage()
+    {
+        currentAttackStage = (currentAttackStage + 1) % attackStages.Length; // Move to the next attack stage
+        string nextAttack = attackStages[currentAttackStage];
+        myAnim.SetTrigger(nextAttack); // Trigger the next attack animation
+    }
+
+    // Check if the boss has died
+    public bool HasDied
+    {
+        get { return died; }
+    }
+
+    // Method to move a paw towards a target position
+    private IEnumerator MovePawTowardsTarget(GameObject paw, Vector3 targetPosition, float duration)
+    {
+        float elapsedTime = 0f;
+        Vector3 initialPosition = paw.transform.position;
+
+        while (elapsedTime < duration)
+        {
+            paw.transform.position = Vector3.Lerp(initialPosition, targetPosition, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        paw.transform.position = targetPosition;
     }
 }

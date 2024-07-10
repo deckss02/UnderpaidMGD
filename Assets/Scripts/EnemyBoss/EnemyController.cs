@@ -1,58 +1,92 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public Transform LeftPoint; // Reference to the left point position
-    public Transform RightPoint; //Reference to the right point position
+    [SerializeField] private float moveSpeed = 1f; // Speed at which the enemy moves
 
-    public float moveSpeed;//How fast the enemy can move 
+    public Transform pointA; // Transform of point A
+    public Transform pointB; // Transform of point B
+    private Transform currentPoint; // Current target point
+    public float specificXPointA = -5.35f; // Specific X coordinate for point A
+    public float specificXPointB = 0.62f; // Specific X coordinate for point B
+    public Color gizmoColor = Color.blue; // Color of the gizmos
 
-    private Rigidbody2D enemyRigidbody; //Reference to the Rigidbody2D component of the Enemy
+    private Rigidbody2D enemyRigidbody; // Reference to the Rigidbody2D component
+    public EnemyCounter theEnemyCounter; // Reference to the EnemyCounter script
+    public EnemyHealth enemyHealth; // Reference to the EnemyHealth script
 
-    public bool movingRight;//Check if the enemy should move left or right
-
-    public EnemyCounter theEnemyCounter;
     // Start is called before the first frame update
     void Start()
     {
-        enemyRigidbody = GetComponent<Rigidbody2D>(); //Get Access to the Rigidbody2D component of the Enemy
-        theEnemyCounter = FindObjectOfType<EnemyCounter>();
+        enemyRigidbody = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component attached to the enemy
+        theEnemyCounter = FindObjectOfType<EnemyCounter>(); // Find the EnemyCounter component in the scene
+        enemyHealth = GetComponent<EnemyHealth>(); // Get the EnemyHealth component attached to the enemy
+
+        if (pointA == null || pointB == null)
+        {
+            Debug.LogError("pointA or pointB is not assigned in the Inspector!");
+        }
+
+        currentPoint = pointB; // Start with pointB as initial point
+
+        if (enemyRigidbody == null)
+        {
+            Debug.LogError("Rigidbody2D component is not found on the enemy GameObject!");
+        }
     }
-    // Update is called once per frame
+
+
     void Update()
     {
-        if (movingRight && (transform.position.x > RightPoint.position.x)) // if the enemy is moving right and it has gone past the right point, it should start to move left
+        MoveBetweenPoints();
+    }
+
+    private void MoveBetweenPoints()
+    {
+        if (currentPoint == null || enemyRigidbody == null)
         {
-            movingRight = false;
-            Flip();
+            Debug.LogError("currentPoint or enemyRigidbody is null. Make sure they are properly assigned!");
+            return;
         }
 
-        if (!movingRight && (transform.position.x < LeftPoint.position.x)) // if the enemy is moving left and it has gone past the left point, it should start to move right
+        Vector2 moveDirection = (currentPoint.position - transform.position).normalized;
+        enemyRigidbody.velocity = moveDirection * moveSpeed;
+
+        if (Vector2.Distance(transform.position, currentPoint.position) < 0.1f)
         {
-            movingRight = true;
-            Flip();
-        }
-        if (movingRight)
-        {
-            enemyRigidbody.velocity = new Vector2(moveSpeed, enemyRigidbody.velocity.y);
-        }
-        else
-        {
-            enemyRigidbody.velocity = new Vector2(-moveSpeed, enemyRigidbody.velocity.y);
+            if (currentPoint == pointA)
+            {
+                currentPoint = pointB;
+            }
+            else
+            {
+                currentPoint = pointA;
+            }
+            Flip(); // Flip direction
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == "Bullet")
-        {
-            Destroy(other.gameObject);
-            Destroy(gameObject);
-            theEnemyCounter.EnemyKilled(); // Call EnemyKilled without arguments
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = gizmoColor;
+        Gizmos.DrawWireSphere(pointA.position, 0.5f);
+        Gizmos.DrawWireSphere(pointB.position, 0.5f);
+        Gizmos.DrawLine(pointA.position, pointB.position);
+    }
+
+    // Called when the enemy takes damage
+    public void TakeDamage(int amount)
+    {
+        // Reduce health using the EnemyHealth component
+        enemyHealth.TakeDamage(amount);
+
+        // Check if the enemy is destroyed (health <= 0) and handle accordingly
+        if (enemyHealth.currentHealth <= 0)
+        {
+            Die(); // Destroy the enemy
         }
     }
 
@@ -63,4 +97,9 @@ public class EnemyController : MonoBehaviour
         transform.localScale = localScale;
     }
 
+    // Destroy the enemy game object
+    private void Die()
+    {
+        Destroy(gameObject); // Destroy the enemy game object
+    }
 }

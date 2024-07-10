@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class IntroBehaviour : StateMachineBehaviour
 {
-
     private int rand;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        rand = Random.Range(0, 2);
+        rand = Random.Range(0,2);
 
-        if (rand == 0)
+        if (rand == 1)
         {
-            animator.SetTrigger("Idle");
+            animator.SetBool("Idle", true);
         }
         else
         {
-            animator.SetTrigger("GettingReady");
+            animator.SetBool("GettingReady", true);
         }
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

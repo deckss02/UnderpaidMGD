@@ -11,9 +11,9 @@ public class FirePoints : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(FP1.transform.position, 0.5f);
-        Gizmos.DrawWireSphere(FP2.transform.position, 0.5f);
-        Gizmos.DrawWireSphere(FP3.transform.position, 0.5f);
-        Gizmos.DrawWireSphere(FP4.transform.position, 0.5f);
+        Gizmos.DrawWireSphere(FP1.transform.position, 0.3f);
+        Gizmos.DrawWireSphere(FP2.transform.position, 0.3f);
+        Gizmos.DrawWireSphere(FP3.transform.position, 0.3f);
+        Gizmos.DrawWireSphere(FP4.transform.position, 0.3f);
     }
 }

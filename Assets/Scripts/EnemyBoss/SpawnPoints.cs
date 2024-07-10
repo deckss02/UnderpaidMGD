@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class SpawnPoints : MonoBehaviour
 {
-    public GameObject SP1;
-    public GameObject SP2;
-    public GameObject SP3;
-
-    public Color gizmoColor = Color.green;
+    public Transform[] spawnPoints; // Array to hold spawn points
+    public Color gizmoColor = Color.green; // Color of the gizmos
 
     private void OnDrawGizmos()
     {
         Gizmos.color = gizmoColor;
 
-        Gizmos.DrawWireSphere(SP1.transform.position, 0.3f);
-        Gizmos.DrawWireSphere(SP2.transform.position, 0.3f);
-        Gizmos.DrawWireSphere(SP3.transform.position, 0.3f);
+        // Draw gizmos for each spawn point
+        foreach (Transform spawnPoint in spawnPoints)
+        {
+            if (spawnPoint != null) // Check if the spawn point is not null
+            {
+                Gizmos.DrawWireSphere(spawnPoint.position, 0.2f);
+            }
+        }
     }
 }
