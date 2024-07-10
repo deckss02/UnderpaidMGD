@@ -626,7 +626,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 69557592}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 69557594}
+        m_TargetAssemblyTypeName: PlayerSwap_Button, Assembly-CSharp
+        m_MethodName: SwitchCharacter
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &69557592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -689,6 +701,7 @@ MonoBehaviour:
   p2Anim: {fileID: 9100000, guid: 47fd7e4cc3f85c845afa14a915465baa, type: 2}
   p1AnimF: {fileID: 9100000, guid: 47fd7e4cc3f85c845afa14a915465baa, type: 2}
   p2AnimF: {fileID: 9100000, guid: 3cb47bc3fd8dd824d8d0715b0210b5ba, type: 2}
+  CharacterProfile: {fileID: 1966843412}
   ChangeNumber: 0
 --- !u!1 &69924294
 GameObject:
@@ -24565,19 +24578,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1966843412}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1966843415}
-        m_TargetAssemblyTypeName: PlayerSwapButton, Assembly-CSharp
-        m_MethodName: SwitchCharacter
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1966843415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24585,7 +24586,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1966843410}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f29b4371e9dc564985cebcaedd79d2a, type: 3}
   m_Name: 
@@ -24602,6 +24603,7 @@ MonoBehaviour:
   p2Anim: {fileID: 9100000, guid: 47fd7e4cc3f85c845afa14a915465baa, type: 2}
   p1AnimF: {fileID: 9100000, guid: 3cb47bc3fd8dd824d8d0715b0210b5ba, type: 2}
   p2AnimF: {fileID: 9100000, guid: 47fd7e4cc3f85c845afa14a915465baa, type: 2}
+  CharacterProfile: {fileID: 0}
   ChangeNumber: 0
 --- !u!1 &1968629423
 GameObject:
@@ -27612,6 +27614,10 @@ PrefabInstance:
     - target: {fileID: 1814275446947197329, guid: 5e6b9da7baaba6342803a79e6d2ed7d2, type: 3}
       propertyPath: m_Name
       value: Following Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2145603537621387844, guid: 5e6b9da7baaba6342803a79e6d2ed7d2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2666694046959419989, guid: 5e6b9da7baaba6342803a79e6d2ed7d2, type: 3}
       propertyPath: m_Sprite

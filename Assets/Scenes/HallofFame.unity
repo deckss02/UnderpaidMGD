@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.96981126, g: 0.93535995, b: 0.15919538, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.29148653, g: 0.24087568, b: 0.7132075, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -567,7 +567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7471045, g: 0.90943396, b: 0.43069413, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -830,8 +830,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7349c013fd99fd84cb79b6bb9b210607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HelpersCanvas: {fileID: 0}
-  MembersCanvas: {fileID: 0}
+  canvasNumber: 0
+  HelpersCanvas: {fileID: 2031376067}
+  MembersCanvas: {fileID: 138945956}
+  ThanksCanvas: {fileID: 291420241}
+  Members2Canvas: {fileID: 1015785810}
 --- !u!1 &1328846849
 GameObject:
   m_ObjectHideFlags: 0
@@ -1460,7 +1463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.96981126, g: 0.20311143, b: 0.20311143, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
