@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -39,10 +37,6 @@ public class PlayerController : MonoBehaviour
     private bool isMoving = false;
     private float moveDirection = 0;
 
-    // Timer for down movement
-    private float downTimer = 0f;
-    private const float downDuration = 0.5f;
-
     void Start()
     {
         // Initialize components and variables
@@ -68,37 +62,9 @@ public class PlayerController : MonoBehaviour
                 Move(moveDirection);
             }
 
-            // Jump if grounded and jump button is pressed
-            if (Input.GetButtonDown("Jump") && isGrounded)
-            {
-                Jump();
-            }
-
-            // Fire if fire button is pressed and fire rate allows
-            if (Input.GetKeyDown(KeyCode.L) && Time.time > nextFire)
-            {
-                nextFire = Time.time + fireRate;
-                Fire();
-            }
-
-            // Check for touch input
-            if (Input.touchCount > 0)
-            {
-                Touch touch = Input.GetTouch(0);
-                if (touch.phase == TouchPhase.Began)
-                {
-                    Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
-                    if (touchPosition.x > transform.position.x)
-                    {
-                        moveDirection = 1;
-                    }
-                    else
-                    {
-                        moveDirection = -1;
-                    }
-                    isMoving = true;
-                }
-            }
+            // Update animator parameters
+            myAnim.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
+            myAnim.SetBool("Ground", isGrounded);
         }
         else
         {
@@ -113,20 +79,6 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = new Vector3(knockbackForce, knockbackForce, 0.0f);
             }
         }
-
-        // Update down movement timer
-        if (downTimer > 0)
-        {
-            downTimer -= Time.deltaTime;
-            if (downTimer <= 0)
-            {
-                groundCheckRadius = 0.2f; // Restore ground detection radius
-            }
-        }
-
-        // Update animator parameters
-        myAnim.SetFloat("Speed", Mathf.Abs(rb.velocity.x)); // Corrected Mathf.Abs
-        myAnim.SetBool("Ground", isGrounded);
     }
 
     // Method for player movement
@@ -137,12 +89,10 @@ public class PlayerController : MonoBehaviour
         if (dir > 0 && !facingRight)
         {
             Flip();
-            transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         }
         else if (dir < 0 && facingRight)
         {
             Flip();
-            transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
         }
 
         if (rb.velocity.x == 0)
@@ -151,34 +101,47 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Start moving in the specified direction
+    public void StartMove(float dir)
+    {
+        moveDirection = dir;
+        isMoving = true;
+    }
+
+    // Stop moving
+    public void StopMove()
+    {
+        moveDirection = 0;
+        isMoving = false;
+    }
+
     // Method for player jump
     public void Jump()
     {
-        rb.velocity = new Vector2(rb.velocity.x, jumpSpeed); // Corrected Vector2
-        jumpSound.Play();
-    }
-
-    // Method for player jump down
-    public void Down()
-    {
-        groundCheckRadius = 0; // Temporarily disable ground detection
-        rb.velocity = new Vector2(rb.velocity.x, -jumpSpeed); // Jump down by setting negative velocity
-        downTimer = downDuration; // Start down movement timer
+        if (isGrounded)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+            jumpSound.Play();
+        }
     }
 
     // Method for firing bullets
-    void Fire()
+    public void Fire()
     {
-        bulletPos = transform.position;
-        if (facingRight)
+        if (Time.time > nextFire)
         {
-            bulletPos += new Vector2(+1f, -0.43f);
-            Instantiate(bulletToRight, bulletPos, Quaternion.identity);
-        }
-        else
-        {
-            bulletPos += new Vector2(-1f, -0.43f);
-            Instantiate(bulletToLeft, bulletPos, Quaternion.identity);
+            nextFire = Time.time + fireRate;
+            bulletPos = transform.position;
+            if (facingRight)
+            {
+                bulletPos += new Vector2(+1f, -0.43f);
+                Instantiate(bulletToRight, bulletPos, Quaternion.identity);
+            }
+            else
+            {
+                bulletPos += new Vector2(-1f, -0.43f);
+                Instantiate(bulletToLeft, bulletPos, Quaternion.identity);
+            }
         }
     }
 
