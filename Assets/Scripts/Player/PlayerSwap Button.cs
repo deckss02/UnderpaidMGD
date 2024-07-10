@@ -20,8 +20,10 @@ public class PlayerSwap_Button : MonoBehaviour
     public RuntimeAnimatorController p1Anim; //Switches the player's animation controller during gameplay.
     public RuntimeAnimatorController p2Anim;
     public RuntimeAnimatorController p1AnimF; //Switches the following characer's animator during gameplay.
-    public RuntimeAnimatorController p2AnimF; 
+    public RuntimeAnimatorController p2AnimF;
 
+    public Sprite Potrait;
+    public SpriteRenderer spriteRenderer;
 
     public int ChangeNumber = 0; //This integer details which Character is in use.
 
@@ -29,6 +31,9 @@ public class PlayerSwap_Button : MonoBehaviour
     void Start()
     {
         controller = FindObjectOfType<PlayerControllera>();
+        Potrait = FindObjectOfType<Sprite>();
+
+        spriteRenderer.sprite = Potrait;
     }
 
     // Update is called once per frame
@@ -51,9 +56,11 @@ public class PlayerSwap_Button : MonoBehaviour
         {
             case 0:
                 Cornelius();
+                FollowerRhea();
                 break;
             case 1:
                 Rhea();
+                FollowerCornelius();
                 break;
         }
     }
@@ -63,16 +70,26 @@ public class PlayerSwap_Button : MonoBehaviour
         Player.GetComponent<SpriteRenderer>().sprite = Corn;
         Player.GetComponent<Animator>().runtimeAnimatorController = p1Anim;
 
+    }
+
+    void FollowerRhea()
+    {
         FollowingPlayer.GetComponent<SpriteRenderer>().sprite = Rhe;
-        FollowingPlayer.GetComponent<Animator>().runtimeAnimatorController = p2AnimF; ;
+        FollowingPlayer.GetComponent<Animator>().runtimeAnimatorController = p2AnimF;
+        spriteRenderer.color = Color.green;
     }
 
     void Rhea()
     {
         Player.GetComponent<SpriteRenderer>().sprite = Rhe;
         Player.GetComponent<Animator>().runtimeAnimatorController = p2Anim;
+    }
 
+    void FollowerCornelius()
+    {
         FollowingPlayer.GetComponent<SpriteRenderer>().sprite = Corn;
-        FollowingPlayer.GetComponent<Animator>().runtimeAnimatorController = p1AnimF; ;
-    }    
+        FollowingPlayer.GetComponent<Animator>().runtimeAnimatorController = p1AnimF;
+        spriteRenderer.color = Color.red;
+
+    }
 }
