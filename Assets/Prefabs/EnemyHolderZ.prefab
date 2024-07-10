@@ -31,7 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5474409438248749365}
+  m_Father: {fileID: 2719579744714989692}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &7178131111021522897
 BoxCollider2D:
@@ -91,7 +91,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageAmount: 1
-  enemy: {fileID: 5020795401150305257}
 --- !u!1 &5020795401150305257
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +124,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 291402033589860096}
   m_Father: {fileID: 5474409438248749365}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4611796641548489390
@@ -267,6 +267,8 @@ MonoBehaviour:
   moveSpeed: 5
   pointA: {fileID: 0}
   pointB: {fileID: 0}
+  specificXPointA: -5.35
+  specificXPointB: 0.62
   gizmoColor: {r: 0, g: 0, b: 1, a: 1}
   theEnemyCounter: {fileID: 0}
   enemyHealth: {fileID: 0}
@@ -376,7 +378,6 @@ Transform:
   m_Children:
   - {fileID: 2743416138284025735}
   - {fileID: 2998047400966364401}
-  - {fileID: 291402033589860096}
   - {fileID: 2719579744714989692}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

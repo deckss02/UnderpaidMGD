@@ -1,14 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RatController : MonoBehaviour
 {
-    public event System.Action OnDeath;
+    public int health = 1;
+    public delegate void RatDeath();
+    public event RatDeath OnDeath;
 
-    public void Die()
+    // Method to take damage
+    public void TakeDamage(int amount)
     {
-        // Trigger death logic
+        health -= amount;
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    // Method to handle the rat's death
+    private void Die()
+    {
         OnDeath?.Invoke();
         Destroy(gameObject);
     }

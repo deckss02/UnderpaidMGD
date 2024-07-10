@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -59,7 +61,7 @@ public class PlayerController : MonoBehaviour
             // Code for left and right movement
             if (isMoving)
             {
-                Move(moveDirection);
+                //Move(moveDirection);
             }
 
             // Update animator parameters
@@ -85,6 +87,7 @@ public class PlayerController : MonoBehaviour
     public void Move(float dir)
     {
         rb.velocity = new Vector2(dir * moveSpeed, rb.velocity.y);
+        print(rb.velocity);
 
         if (dir > 0 && !facingRight)
         {
@@ -101,19 +104,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Start moving in the specified direction
-    public void StartMove(float dir)
-    {
-        moveDirection = dir;
-        isMoving = true;
-    }
+    //// Start moving in the specified direction
+    //public void StartMove(float dir)
+    //{
+    //    moveDirection = dir;
+    //    isMoving = true;
+    //}
 
-    // Stop moving
-    public void StopMove()
-    {
-        moveDirection = 0;
-        isMoving = false;
-    }
+    //// Stop moving
+    //public void StopMove()
+    //{
+    //    moveDirection = 0;
+    //    isMoving = false;
+    //}
 
     // Method for player jump
     public void Jump()
