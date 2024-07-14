@@ -1,13 +1,11 @@
-using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Build;
 using UnityEngine;
 
 public class PlayerSwap_Button : MonoBehaviour
 {
     public PlayerControllera controller;
-    public GameObject Player; //Make a direct reference to the Player
+    public GameObject Player; // Reference to the Player
     public GameObject FollowingPlayer;
 
     public LevelManager levelManager;
@@ -15,26 +13,24 @@ public class PlayerSwap_Button : MonoBehaviour
     public int CorneliusHealth;
     public int RheaHealth;
 
-    public Sprite Corn; //Sprites of Player Characters
+    public Sprite Corn; // Sprites of Player Characters
     public Sprite Rhe;
-    public RuntimeAnimatorController p1Anim; //Switches the player's animation controller during gameplay.
+    public RuntimeAnimatorController p1Anim; // Switches the player's animation controller during gameplay.
     public RuntimeAnimatorController p2Anim;
-    public RuntimeAnimatorController p1AnimF; //Switches the following characer's animator during gameplay.
-    public RuntimeAnimatorController p2AnimF; 
+    public RuntimeAnimatorController p1AnimF; // Switches the following character's animator during gameplay.
+    public RuntimeAnimatorController p2AnimF;
 
+    public int ChangeNumber = 0; // This integer details which Character is in use.
 
-    public int ChangeNumber = 0; //This integer details which Character is in use.
-
-    // Start is called before the first frame update
     void Start()
     {
         controller = FindObjectOfType<PlayerControllera>();
+        levelManager = FindObjectOfType<LevelManager>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        // This method can be called from a UI button
     }
 
     public void SwitchCharacter()
@@ -46,7 +42,7 @@ public class PlayerSwap_Button : MonoBehaviour
             ChangeNumber = 0;
         }
 
-        //Switch Statement allows smooth back-&-forth swapping.
+        // Switch Statement allows smooth back-&-forth swapping.
         switch (ChangeNumber)
         {
             case 0:
@@ -56,6 +52,8 @@ public class PlayerSwap_Button : MonoBehaviour
                 Rhea();
                 break;
         }
+
+        levelManager.SwapHealth(); // Sync health after switching characters
     }
 
     void Cornelius()
@@ -64,7 +62,7 @@ public class PlayerSwap_Button : MonoBehaviour
         Player.GetComponent<Animator>().runtimeAnimatorController = p1Anim;
 
         FollowingPlayer.GetComponent<SpriteRenderer>().sprite = Rhe;
-        FollowingPlayer.GetComponent<Animator>().runtimeAnimatorController = p2AnimF; ;
+        FollowingPlayer.GetComponent<Animator>().runtimeAnimatorController = p2AnimF;
     }
 
     void Rhea()
@@ -73,6 +71,6 @@ public class PlayerSwap_Button : MonoBehaviour
         Player.GetComponent<Animator>().runtimeAnimatorController = p2Anim;
 
         FollowingPlayer.GetComponent<SpriteRenderer>().sprite = Corn;
-        FollowingPlayer.GetComponent<Animator>().runtimeAnimatorController = p1AnimF; ;
-    }    
+        FollowingPlayer.GetComponent<Animator>().runtimeAnimatorController = p1AnimF;
+    }
 }

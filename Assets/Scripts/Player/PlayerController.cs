@@ -37,7 +37,6 @@ public class PlayerController : MonoBehaviour
 
     private bool facingRight = true;
     private bool isMoving = false;
-    private float moveDirection = 0;
 
     void Start()
     {
@@ -103,20 +102,6 @@ public class PlayerController : MonoBehaviour
             isMoving = false; // Stop moving if velocity is zero
         }
     }
-
-    //// Start moving in the specified direction
-    //public void StartMove(float dir)
-    //{
-    //    moveDirection = dir;
-    //    isMoving = true;
-    //}
-
-    //// Stop moving
-    //public void StopMove()
-    //{
-    //    moveDirection = 0;
-    //    isMoving = false;
-    //}
 
     // Method for player jump
     public void Jump()

@@ -10,7 +10,8 @@ public class Boss : MonoBehaviour
     public GameObject ratPrefab; // Prefab for the rat enemy
     public Transform[] spawnPoints; // Points where rats will be spawned
     public int numberOfRats = 6; // Number of rats to spawn
-    private List<GameObject> activeRats = new List<GameObject>();
+    private List<GameObject> activeRats = new List<GameObject>(); // List to track active rats
+
     public PlayerController playerController; // Reference to the player's controller script
 
     private bool died = false; // Flag to track if all summons are dead
@@ -30,15 +31,50 @@ public class Boss : MonoBehaviour
     public float fadeDuration = 1.0f; // Duration for the pawEye to fade away
     private Vector3 pawStopPosition; // Variable to store the position where the paw stops
 
+    private RatSummonManager ratSummonManager; // Reference to RatSummonManager
+
     private void Start()
     {
         myAnim = GetComponent<Animator>(); // Get the Animator component
         attacking = false; // Initialize attacking flag to false
+        playerController = FindObjectOfType<PlayerController>(); // Find player controller
+
+        ratSummonManager = GetComponent<RatSummonManager>(); // Get RatSummonManager component
+
+        // Subscribe to the rat destruction event
+        ratSummonManager.OnAllRatsDestroyed += HandleAllRatsDestroyed;
+    }
+
+    private void HandleAllRatsDestroyed()
+    {
+        Debug.Log("All summoned minions have been killed.");
+        // Implement any logic needed when all rats are destroyed
     }
 
     private void Update()
     {
         // Handle updates (if needed)
+    }
+
+    // Method to start the Summoning attack
+    public void StartSummoningAttack(System.Action onComplete)
+    {
+        attacking = true; // Set attacking flag to true
+        ratSummonManager.StartSummoning(numberOfRats); // Start summoning rats using RatSummonManager
+        StartCoroutine(CheckRatSummonCompletion(onComplete)); // Start coroutine to check rat summoning completion
+    }
+
+    // Coroutine to check rat summoning completion
+    private IEnumerator CheckRatSummonCompletion(System.Action onComplete)
+    {
+        while (!ratSummonManager.AreAllRatsDestroyed())
+        {
+            yield return null;
+        }
+
+        // All rats are destroyed
+        onComplete?.Invoke();
+        attacking = false;
     }
 
     // Method to start the HairBallRoll attack
@@ -60,22 +96,6 @@ public class Boss : MonoBehaviour
     {
         attacking = true; // Set attacking flag to true
         StartCoroutine(SlammingAttackCoroutine(onComplete)); // Start the Slamming attack coroutine
-    }
-
-    // Method to start the Summoning attack
-    public void StartSummoningAttack(System.Action onComplete)
-    {
-        attacking = true; // Set attacking flag to true
-        StartCoroutine(SummoningAttackCoroutine(onComplete)); // Start the Summoning attack coroutine
-    }
-
-    // Method to freeze or unfreeze the player
-    private void FreezePlayer(bool freeze)
-    {
-        if (playerController != null)
-        {
-            playerController.canMove = !freeze; // Set the player's canMove property
-        }
     }
 
     // Coroutine for the HairBallRoll attack
@@ -134,7 +154,6 @@ public class Boss : MonoBehaviour
         onComplete?.Invoke();
         attacking = false; // Reset attacking flag
     }
-
 
     // Coroutine to fade away the spawned PawEye
     private IEnumerator FadeAwayPawEye(GameObject pawEyeInstance)
@@ -224,77 +243,6 @@ public class Boss : MonoBehaviour
         // Call the callback to signal completion
         onComplete?.Invoke();
         attacking = false; // Reset attacking flag
-    }
-
-    // Coroutine for the Summoning attack
-    private IEnumerator SummoningAttackCoroutine(System.Action onComplete)
-    {
-        Debug.Log("Starting Summoning attack");
-
-        // Initialize the number of rats to be killed
-        activeRats.Clear();
-
-        // Loop to summon rats and paws at the same spawn points
-        for (int i = 0; i < numberOfRats; i++)
-        {
-            // Select a spawn point from the spawnPoints array
-            Transform spawnPoint = spawnPoints[i % spawnPoints.Length];
-            Debug.Log("Spawning rat at: " + spawnPoint.position);
-
-            // Instantiate a paw at the boss's position
-            GameObject pawInstance = Instantiate(pawEyePrefab, transform.position, Quaternion.identity);
-
-            // Calculate duration based on distance and speed
-            float distance = Vector3.Distance(transform.position, spawnPoint.position);
-            float speed = 5.0f; // Adjust speed as needed
-            float duration = distance / speed;
-
-            // Move the paw towards the spawn point
-            yield return StartCoroutine(MovePawTowardsTarget(pawInstance, spawnPoint.position, duration));
-
-            // Instantiate the rat at the selected spawn point
-            GameObject ratInstance = Instantiate(ratPrefab, spawnPoint.position, spawnPoint.rotation);
-            activeRats.Add(ratInstance);
-
-            // Add a slight delay between each spawn
-            yield return new WaitForSeconds(0.2f);
-        }
-
-        Debug.Log("Summoning attack completed");
-
-        // Start checking for remaining rats
-        StartCoroutine(CheckRemainingRats(onComplete));
-    }
-
-    // Method to move the paw towards the target
-    private IEnumerator MovePawTowardsTarget(GameObject paw, Vector3 targetPosition, float duration)
-    {
-        Vector3 startPosition = paw.transform.position;
-        float elapsedTime = 0;
-
-        while (elapsedTime < duration)
-        {
-            paw.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        paw.transform.position = targetPosition;
-    }
-
-    // Coroutine to check for remaining rats
-    private IEnumerator CheckRemainingRats(System.Action onComplete)
-    {
-        while (activeRats.Count > 0)
-        {
-            activeRats.RemoveAll(rat => rat == null); // Remove destroyed rats from the list
-            yield return new WaitForSeconds(0.5f);
-        }
-
-        // All rats are destroyed
-        Debug.Log("All summoned minions have been killed.");
-        onComplete?.Invoke();
-        attacking = false;// Invoke the onComplete callback
     }
 
     // Check if the boss is ready for the next attack

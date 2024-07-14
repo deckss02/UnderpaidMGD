@@ -9,7 +9,6 @@ public class PlayerControllera : MonoBehaviour
     public LayerMask realGround;   //Declare variable to identify which layer in unity is enabled
     public bool isGrounded;        //Boolean to determine whether player touch ground
 
-
     public float moveSpeed; //Controll the speed that player is moving around the world
     private Rigidbody2D rb;
     public float jumpSpeed; //Controll the speed that player is moving when jumping
@@ -35,11 +34,13 @@ public class PlayerControllera : MonoBehaviour
     private bool facingRight = true;
     private GameObject Enemy;
 
+    // Jump cooldown variables
+    public float jumpCooldown = 1.2f; // Adjust this value to set the cooldown duration
+    private float nextJumpTime = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
-        //Ground detection variables
-
         rb = GetComponent<Rigidbody2D>(); //Get and store a reference to the Rigidbody2D component so that we can access it
 
         myAnim = GetComponent<Animator>(); //Get and store a reference to the Animator component so that we can access it
@@ -53,32 +54,15 @@ public class PlayerControllera : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, realGround);
         if (knockbackCounter <= 0 && canMove) //If there is no knockback
         {
-            //if (Input.GetAxisRaw("Horizontal") > 0)
-            //{
-            //     rb.velocity = new Vector2 (moveSpeed, rb.velocity.y); //Move to the right 
-            //     transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            //     facingRight = true;
-
-            //}
-            //else if (Input.GetAxisRaw("Horizontal") < 0)
-            //{
-            //     rb.velocity = new Vector2(-moveSpeed, rb.velocity.y); //Move to the left
-            //     transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
-            //     facingRight = false;
-
-            //}
-            //else
-            //{
-            //     rb.velocity = new Vector2(0, rb.velocity.y);  //if input is staying at 0, player should be standing still
-            //}
-
-            if (Input.GetButtonDown("Jump"))
+            // Jump input handling with cooldown check
+            if (Input.GetButtonDown("Jump") && Time.time >= nextJumpTime)
             {
-                // rb.velocity = new Vector2(rb.velocity.x, jumpSpeed); //Move Up
                 Jump();
                 jumpSound.Play();
+                nextJumpTime = Time.time + jumpCooldown; // Set the next allowed jump time
             }
 
+            // Firing logic
             if (Input.GetKeyDown(KeyCode.L) && Time.time > nextFire)
             {
                 nextFire = Time.time + fireRate;
@@ -100,8 +84,6 @@ public class PlayerControllera : MonoBehaviour
             }
         }
 
-
-
         myAnim.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
         myAnim.SetBool("Ground", isGrounded);
     }
@@ -112,14 +94,12 @@ public class PlayerControllera : MonoBehaviour
         {
             rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
             transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            //Flip();
             facingRight = true;
         }
         else if (dir < 0)
         {
             rb.velocity = new Vector2(-moveSpeed, rb.velocity.y); //Move to the left
             transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
-            //Flip();
             facingRight = false;
         }
         else
@@ -130,15 +110,20 @@ public class PlayerControllera : MonoBehaviour
 
     public void Jump()
     {
-        // Cannot jump if not on the ground.
-        if (!isGrounded)
+        // Cannot jump if not on the ground or if the cooldown hasn't expired.
+        if (!isGrounded || Time.time < nextJumpTime)
             return;
-        rb.velocity += new Vector2(0, jumpSpeed);
+
+        rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+        nextJumpTime = Time.time + jumpCooldown; // Update the cooldown timer
+        myAnim.SetBool("Ground", false);
     }
 
-    void Fire()
+    public void Fire()
     {
-        bulletPos = transform.position; //Set the position of the bullet to be player position
+        bulletPos = transform.position;
+
+        // Adjust bullet position based on facing direction
         if (facingRight)
         {
             bulletPos += new Vector2(+1f, -0.43f);
@@ -162,7 +147,6 @@ public class PlayerControllera : MonoBehaviour
         transform.localScale = scale;
     }
 
-
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "WeakPoint")
@@ -173,20 +157,10 @@ public class PlayerControllera : MonoBehaviour
                 bossHealth.TakeDamage(20f);
             }
         }
-        if (other.tag == "KillPlane")
-        {
-            //GameObject.SetActive(false);  //Set the PLayer to inactive
-            //transform.position = respawnPosition; //set the position to respawnPosition when it dies
-            theLevelManager.healthCount -= 100;
-            theLevelManager.UpdateHeartMeter();
-            theLevelManager.Respawn();
-        }
     }
 
     public void Knockback()
     {
         knockbackCounter = knockbackLength;
     }
-
-
 }
