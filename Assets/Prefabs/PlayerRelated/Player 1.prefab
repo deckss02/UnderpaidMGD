@@ -174,9 +174,7 @@ GameObject:
   - component: {fileID: 2732984767198713431}
   - component: {fileID: 5449095617761538675}
   - component: {fileID: 5363037221852475012}
-  - component: {fileID: 9117035492754690352}
   - component: {fileID: 6820589335757164099}
-  - component: {fileID: 3396021576188028260}
   - component: {fileID: 3974967330816378860}
   m_Layer: 9
   m_Name: Player 1
@@ -317,7 +315,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.6666667, y: 2.6666667}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 3.047619, y: 3.047619}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -347,36 +345,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &9117035492754690352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1581426526187252784}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 704895f08046f7b469cc782d148adf27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundCheck: {fileID: 6591184735950464802}
-  groundCheckRadius: 0.31
-  realGround:
-    serializedVersion: 2
-    m_Bits: 256
-  isGrounded: 0
-  moveSpeed: 5
-  jumpSpeed: 10
-  respawnPosition: {x: 1.02, y: 0.33, z: 0}
-  theLevelManager: {fileID: 0}
-  knockbackForce: 1.2
-  knockbackLength: 0.4
-  jumpSound: {fileID: 5540761165424690842}
-  hurtSound: {fileID: 3678849863952658464}
-  canMove: 1
-  bulletToRight: {fileID: 1279054595573540123, guid: 97546439719f63b479d3bb07b95d739b, type: 3}
-  bulletToLeft: {fileID: 1279054595573540123, guid: 8c1369f3c6775a3479f6c93efc945b7b, type: 3}
-  fireRate: 1
 --- !u!114 &6820589335757164099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,20 +359,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentOneWayPlatform: {fileID: 0}
   playerCollider: {fileID: 5449095617761538675}
---- !u!114 &3396021576188028260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1581426526187252784}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c46e558f27574b4c9521b35f7189a6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Attack: 0
-  movespeed: 0.1
 --- !u!114 &3974967330816378860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -435,6 +389,8 @@ MonoBehaviour:
   bulletToRight: {fileID: 1279054595573540123, guid: 97546439719f63b479d3bb07b95d739b, type: 3}
   bulletToLeft: {fileID: 1279054595573540123, guid: 8c1369f3c6775a3479f6c93efc945b7b, type: 3}
   fireRate: 1
+  isMoving: 0
+  jumpCooldown: 5
 --- !u!1 &5426061713574071008
 GameObject:
   m_ObjectHideFlags: 0

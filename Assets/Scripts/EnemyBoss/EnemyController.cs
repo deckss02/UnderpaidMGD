@@ -1,100 +1,83 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 1f; // Speed at which the enemy moves
-
-    public Transform pointA; // Transform of point A
-    public Transform pointB; // Transform of point B
-    private Transform currentPoint; // Current target point
-    public float specificXPointA = -5.35f; // Specific X coordinate for point A
-    public float specificXPointB = 0.62f; // Specific X coordinate for point B
-    public Color gizmoColor = Color.blue; // Color of the gizmos
-
+    [SerializeField] private int damageAmount = 1; // Amount of damage to apply
     private Rigidbody2D enemyRigidbody; // Reference to the Rigidbody2D component
-    public EnemyCounter theEnemyCounter; // Reference to the EnemyCounter script
-    public EnemyHealth enemyHealth; // Reference to the EnemyHealth script
+    private EnemyHealth enemyHealth; // Reference to the EnemyHealth script
 
-    // Start is called before the first frame update
     void Start()
     {
         enemyRigidbody = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component attached to the enemy
-        theEnemyCounter = FindObjectOfType<EnemyCounter>(); // Find the EnemyCounter component in the scene
         enemyHealth = GetComponent<EnemyHealth>(); // Get the EnemyHealth component attached to the enemy
 
-        if (pointA == null || pointB == null)
+        if (enemyHealth == null)
         {
-            Debug.LogError("pointA or pointB is not assigned in the Inspector!");
+            Debug.LogError("EnemyHealth component not found on the specified boss object or its parents.");
         }
-
-        currentPoint = pointB; // Start with pointB as initial point
-
-        if (enemyRigidbody == null)
+        else
         {
-            Debug.LogError("Rigidbody2D component is not found on the enemy GameObject!");
+            Debug.Log("EnemyHealth component found.");
         }
     }
-
 
     void Update()
     {
-        MoveBetweenPoints();
-    }
-
-    private void MoveBetweenPoints()
-    {
-        if (currentPoint == null || enemyRigidbody == null)
+        if (IsFacingRight())
         {
-            Debug.LogError("currentPoint or enemyRigidbody is null. Make sure they are properly assigned!");
-            return;
+            enemyRigidbody.velocity = new Vector2(moveSpeed, 0f);
         }
-
-        Vector2 moveDirection = (currentPoint.position - transform.position).normalized;
-        enemyRigidbody.velocity = moveDirection * moveSpeed;
-
-        if (Vector2.Distance(transform.position, currentPoint.position) < 0.1f)
+        else
         {
-            if (currentPoint == pointA)
-            {
-                currentPoint = pointB;
-            }
-            else
-            {
-                currentPoint = pointA;
-            }
-            Flip(); // Flip direction
+            enemyRigidbody.velocity = new Vector2(-moveSpeed, 0f);
         }
     }
 
-
-    private void OnDrawGizmos()
+    private bool IsFacingRight()
     {
-        Gizmos.color = gizmoColor;
-        Gizmos.DrawWireSphere(pointA.position, 0.5f);
-        Gizmos.DrawWireSphere(pointB.position, 0.5f);
-        Gizmos.DrawLine(pointA.position, pointB.position);
+        return transform.localScale.x > Mathf.Epsilon;
     }
 
-    // Called when the enemy takes damage
-    public void TakeDamage(int amount)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Reduce health using the EnemyHealth component
-        enemyHealth.TakeDamage(amount);
-
-        // Check if the enemy is destroyed (health <= 0) and handle accordingly
-        if (enemyHealth.currentHealth <= 0)
+        // Check if the collider is a boundary
+        if (collision.CompareTag("Boundary"))
         {
-            Die(); // Destroy the enemy
+            Flip();
+        }
+
+        // Check if the collider is tagged as a Bullet and if EnemyHealth is not null
+        if (collision.CompareTag("Bullet") && enemyHealth != null)
+        {
+            Debug.Log($"Bullet hit enemy. Applying {damageAmount} damage.");
+            enemyHealth.TakeDamage(damageAmount);
+            Destroy(collision.gameObject); // Destroy the bullet after hitting the enemy
+
+            // Check if the enemy is destroyed (health <= 0) and handle accordingly
+            if (enemyHealth.currentHealth <= 0)
+            {
+                Die(); // Destroy the enemy
+            }
+        }
+        else
+        {
+            // Log a message if the collision is not with a Bullet
+            if (!collision.CompareTag("Bullet"))
+            {
+                Debug.Log("Collision detected but not with a Bullet.");
+            }
+            // Log an error if EnemyHealth component is missing
+            if (enemyHealth == null)
+            {
+                Debug.Log("Cannot apply damage because EnemyHealth component is missing.");
+            }
         }
     }
 
     private void Flip()
     {
-        Vector3 localScale = transform.localScale;
-        localScale.x *= -1;
-        transform.localScale = localScale;
+        transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
     }
 
     // Destroy the enemy game object
@@ -103,3 +86,4 @@ public class EnemyController : MonoBehaviour
         Destroy(gameObject); // Destroy the enemy game object
     }
 }
+

@@ -7,9 +7,8 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
-
     public float waitToRespawn;
-    public PlayerController thePlayer; //Make a reference to an object of PlayerController
+    public PlayerControllera thePlayer; // Reference to an object of PlayerController
     public GameObject deathSplosion;
 
     public AudioSource coinSound;
@@ -31,68 +30,72 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private int numberOfFlashes;
     private SpriteRenderer playerSpriteRenderer;
 
-    public int expCount; //Keep track of number of coins that tha player collected
+    public int expCount; // Keep track of number of coins that the player collected
     public TextMeshProUGUI expText;
-    public GameObject gameOverScreen; //Referring to the Game Over Screen game object
-
+    public GameObject gameOverScreen; // Referring to the Game Over Screen game object
 
     public Image heart1;
-    public Image heart2; //Make a reference to 2 heart images
+    public Image heart2; // Reference to 2 heart images
 
     public Sprite heartFull;
     public Sprite heartHalf;
-    public Sprite heartEmpty; //Store sprites images heartFull, heartHalf & heartEmpty
-    
+    public Sprite heartEmpty; // Store sprites images heartFull, heartHalf & heartEmpty
+
     private bool respawning;
-    // Start is called before the first frame update
+
     void Start()
     {
-        thePlayer = FindObjectOfType<PlayerController>();
+        thePlayer = FindObjectOfType<PlayerControllera>();
         swap_Button = FindObjectOfType<PlayerSwap_Button>();
         expText.text = "Exp: " + expCount;
         healthCount = maxHealth;
         playerSpriteRenderer = thePlayer.GetComponent<SpriteRenderer>();
+
+        // Initialize character health
+        CornHealth = maxHealth;
+        RheaHealth = maxHealth;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (swap_Button.ChangeNumber == 0 && CornDeath == false)
         {
-            CornHealth = healthCount;
-            Debug.Log("Player swapped to Cornelius");
+            healthCount = CornHealth;
         }
         else if (swap_Button.ChangeNumber == 1 && RheaDeath == false)
         {
-            RheaHealth = healthCount;
-            Debug.Log("Player swapped to Rhea");
+            healthCount = RheaHealth;
         }
 
         if (healthCount <= 0 && !respawning)
         {
-            if (/*swap_Button.ChangeNumber == 0 &&*/ CornHealth <= 0)
+            if (CornHealth <= 0)
             {
                 CornDeath = true;
                 swap_Button.ChangeNumber = 1;
                 FollowingPlayer.transform.position = FollowingPlayer.transform.position;
             }
-            else if (/*swap_Button.ChangeNumber == 1 && */ RheaHealth <= 0)
+            else if (RheaHealth <= 0)
             {
                 RheaDeath = true;
                 swap_Button.ChangeNumber = 0;
                 FollowingPlayer.transform.position = FollowingPlayer.transform.position;
             }
-
             else if (RheaDeath && CornDeath == true)
             {
-                Respawn();
-                respawning = true;
+                thePlayer.gameObject.SetActive(false);
+                Instantiate(deathSplosion, thePlayer.transform.position, thePlayer.transform.rotation);
+                gameOverScreen.SetActive(true);
+                levelMusic.Stop();
+                gameOverMusic.Play();
             }
         }
+
+        UpdateHeartMeter();
     }
+
     public void HurtPlayer(int damageToTake)
     {
-        //healthCount = healthCount - damageToTake;
         if (swap_Button.ChangeNumber == 0)
         {
             CornHealth -= damageToTake;
@@ -101,7 +104,9 @@ public class LevelManager : MonoBehaviour
         {
             RheaHealth -= damageToTake;
         }
-        UpdateHeartMeter(); //Update the heart meter when pkayer respawns
+
+        healthCount = swap_Button.ChangeNumber == 0 ? CornHealth : RheaHealth;
+        UpdateHeartMeter();
         thePlayer.Knockback();
         thePlayer.hurtSound.Play();
         StartCoroutine(Invnerability());
@@ -111,11 +116,11 @@ public class LevelManager : MonoBehaviour
     {
         if (swap_Button.ChangeNumber == 0 && CornDeath == false)
         {
-            CornHealth = healthCount;
+            healthCount = CornHealth;
         }
-        if (swap_Button.ChangeNumber == 1 && RheaDeath == false)
+        else if (swap_Button.ChangeNumber == 1 && RheaDeath == false)
         {
-            RheaHealth = healthCount;
+            healthCount = RheaHealth;
         }
     }
 
@@ -132,54 +137,46 @@ public class LevelManager : MonoBehaviour
         Physics2D.IgnoreLayerCollision(9, 10, false);
     }
 
-    public void Respawn()
-    {
-        if (RheaDeath == true && CornDeath == true)
-        {
-           StartCoroutine("RespawnCo");  //In the () is the string name of the Coroutine
-        }
-        else
-        {
-           thePlayer.gameObject.SetActive(false); //Deactivate the player in the world
-           Instantiate(deathSplosion, thePlayer.transform.position, thePlayer.transform.rotation);
-           gameOverScreen.SetActive(true);
-           levelMusic.Stop();
-           gameOverMusic.Play();
-        }
-    }
-    //Update the heart meter
+  // public void Respawn()
+  // {
+  //     if (RheaDeath == true && CornDeath == true)
+  //     {
+  //         StartCoroutine("RespawnCo");
+  //     }
+  //     else
+  //     {
+  //         thePlayer.gameObject.SetActive(false);
+  //         Instantiate(deathSplosion, thePlayer.transform.position, thePlayer.transform.rotation);
+  //         gameOverScreen.SetActive(true);
+  //         levelMusic.Stop();
+  //         gameOverMusic.Play();
+  //     }
+  // }
+
     public void UpdateHeartMeter()
     {
-        switch(healthCount)
+        switch (healthCount)
         {
-            //When healthCount = 600, full healthCount
             case 400:
-            heart1.sprite = heartFull;
-            heart2.sprite = heartFull;
-            break; //Keyword, jumps the code execution of the switch
-
-            //Take away half of the heart when player gets hit once
-             case 300:
-            heart1.sprite = heartFull;
-            heart2.sprite = heartHalf;
-            break;
-
-             case 200:
-            heart1.sprite = heartFull;
-            heart2.sprite = heartEmpty;
-            break;
-
+                heart1.sprite = heartFull;
+                heart2.sprite = heartFull;
+                break;
+            case 300:
+                heart1.sprite = heartFull;
+                heart2.sprite = heartHalf;
+                break;
+            case 200:
+                heart1.sprite = heartFull;
+                heart2.sprite = heartEmpty;
+                break;
             case 100:
-            heart1.sprite = heartHalf;
-            heart2.sprite = heartEmpty;
-            break;
-
+                heart1.sprite = heartHalf;
+                heart2.sprite = heartEmpty;
+                break;
             case 0:
-            heart1.sprite = heartEmpty;
-            heart2.sprite = heartEmpty;
-            break;
-
-            //Any other situations 
+                heart1.sprite = heartEmpty;
+                heart2.sprite = heartEmpty;
+                break;
             default:
                 heart1.sprite = heartFull;
                 heart2.sprite = heartFull;
@@ -194,38 +191,35 @@ public class LevelManager : MonoBehaviour
         {
             healthCount = maxHealth;
         }
+
+        if (swap_Button.ChangeNumber == 0)
+        {
+            CornHealth = healthCount;
+        }
+        else if (swap_Button.ChangeNumber == 1)
+        {
+            RheaHealth = healthCount;
+        }
+
         coinSound.Play();
-
         UpdateHeartMeter();
-
-        // Update the health UI here if you have one
-        Debug.Log("Player healed. Current health: " + healAmount);
+        Debug.Log("Player healed. Current health: " + healthCount);
     }
-
 
     public void AddExp(int ExpToAdd)
     {
-        //coinCount = coinCount + coinsToAdd
-        expCount += ExpToAdd; //Short form
-        expText.text = "Exp: " + expCount; //When coin is collected, update the coinCount value and display in the text UI
-
+        expCount += ExpToAdd;
+        expText.text = "Exp: " + expCount;
         coinSound.Play();
     }
 
-    public IEnumerator RespawnCo()
-    {
-        thePlayer.gameObject.SetActive(false); //Deactivate the player in the world
-
-        Instantiate(deathSplosion, thePlayer.transform.position, thePlayer.transform.rotation); //Create Object
-
-        yield return new WaitForSeconds(waitToRespawn); //How many seconds we want the game to wait for
-
-        //healthCount = maxHealth;
-        respawning = false;
-        //UpdateHeartMeter(); //Update the heart meter when player respawns
-
-        thePlayer.transform.position = thePlayer.respawnPosition; //Move the player to respawn position
-        thePlayer.gameObject.SetActive(true); //Reactivate the player in the world
-    }
+  // public IEnumerator RespawnCo()
+  // {
+  //     thePlayer.gameObject.SetActive(false);
+  //     Instantiate(deathSplosion, thePlayer.transform.position, thePlayer.transform.rotation);
+  //     yield return new WaitForSeconds(waitToRespawn);
+  //     respawning = false;
+  //     thePlayer.transform.position = thePlayer.respawnPosition;
+  //     thePlayer.gameObject.SetActive(true);
+  // }
 }
-
