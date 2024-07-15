@@ -27,18 +27,14 @@ public class SummonMinionsBehaviour : StateMachineBehaviour
     // Callback method to be called when the summon attack is complete
     private void OnSummonComplete()
     {
-        // Nothing needed here; the Boss class will handle transitioning to cooldown when all minions are dead
+        // Transition to CoolDown state when the summon attack is complete
+        boss.myAnim.SetBool("CoolDown", true);
     }
 
     // Called on each Update frame while the state is being evaluated
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        // Check if all summoned minions are dead and transition to cooldown state
-        if (boss != null && boss.HasDied)
-        {
-            animator.SetBool("CoolDown", true); // Transition to cooldown state
-            Debug.Log("All minions dead, transitioning to CoolDown state");
-        }
+        // Update logic if needed
     }
 
     // Called when the state stops being evaluated

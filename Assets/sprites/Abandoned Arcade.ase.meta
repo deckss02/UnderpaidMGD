@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5c0ee23879e110142a2b0d98cded9aed
+guid: f4d21d305852bb24597e03adac40d478
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -119,18 +119,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Healing Flower
+  - name: Abandoned Arcade
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: -0.6564416, y: -2.6333334}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 72
-      height: 72
-    spriteID: 93965c4ffe6c93e4c9397a859c663299
+      width: 326
+      height: 330
+    spriteID: 0ebe2ebf2a6446c488095b4cfceee2f9
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -142,23 +142,23 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 588832417
-    name: Healing Flower
+    guid: 1202479134
+    name: Abandoned Arcade
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Healing Flower
+    - name: Abandoned Arcade
       frameIndex: 0
       cellRect:
-        x: 0
-        y: 0
-        width: 72
-        height: 72
-      spriteId: 93965c4ffe6c93e4c9397a859c663299
+        x: 754
+        y: 869
+        width: 326
+        height: 330
+      spriteId: 0ebe2ebf2a6446c488095b4cfceee2f9
     linkedCells: []
     parentIndex: -1
   platformSettings: []
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 72, y: 72}
+  canvasSize: {x: 1080, y: 1920}
