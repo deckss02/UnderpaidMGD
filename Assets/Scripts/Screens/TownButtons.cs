@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TownButtons : MonoBehaviour
 {
     // Start is called before the first frame update
+
+
     void Start()
     {
         
@@ -16,6 +19,7 @@ public class TownButtons : MonoBehaviour
     {
         
     }
+
 
     public void InnMove()
     {
@@ -32,4 +36,5 @@ public class TownButtons : MonoBehaviour
     {
         SceneManager.LoadScene("Guild");
     }
+
 }

@@ -47,7 +47,7 @@ public class HomeScreen : MonoBehaviour
 
     public void UnPauseGame()
     {
-        Time.timeScale = 0;
+        Time.timeScale = 1;
         TownCanvas.SetActive(false);
         UIHolder.SetActive(true);
         Player.canMove = true;

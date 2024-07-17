@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class HallofFameButtons : MonoBehaviour
 {
     public int canvasNumber;
+    public Button Leftbutton;
+    public Button Rightbutton;
 
     public GameObject HelpersCanvas;
     public GameObject MembersCanvas;
@@ -24,18 +27,36 @@ public class HallofFameButtons : MonoBehaviour
 
     }
 
-    /*
+    
     public void LeftButton()
     {
-        if (MembersCanvas)
+        if (canvasNumber != 0)
+        {
+            canvasNumber -= 1;
+            Leftbutton.gameObject.SetActive(true);
+        }
+        else
+        {
+            canvasNumber = 0;
+            Leftbutton.gameObject.SetActive(false);
+        }
     }
 
-    public void RighttButton()
+    public void RightButton()
     {
-        if (MembersCanvas)
+        if (canvasNumber != 3)
+        {
+            canvasNumber += 1;
+            Rightbutton.gameObject.SetActive(true);
+        }
+        else
+        {
+            canvasNumber = 3;
+            Rightbutton.gameObject.SetActive(false);
+        }
     }
 
-    */
+    
 
     public void Shuffle()
     {
