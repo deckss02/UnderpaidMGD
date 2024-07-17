@@ -10,10 +10,10 @@ public class Boss : MonoBehaviour
     public GameObject ratPrefab; // Prefab for the rat enemy
     public Transform[] spawnPoints; // Points where rats will be spawned
     public int numberOfRats = 6; // Number of rats to spawn
-    public PlayerController playerController; // Reference to the player's controller script
+    public PlayerControllera playerController; // Reference to the player's controller script
 
     private int summonsLeftToKill = 0; // Number of summoned rats that need to be killed
-    private bool died = false; // Flag to track if all summons are dead
+    private bool died = false; 
 
     // Array of attack stage names
     private string[] attackStages = { "PawAttack", "HairballAttack", "ClawAttack", "SummonMinions" };
@@ -30,28 +30,20 @@ public class Boss : MonoBehaviour
     public float fadeDuration = 1.0f; // Duration for the pawEye to fade away
     private Vector3 pawStopPosition; // Variable to store the position where the paw stops
 
-    private int inactiveRatsCount = 0; // Track the number of inactive rats
+    //private int inactiveRatsCount = 0; // Track the number of inactive rats
+    private int activeRatsCount = 0;
 
     private void Start()
     {
         myAnim = GetComponent<Animator>(); // Get the Animator component
         attacking = false; // Initialize attacking flag to false
-        playerController = GetComponent<PlayerController>();
+        playerController = GetComponent<PlayerControllera>();
 
-        // Subscribe to the OnDeath event of all rats in the scene
-        RatController[] rats = FindObjectsOfType<RatController>();
-        foreach (RatController rat in rats)
-        {
-            rat.OnDeath += SummonKilled;
-        }
-
-        // Initial check for inactive rats
-        CheckInactiveRats();
     }
 
     private void Update()
     {
-        // Handle updates (if needed)
+
     }
 
     // Method to start the HairBallRoll attack
@@ -238,6 +230,7 @@ public class Boss : MonoBehaviour
         attacking = false; // Reset attacking flag
     }
 
+
     // Coroutine for the Summoning attack
     private IEnumerator SummoningAttackCoroutine(System.Action onComplete)
     {
@@ -257,6 +250,7 @@ public class Boss : MonoBehaviour
             // Select a spawn point from the spawnPoints array
             Transform spawnPoint = spawnPoints[i % spawnPoints.Length];
             Debug.Log("Spawning rat at: " + spawnPoint.position);
+            activeRatsCount++;
 
             // Calculate duration based on distance and speed
             float distance = Vector3.Distance(transform.position, spawnPoint.position);
@@ -269,39 +263,24 @@ public class Boss : MonoBehaviour
             // Instantiate the rat at the selected spawn point
             GameObject ratInstance = Instantiate(ratPrefab, spawnPoint.position, spawnPoint.rotation);
 
-            // Attach the SummonKilled method to the rat's death event
-            RatController ratController = ratInstance.GetComponent<RatController>();
-            if (ratController != null)
-            {
-                ratController.OnDeath += SummonKilled;
-                Debug.Log("Attached SummonKilled to rat instance.");
-            }
-
-            // Add a slight delay between each spawn
             yield return new WaitForSeconds(0.2f);
         }
 
         Debug.Log("Summoning attack completed");
-
         // Unfreeze the player controls
         FreezePlayer(false);
+    }
 
-        // Wait for all summoned rats to be killed
-        yield return new WaitUntil(() => summonsLeftToKill <= 0 && inactiveRatsCount == numberOfRats);
-
-        // If all summons were killed, call onComplete
-        if (summonsLeftToKill <= 0)
+    public void KillRat()
+    {
+        activeRatsCount--;
+        if (activeRatsCount <= 0)
         {
-            died = true;
-            onComplete?.Invoke();
+            myAnim.SetBool("CoolDown", true); // Set the CoolDown animation state
+            myAnim.SetBool("Summon", false); // Set the CoolDown animation state
             attacking = false;
-
-            // Check if it's safe to transition to CoolDown state
-            if (IsReadyForNextAttack())
-            {
-                myAnim.SetBool("CoolDown", true); // Set the CoolDown animation state
-            }
         }
+
     }
 
     private IEnumerator CheckAttackProgress()
@@ -323,44 +302,6 @@ public class Boss : MonoBehaviour
         }
     }
 
-    // Method called when a summon is killed
-    private void SummonKilled()
-    {
-        summonsLeftToKill--; // Decrease the number of summons left to kill
-        CheckInactiveRats(); // Update the count of inactive rats
-
-        Debug.Log("Summon killed, remaining: " + summonsLeftToKill);
-
-        // Check if all summoned minions have been killed
-        if (summonsLeftToKill <= 0 && inactiveRatsCount == numberOfRats)
-        {
-            Debug.Log("All summoned minions have been killed.");
-            died = true;
-            myAnim.SetBool("CoolDown", true); // Set the CoolDown animation state
-        }
-    }
-
-    // Check if there are inactive rats in the scene
-    private void CheckInactiveRats()
-    {
-        // Reset inactive rats count
-        inactiveRatsCount = 0;
-
-        // Find all Rat objects in the scene
-        RatController[] rats = FindObjectsOfType<RatController>();
-
-        // Iterate through all rats
-        foreach (RatController rat in rats)
-        {
-            // Check if the rat is inactive
-            if (!rat.gameObject.activeSelf)
-            {
-                inactiveRatsCount++;
-            }
-        }
-
-        Debug.Log("Inactive rats count: " + inactiveRatsCount);
-    }
 
     // Check if the boss is ready for the next attack
     public bool IsReadyForNextAttack()
