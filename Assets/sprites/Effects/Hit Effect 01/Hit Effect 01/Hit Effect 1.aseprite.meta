@@ -1,0 +1,752 @@
+fileFormatVersion: 2
+guid: a87ff3d8278693d418c860c5586b2970
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: Hit Effect 1_Frame_0
+    originalName: 
+    pivot: {x: 0.11111111, y: -0.71428573}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 220
+      width: 27
+      height: 28
+    spriteID: 1f5edd759e4fa0045aef3188a3090c31
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 220}
+  - name: Hit Effect 1_Frame_1
+    originalName: 
+    pivot: {x: 0.3142857, y: -0.14285715}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 135
+      y: 4
+      width: 35
+      height: 42
+    spriteID: ad707fb7291ec1a4c85a110309627883
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 135, y: 4}
+  - name: Hit Effect 1_Frame_2
+    originalName: 
+    pivot: {x: 0.3142857, y: -0.06666667}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 92
+      y: 58
+      width: 35
+      height: 45
+    spriteID: 0003c1594ffb06b4ea1fa36e70ceb620
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 92, y: 58}
+  - name: Hit Effect 1_Frame_3
+    originalName: 
+    pivot: {x: 0.3142857, y: -0.04347826}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 48
+      y: 112
+      width: 35
+      height: 46
+    spriteID: 8a1c0fbec7c913f429d9b1ae58528162
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 48, y: 112}
+  - name: Hit Effect 1_Frame_4
+    originalName: 
+    pivot: {x: 0.33333334, y: -0.04347826}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 36
+      height: 46
+    spriteID: b8b4ba5c56d7f9a4293e66b8777438e7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: Hit Effect 1_Frame_5
+    originalName: 
+    pivot: {x: 0.33333334, y: -0.04347826}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 58
+      width: 36
+      height: 46
+    spriteID: 828582e313d28304eb10c9ae791bdd20
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 58}
+  - name: Hit Effect 1_Frame_6
+    originalName: 
+    pivot: {x: -3.8, y: -7}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 135
+      y: 154
+      width: 5
+      height: 6
+    spriteID: f71ace1718590b641998338f94fa5beb
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 135, y: 154}
+  - name: Hit Effect 1_Frame_7
+    originalName: 
+    pivot: {x: -3.8, y: -7}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 135
+      y: 168
+      width: 5
+      height: 6
+    spriteID: 1e900b8e26bef0844a53eef7c773c17d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 135, y: 168}
+  - name: Hit Effect 1_Frame_8
+    originalName: 
+    pivot: {x: 0.11111111, y: -0.71428573}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 48
+      y: 220
+      width: 27
+      height: 28
+    spriteID: 24264572b6941f84bbc5c2194b9124f1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 48, y: 220}
+  - name: Hit Effect 1_Frame_9
+    originalName: 
+    pivot: {x: 0.3142857, y: -0.14285715}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 135
+      y: 54
+      width: 35
+      height: 42
+    spriteID: 8b220a3cdce82d34db0127579137b474
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 135, y: 54}
+  - name: Hit Effect 1_Frame_10
+    originalName: 
+    pivot: {x: 0.3142857, y: -0.06666667}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 92
+      y: 111
+      width: 35
+      height: 45
+    spriteID: fc681e9390e1fd44dafa2d0d71d9bc58
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 92, y: 111}
+  - name: Hit Effect 1_Frame_11
+    originalName: 
+    pivot: {x: 0.3142857, y: -0.04347826}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 48
+      y: 166
+      width: 35
+      height: 46
+    spriteID: e6c7613cb2960a54f97bc565ddfa7dd0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 48, y: 166}
+  - name: Hit Effect 1_Frame_12
+    originalName: 
+    pivot: {x: 0.33333334, y: -0.04347826}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 112
+      width: 36
+      height: 46
+    spriteID: 9ae94f341262c3142bccd586ae60c72f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 112}
+  - name: Hit Effect 1_Frame_13
+    originalName: 
+    pivot: {x: 0.33333334, y: -0.04347826}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 166
+      width: 36
+      height: 46
+    spriteID: f4979a6fe7c34c2418ff0189016d3968
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 166}
+  - name: Hit Effect 1_Frame_14
+    originalName: 
+    pivot: {x: -3.8, y: -7}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 135
+      y: 182
+      width: 5
+      height: 6
+    spriteID: 92fab4034814ad6468bb592f6b2396ea
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 135, y: 182}
+  - name: Hit Effect 1_Frame_15
+    originalName: 
+    pivot: {x: -3.8, y: -7}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 135
+      y: 196
+      width: 5
+      height: 6
+    spriteID: 3d8c73c2dc91b5f49a5bfac3ebe6fc0c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 135, y: 196}
+  - name: Hit Effect 1_Frame_16
+    originalName: 
+    pivot: {x: 0.11111111, y: -0.71428573}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 92
+      y: 217
+      width: 27
+      height: 28
+    spriteID: 911c881e334b7784693cf2ca115ba3ee
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 92, y: 217}
+  - name: Hit Effect 1_Frame_17
+    originalName: 
+    pivot: {x: 0.3142857, y: -0.14285715}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 135
+      y: 104
+      width: 35
+      height: 42
+    spriteID: 29ffd0b3a79b6df49b7e744be6282b3e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 135, y: 104}
+  - name: Hit Effect 1_Frame_18
+    originalName: 
+    pivot: {x: 0.3142857, y: -0.06666667}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 92
+      y: 164
+      width: 35
+      height: 45
+    spriteID: c7b6c4c6044f6bc46a57441477cd46f6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 92, y: 164}
+  - name: Hit Effect 1_Frame_19
+    originalName: 
+    pivot: {x: 0.3142857, y: -0.04347826}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 92
+      y: 4
+      width: 35
+      height: 46
+    spriteID: 1beb4e5ec155a5140a93fbe6768d9e0b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 92, y: 4}
+  - name: Hit Effect 1_Frame_20
+    originalName: 
+    pivot: {x: 0.33333334, y: -0.04347826}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 48
+      y: 4
+      width: 36
+      height: 46
+    spriteID: c282c06c681771f45827076dba22342a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 48, y: 4}
+  - name: Hit Effect 1_Frame_21
+    originalName: 
+    pivot: {x: 0.33333334, y: -0.04347826}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 48
+      y: 58
+      width: 36
+      height: 46
+    spriteID: 65ed87ca73e2a104199612a995d505d7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 48, y: 58}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: 240044271
+    name: Hit Effect 1
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: Hit Effect 1_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 21
+        y: 20
+        width: 27
+        height: 28
+      spriteId: 1f5edd759e4fa0045aef3188a3090c31
+    - name: Hit Effect 1_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 13
+        y: 6
+        width: 35
+        height: 42
+      spriteId: ad707fb7291ec1a4c85a110309627883
+    - name: Hit Effect 1_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 13
+        y: 3
+        width: 35
+        height: 45
+      spriteId: 0003c1594ffb06b4ea1fa36e70ceb620
+    - name: Hit Effect 1_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 13
+        y: 2
+        width: 35
+        height: 46
+      spriteId: 8a1c0fbec7c913f429d9b1ae58528162
+    - name: Hit Effect 1_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 12
+        y: 2
+        width: 36
+        height: 46
+      spriteId: b8b4ba5c56d7f9a4293e66b8777438e7
+    - name: Hit Effect 1_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 12
+        y: 2
+        width: 36
+        height: 46
+      spriteId: 828582e313d28304eb10c9ae791bdd20
+    - name: Hit Effect 1_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 43
+        y: 42
+        width: 5
+        height: 6
+      spriteId: f71ace1718590b641998338f94fa5beb
+    - name: Hit Effect 1_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 43
+        y: 42
+        width: 5
+        height: 6
+      spriteId: 1e900b8e26bef0844a53eef7c773c17d
+    - name: Hit Effect 1_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 21
+        y: 20
+        width: 27
+        height: 28
+      spriteId: 24264572b6941f84bbc5c2194b9124f1
+    - name: Hit Effect 1_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 13
+        y: 6
+        width: 35
+        height: 42
+      spriteId: 8b220a3cdce82d34db0127579137b474
+    - name: Hit Effect 1_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 13
+        y: 3
+        width: 35
+        height: 45
+      spriteId: fc681e9390e1fd44dafa2d0d71d9bc58
+    - name: Hit Effect 1_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 13
+        y: 2
+        width: 35
+        height: 46
+      spriteId: e6c7613cb2960a54f97bc565ddfa7dd0
+    - name: Hit Effect 1_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 12
+        y: 2
+        width: 36
+        height: 46
+      spriteId: 9ae94f341262c3142bccd586ae60c72f
+    - name: Hit Effect 1_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: 12
+        y: 2
+        width: 36
+        height: 46
+      spriteId: f4979a6fe7c34c2418ff0189016d3968
+    - name: Hit Effect 1_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: 43
+        y: 42
+        width: 5
+        height: 6
+      spriteId: 92fab4034814ad6468bb592f6b2396ea
+    - name: Hit Effect 1_Frame_15
+      frameIndex: 15
+      cellRect:
+        x: 43
+        y: 42
+        width: 5
+        height: 6
+      spriteId: 3d8c73c2dc91b5f49a5bfac3ebe6fc0c
+    - name: Hit Effect 1_Frame_16
+      frameIndex: 16
+      cellRect:
+        x: 21
+        y: 20
+        width: 27
+        height: 28
+      spriteId: 911c881e334b7784693cf2ca115ba3ee
+    - name: Hit Effect 1_Frame_17
+      frameIndex: 17
+      cellRect:
+        x: 13
+        y: 6
+        width: 35
+        height: 42
+      spriteId: 29ffd0b3a79b6df49b7e744be6282b3e
+    - name: Hit Effect 1_Frame_18
+      frameIndex: 18
+      cellRect:
+        x: 13
+        y: 3
+        width: 35
+        height: 45
+      spriteId: c7b6c4c6044f6bc46a57441477cd46f6
+    - name: Hit Effect 1_Frame_19
+      frameIndex: 19
+      cellRect:
+        x: 13
+        y: 2
+        width: 35
+        height: 46
+      spriteId: 1beb4e5ec155a5140a93fbe6768d9e0b
+    - name: Hit Effect 1_Frame_20
+      frameIndex: 20
+      cellRect:
+        x: 12
+        y: 2
+        width: 36
+        height: 46
+      spriteId: c282c06c681771f45827076dba22342a
+    - name: Hit Effect 1_Frame_21
+      frameIndex: 21
+      cellRect:
+        x: 12
+        y: 2
+        width: 36
+        height: 46
+      spriteId: 65ed87ca73e2a104199612a995d505d7
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 48, y: 48}

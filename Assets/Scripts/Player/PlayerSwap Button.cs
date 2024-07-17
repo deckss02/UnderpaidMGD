@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerSwap_Button : MonoBehaviour
 {
     public PlayerControllera controller;
     public GameObject Player; // Reference to the Player
     public GameObject FollowingPlayer;
+
+    public Image CP; // Reference to the UI Image component
+    public Sprite firstSprite; // Reference to the first sprite
+    public Sprite secondSprite; // Reference to the second sprite
 
     public LevelManager levelManager;
 
@@ -59,6 +64,7 @@ public class PlayerSwap_Button : MonoBehaviour
     void Cornelius()
     {
         Player.GetComponent<SpriteRenderer>().sprite = Corn;
+        CP.sprite = firstSprite;
         Player.GetComponent<Animator>().runtimeAnimatorController = p1Anim;
 
         FollowingPlayer.GetComponent<SpriteRenderer>().sprite = Rhe;
@@ -68,6 +74,7 @@ public class PlayerSwap_Button : MonoBehaviour
     void Rhea()
     {
         Player.GetComponent<SpriteRenderer>().sprite = Rhe;
+        CP.sprite = secondSprite;
         Player.GetComponent<Animator>().runtimeAnimatorController = p2Anim;
 
         FollowingPlayer.GetComponent<SpriteRenderer>().sprite = Corn;
