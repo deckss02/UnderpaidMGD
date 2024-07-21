@@ -14,7 +14,7 @@ public class EnemyController : MonoBehaviour
 
         if (enemyHealth == null)
         {
-            Debug.LogError("EnemyHealth component not found on the specified boss object or its parents.");
+            Debug.LogError("EnemyHealth component not found on the specified enemy");
         }
         else
         {

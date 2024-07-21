@@ -22,8 +22,8 @@ public class LevelManager : MonoBehaviour
     public int CornHealth;
     public int RheaHealth;
 
-    public bool CornDeath;
-    public bool RheaDeath;
+    public bool CornDeath = false;
+    public bool RheaDeath = false;
 
     [Header("iFrames")]
     [SerializeField] private float iFramesDuration;
@@ -41,7 +41,7 @@ public class LevelManager : MonoBehaviour
     public Sprite heartHalf;
     public Sprite heartEmpty; // Store sprites images heartFull, heartHalf & heartEmpty
 
-    private bool respawning;
+    //private bool respawning;
 
     void Start()
     {
@@ -58,30 +58,29 @@ public class LevelManager : MonoBehaviour
 
     void Update()
     {
-        if (swap_Button.ChangeNumber == 0 && CornDeath == false)
+        if (swap_Button.isCorneliusActive && !CornDeath)
         {
             healthCount = CornHealth;
         }
-        else if (swap_Button.ChangeNumber == 1 && RheaDeath == false)
+        else if (!swap_Button.isCorneliusActive && !RheaDeath)
         {
             healthCount = RheaHealth;
         }
 
-        if (healthCount <= 0 && !respawning)
+        if (healthCount <= 0)
         {
-            if (CornHealth <= 0)
+            if (swap_Button.isCorneliusActive)
             {
                 CornDeath = true;
-                swap_Button.ChangeNumber = 1;
-                FollowingPlayer.transform.position = FollowingPlayer.transform.position;
+                swap_Button.ForceSwitchCharacter(); // Switch to Rhea if Cornelius dies
             }
-            else if (RheaHealth <= 0)
+            else
             {
                 RheaDeath = true;
-                swap_Button.ChangeNumber = 0;
-                FollowingPlayer.transform.position = FollowingPlayer.transform.position;
+                swap_Button.ForceSwitchCharacter(); // Switch to Cornelius if Rhea dies
             }
-            else if (RheaDeath && CornDeath == true)
+
+            if (CornDeath && RheaDeath)
             {
                 thePlayer.gameObject.SetActive(false);
                 Instantiate(deathSplosion, thePlayer.transform.position, thePlayer.transform.rotation);
@@ -96,16 +95,16 @@ public class LevelManager : MonoBehaviour
 
     public void HurtPlayer(int damageToTake)
     {
-        if (swap_Button.ChangeNumber == 0)
+        if (swap_Button.isCorneliusActive)
         {
             CornHealth -= damageToTake;
         }
-        else if (swap_Button.ChangeNumber == 1)
+        else
         {
             RheaHealth -= damageToTake;
         }
 
-        healthCount = swap_Button.ChangeNumber == 0 ? CornHealth : RheaHealth;
+        healthCount = swap_Button.isCorneliusActive ? CornHealth : RheaHealth;
         UpdateHeartMeter();
         thePlayer.Knockback();
         thePlayer.hurtSound.Play();
@@ -114,11 +113,11 @@ public class LevelManager : MonoBehaviour
 
     public void SwapHealth()
     {
-        if (swap_Button.ChangeNumber == 0 && CornDeath == false)
+        if (swap_Button.isCorneliusActive && !CornDeath)
         {
             healthCount = CornHealth;
         }
-        else if (swap_Button.ChangeNumber == 1 && RheaDeath == false)
+        else if (!swap_Button.isCorneliusActive && !RheaDeath)
         {
             healthCount = RheaHealth;
         }
@@ -137,21 +136,21 @@ public class LevelManager : MonoBehaviour
         Physics2D.IgnoreLayerCollision(9, 10, false);
     }
 
-  // public void Respawn()
-  // {
-  //     if (RheaDeath == true && CornDeath == true)
-  //     {
-  //         StartCoroutine("RespawnCo");
-  //     }
-  //     else
-  //     {
-  //         thePlayer.gameObject.SetActive(false);
-  //         Instantiate(deathSplosion, thePlayer.transform.position, thePlayer.transform.rotation);
-  //         gameOverScreen.SetActive(true);
-  //         levelMusic.Stop();
-  //         gameOverMusic.Play();
-  //     }
-  // }
+    // public void Respawn()
+    // {
+    //     if (RheaDeath == true && CornDeath == true)
+    //     {
+    //         StartCoroutine("RespawnCo");
+    //     }
+    //     else
+    //     {
+    //         thePlayer.gameObject.SetActive(false);
+    //         Instantiate(deathSplosion, thePlayer.transform.position, thePlayer.transform.rotation);
+    //         gameOverScreen.SetActive(true);
+    //         levelMusic.Stop();
+    //         gameOverMusic.Play();
+    //     }
+    // }
 
     public void UpdateHeartMeter()
     {
@@ -192,11 +191,11 @@ public class LevelManager : MonoBehaviour
             healthCount = maxHealth;
         }
 
-        if (swap_Button.ChangeNumber == 0)
+        if (swap_Button.isCorneliusActive)
         {
             CornHealth = healthCount;
         }
-        else if (swap_Button.ChangeNumber == 1)
+        else
         {
             RheaHealth = healthCount;
         }
@@ -213,13 +212,13 @@ public class LevelManager : MonoBehaviour
         coinSound.Play();
     }
 
-  // public IEnumerator RespawnCo()
-  // {
-  //     thePlayer.gameObject.SetActive(false);
-  //     Instantiate(deathSplosion, thePlayer.transform.position, thePlayer.transform.rotation);
-  //     yield return new WaitForSeconds(waitToRespawn);
-  //     respawning = false;
-  //     thePlayer.transform.position = thePlayer.respawnPosition;
-  //     thePlayer.gameObject.SetActive(true);
-  // }
+    // public IEnumerator RespawnCo()
+    // {
+    //     thePlayer.gameObject.SetActive(false);
+    //     Instantiate(deathSplosion, thePlayer.transform.position, thePlayer.transform.rotation);
+    //     yield return new WaitForSeconds(waitToRespawn);
+    //     respawning = false;
+    //     thePlayer.transform.position = thePlayer.respawnPosition;
+    //     thePlayer.gameObject.SetActive(true);
+    // }
 }

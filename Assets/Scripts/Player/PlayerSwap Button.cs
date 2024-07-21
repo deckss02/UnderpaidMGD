@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,71 +12,124 @@ public class PlayerSwap_Button : MonoBehaviour
     public Sprite firstSprite; // Reference to the first sprite
     public Sprite secondSprite; // Reference to the second sprite
 
-    public LevelManager levelManager;
+    public GameObject CSkill; // Reference to the first skill GameObject
+    public GameObject RSkill; // Reference to the second skill GameObject
 
-    public int CorneliusHealth;
-    public int RheaHealth;
+    public Sprite RheaBox;
+    public Sprite CornBox;
+
+    public LevelManager levelManager;
 
     public Sprite Corn; // Sprites of Player Characters
     public Sprite Rhe;
     public RuntimeAnimatorController p1Anim; // Switches the player's animation controller during gameplay.
     public RuntimeAnimatorController p2Anim;
-    public RuntimeAnimatorController p1AnimF; // Switches the following character's animator during gameplay.
-    public RuntimeAnimatorController p2AnimF;
 
-    public int ChangeNumber = 0; // This integer details which Character is in use.
+    public bool isCorneliusActive = true; // Track the currently active character
+    public float switchCooldown = 1f; // Cooldown period in seconds
+    private float nextSwitchTime = 0f; // Time when switching is allowed again
+
+    private SwordUser sworduser; // Reference to the SwordUser component for the main player
+
+    private bool forceSwitched = false; // Flag to disable swapping after forced switch
 
     void Start()
     {
         controller = FindObjectOfType<PlayerControllera>();
         levelManager = FindObjectOfType<LevelManager>();
-    }
-
-    void Update()
-    {
-        // This method can be called from a UI button
+        sworduser = Player.GetComponent<SwordUser>();
+        CSkill.SetActive(true);
     }
 
     public void SwitchCharacter()
     {
-        ChangeNumber = ChangeNumber + 1;
-
-        if (ChangeNumber > 1)
+        // Check if switching is allowed and enough time has passed to switch
+        if (Time.time >= nextSwitchTime && !forceSwitched)
         {
-            ChangeNumber = 0;
-        }
+            // Check if the active character is dead and prevent switching to a dead character
+            if ((isCorneliusActive && levelManager.CornDeath) || (!isCorneliusActive && levelManager.RheaDeath))
+            {
+                return;
+            }
 
-        // Switch Statement allows smooth back-&-forth swapping.
-        switch (ChangeNumber)
-        {
-            case 0:
-                Cornelius();
-                break;
-            case 1:
-                Rhea();
-                break;
-        }
+            // Update the nextSwitchTime based on the cooldown period
+            nextSwitchTime = Time.time + switchCooldown;
 
-        levelManager.SwapHealth(); // Sync health after switching characters
+            // Perform the switch based on the current state
+            if (isCorneliusActive)
+            {
+                SwitchToRhea();
+                SwitchToRheaBox();
+            }
+            else
+            {
+                SwitchToCornelius();
+                SwitchToCornBox();
+            }
+
+            levelManager.SwapHealth(); // Sync health after switching character
+
+            // Equip the correct weapon based on the active character
+            if (isCorneliusActive)
+            {
+                sworduser.SwitchToSword();
+            }
+            else
+            {
+                sworduser.SwitchToClaymore();
+            }
+
+            // Toggle the active character state
+            isCorneliusActive = !isCorneliusActive;
+        }
     }
 
-    void Cornelius()
+    void SwitchToCornBox()
+    {
+        FollowingPlayer.GetComponent<SpriteRenderer>().sprite = CornBox;
+    }
+
+    void SwitchToRheaBox()
+    {
+        FollowingPlayer.GetComponent<SpriteRenderer>().sprite = RheaBox;
+    }
+
+    void SwitchToCornelius()
     {
         Player.GetComponent<SpriteRenderer>().sprite = Corn;
         CP.sprite = firstSprite;
         Player.GetComponent<Animator>().runtimeAnimatorController = p1Anim;
-
-        FollowingPlayer.GetComponent<SpriteRenderer>().sprite = Rhe;
-        FollowingPlayer.GetComponent<Animator>().runtimeAnimatorController = p2AnimF;
+        CSkill.SetActive(true);
+        RSkill.SetActive(false);
     }
 
-    void Rhea()
+    void SwitchToRhea()
     {
         Player.GetComponent<SpriteRenderer>().sprite = Rhe;
         CP.sprite = secondSprite;
         Player.GetComponent<Animator>().runtimeAnimatorController = p2Anim;
+        CSkill.SetActive(false);
+        RSkill.SetActive(true);
+    }
 
-        FollowingPlayer.GetComponent<SpriteRenderer>().sprite = Corn;
-        FollowingPlayer.GetComponent<Animator>().runtimeAnimatorController = p1AnimF;
+    public void ForceSwitchCharacter()
+    {
+        // Perform the switch based on the current state
+        if (isCorneliusActive && levelManager.CornDeath)
+        {
+            SwitchToRhea();
+            SwitchToRheaBox();
+            isCorneliusActive = false;
+        }
+        else if (!isCorneliusActive && levelManager.RheaDeath)
+        {
+            SwitchToCornelius();
+            SwitchToCornBox();
+            isCorneliusActive = true;
+        }
+
+        // Set the flag to disable further swapping
+        forceSwitched = true;
     }
 }
+
