@@ -13,7 +13,7 @@ public class PlayerControllera : MonoBehaviour
     private Rigidbody2D rb;
     public float jumpSpeed; //Controll the speed that player is moving when jumping
     private Animator myAnim;
-    public Vector3 respawnPosition;
+ //   public Vector3 respawnPosition;
 
     public LevelManager theLevelManager; //Make a reference to LvlManager
 
@@ -24,18 +24,18 @@ public class PlayerControllera : MonoBehaviour
     public AudioSource hurtSound;
     public bool canMove = true; // When game is paused, player cannot move
 
-    public GameObject bulletToRight;
-    public GameObject bulletToLeft; //Game Object will be instantiated when hit the fire button
-    private Vector2 bulletPos; //Coordinates where the bullet should be instantiated
-    public float fireRate;
-    private float nextFire;
+  // public GameObject bulletToRight;
+  // public GameObject bulletToLeft; //Game Object will be instantiated when hit the fire button
+  // private Vector2 bulletPos; //Coordinates where the bullet should be instantiated
+  // public float fireRate;
+  // private float nextFire;
     public bool isMoving;
 
     private bool facingRight = true;
     private GameObject Enemy;
 
     // Jump cooldown variables
-    public float jumpCooldown = 1.2f; // Adjust this value to set the cooldown duration
+    public float jumpCooldown = 1.0f; // Adjust this value to set the cooldown duration
     private float nextJumpTime = 0f;
 
     // Start is called before the first frame update
@@ -44,7 +44,7 @@ public class PlayerControllera : MonoBehaviour
         rb = GetComponent<Rigidbody2D>(); //Get and store a reference to the Rigidbody2D component so that we can access it
 
         myAnim = GetComponent<Animator>(); //Get and store a reference to the Animator component so that we can access it
-        respawnPosition = transform.position; //When game starts, respawn position equals to the current players position
+    //    respawnPosition = transform.position; //When game starts, respawn position equals to the current players position
         theLevelManager = FindObjectOfType<LevelManager>();
     }
 
@@ -62,12 +62,12 @@ public class PlayerControllera : MonoBehaviour
                 nextJumpTime = Time.time + jumpCooldown; // Set the next allowed jump time
             }
 
-            // Firing logic
-            if (Input.GetKeyDown(KeyCode.L) && Time.time > nextFire)
-            {
-                nextFire = Time.time + fireRate;
-                Fire();
-            }
+          // // Firing logic
+          // if (Input.GetKeyDown(KeyCode.L) && Time.time > nextFire)
+          // {
+          //     nextFire = Time.time + fireRate;
+          //     Fire();
+          // }
         }
 
         if (knockbackCounter > 0)
@@ -119,22 +119,22 @@ public class PlayerControllera : MonoBehaviour
         myAnim.SetBool("Ground", false);
     }
 
-    public void Fire()
-    {
-        bulletPos = transform.position;
-
-        // Adjust bullet position based on facing direction
-        if (facingRight)
-        {
-            bulletPos += new Vector2(+1f, -0.43f);
-            Instantiate(bulletToRight, bulletPos, Quaternion.identity);
-        }
-        else
-        {
-            bulletPos += new Vector2(-1f, -0.43f);
-            Instantiate(bulletToLeft, bulletPos, Quaternion.identity);
-        }
-    }
+  // public void Fire()
+  // {
+  //     bulletPos = transform.position;
+  //
+  //     // Adjust bullet position based on facing direction
+  //     if (facingRight)
+  //     {
+  //         bulletPos += new Vector2(+1f, -0.43f);
+  //         Instantiate(bulletToRight, bulletPos, Quaternion.identity);
+  //     }
+  //     else
+  //     {
+  //         bulletPos += new Vector2(-1f, -0.43f);
+  //         Instantiate(bulletToLeft, bulletPos, Quaternion.identity);
+  //     }
+  // }
 
     void Flip()
     {
