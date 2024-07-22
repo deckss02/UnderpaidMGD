@@ -8636,7 +8636,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &647737863
 Transform:
   m_ObjectHideFlags: 0
@@ -10205,7 +10205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d6b82041f8a48c4a8505f72e6e9dad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hairballPrefab: {fileID: 948631926}
+  hairballPrefab: {fileID: 3687297798469502240, guid: 3a192313a171d494385618e776510fdd, type: 3}
   firePoints:
   - {fileID: 1563052064}
   - {fileID: 1896749667}
@@ -12217,7 +12217,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &898366762
 Transform:
   m_ObjectHideFlags: 0
@@ -13220,11 +13220,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &948631926 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3687297798469502240, guid: 3a192313a171d494385618e776510fdd, type: 3}
-  m_PrefabInstance: {fileID: 5532724866500207978}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &952133160
 GameObject:
   m_ObjectHideFlags: 0

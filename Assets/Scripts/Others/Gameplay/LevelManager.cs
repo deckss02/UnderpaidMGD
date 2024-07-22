@@ -185,21 +185,30 @@ public class LevelManager : MonoBehaviour
 
     public void Heal(int healAmount)
     {
-        healthCount += healAmount;
-        if (healthCount > maxHealth)
+        // Determine which character has the lowest health
+        if (CornHealth < RheaHealth)
         {
-            healthCount = maxHealth;
-        }
-
-        if (swap_Button.isCorneliusActive)
-        {
-            CornHealth = healthCount;
+            // Heal Cornelius if his health is lower
+            CornHealth += healAmount;
+            if (CornHealth > maxHealth)
+            {
+                CornHealth = maxHealth;
+            }
         }
         else
         {
-            RheaHealth = healthCount;
+            // Heal Rhea if her health is lower or if both are equal
+            RheaHealth += healAmount;
+            if (RheaHealth > maxHealth)
+            {
+                RheaHealth = maxHealth;
+            }
         }
 
+        // Update the health count to reflect the currently active character's health
+        healthCount = swap_Button.isCorneliusActive ? CornHealth : RheaHealth;
+
+        // Play the coin sound and update the heart meter
         coinSound.Play();
         UpdateHeartMeter();
         Debug.Log("Player healed. Current health: " + healthCount);
