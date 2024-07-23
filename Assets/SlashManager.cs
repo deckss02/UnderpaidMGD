@@ -9,7 +9,7 @@ public class SlashManager : MonoBehaviour
 
     public Transform slashPosition; // Reference to the Transform of the slash position
 
-    private Animator slashAnimator; // Reference to the Animator component on the slash position
+    public Animator slashAnimator; // Reference to the Animator component on the slash position
 
     private string currentWeaponType; // Track the current weapon type
 

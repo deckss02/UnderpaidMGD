@@ -46,7 +46,6 @@ public class PawAI : MonoBehaviour
     protected virtual IEnumerator MoveInCircle()
     {
         float angle = 0f;
-
         while (true)
         {
             if (isActive && !isReturning)
@@ -70,6 +69,15 @@ public class PawAI : MonoBehaviour
                 if (angle >= 360f) angle -= 360f;
 
                 yield return null; // Wait for the next frame
+            }
+            else if (isActive)
+            {
+                // Pause for the specified stop duration
+                yield return new WaitForSeconds(stopDuration);
+
+                // Continue moving after the stop duration
+                isActive = false; // Deactivate to trigger the return to original position
+                ReturnToOriginalPosition();
             }
             else
             {
@@ -126,5 +134,10 @@ public class PawAI : MonoBehaviour
         isActive = false;
         ReturnToOriginalPosition();
     }
-}
 
+    // Method to set the stop duration externally
+    public void SetStopDuration(float duration)
+    {
+        stopDuration = duration;
+    }
+}

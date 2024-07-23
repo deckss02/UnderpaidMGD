@@ -50,7 +50,7 @@ public class PawSlamBehaviour : StateMachineBehaviour
     {
         // Reset the flag for the next time this state is entered
         hasAttacked = false;
-        animator.SetBool("Slam", false);
+        animator.SetBool("Paw8", false);
         animator.ResetTrigger("IsPaw");
         Debug.Log("Exited Paw Slam attack state");
     }

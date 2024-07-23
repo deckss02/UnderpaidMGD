@@ -148,7 +148,7 @@ public class BossHealth : MonoBehaviour
     {
         // Stop all attacks and cooldowns
         animator.SetBool("Summon", false);
-        animator.SetBool("Slam", false);
+        animator.SetBool("Paw8", false);
         animator.SetBool("Claw", false);
         animator.SetBool("HairBall", false);
         animator.SetBool("CoolDown", false);

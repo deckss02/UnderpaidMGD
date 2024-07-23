@@ -4,22 +4,14 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 1f; // Speed at which the enemy moves
     [SerializeField] private int damageAmount = 1; // Amount of damage to apply
+    [SerializeField] private int maxHealth = 3; // Maximum health for the enemy
+    private int currentHealth; // Current health of the enemy
     private Rigidbody2D enemyRigidbody; // Reference to the Rigidbody2D component
-    private EnemyHealth enemyHealth; // Reference to the EnemyHealth script
 
     void Start()
     {
         enemyRigidbody = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component attached to the enemy
-        enemyHealth = GetComponent<EnemyHealth>(); // Get the EnemyHealth component attached to the enemy
-
-        if (enemyHealth == null)
-        {
-            Debug.LogError("EnemyHealth component not found on the specified enemy");
-        }
-        else
-        {
-            Debug.Log("EnemyHealth component found.");
-        }
+        currentHealth = maxHealth; // Initialize current health
     }
 
     void Update()
@@ -47,31 +39,21 @@ public class EnemyController : MonoBehaviour
             Flip();
         }
 
-        // Check if the collider is tagged as a Bullet and if EnemyHealth is not null
-        if (collision.CompareTag("Bullet") && enemyHealth != null)
+        // Check if the collider is tagged as a Bullet and apply damage
+        if (collision.CompareTag("Bullet"))
         {
             Debug.Log($"Bullet hit enemy. Applying {damageAmount} damage.");
-            enemyHealth.TakeDamage(damageAmount);
+            TakeDamage(damageAmount); // Apply damage to the enemy
             Destroy(collision.gameObject); // Destroy the bullet after hitting the enemy
-
-            // Check if the enemy is destroyed (health <= 0) and handle accordingly
-            if (enemyHealth.currentHealth <= 0)
-            {
-                Die(); // Destroy the enemy
-            }
         }
-        else
+    }
+
+    public void TakeDamage(int amount)
+    {
+        currentHealth -= amount; // Reduce current health
+        if (currentHealth <= 0)
         {
-            // Log a message if the collision is not with a Bullet
-            if (!collision.CompareTag("Bullet"))
-            {
-                Debug.Log("Collision detected but not with a Bullet.");
-            }
-            // Log an error if EnemyHealth component is missing
-            if (enemyHealth == null)
-            {
-                Debug.Log("Cannot apply damage because EnemyHealth component is missing.");
-            }
+            Die(); // Destroy the enemy if health is 0 or less
         }
     }
 
@@ -80,10 +62,9 @@ public class EnemyController : MonoBehaviour
         transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
     }
 
-    // Destroy the enemy game object
-    private void Die()
+    public void Die()
     {
+        Debug.Log("Enemy is dying");
         Destroy(gameObject); // Destroy the enemy game object
     }
 }
-

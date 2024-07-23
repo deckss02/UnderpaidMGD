@@ -46,7 +46,7 @@ public class CoolDownBehaviour : StateMachineBehaviour
                 case "SummonMinions":
                     SummonMinionsPicked(animator);
                     break;
-                case "PawSlam":
+                case "Paw8":
                     PawSlamPicked(animator);
                     break;
                 case "Claw":
@@ -82,7 +82,7 @@ public class CoolDownBehaviour : StateMachineBehaviour
     // Get the next attack stage based on stagesCompleted
     private string GetNextAttackStage()
     {
-        string[] attackStages = { "SummonMinions", "PawSlam", "Claw", "HairBallRoll" };
+        string[] attackStages = { "SummonMinions", "Paw8", "Claw", "HairBallRoll" };
         int index = stagesCompleted % attackStages.Length; // Loop through stages
         stagesCompleted++; // Increment the counter
         return attackStages[index];
@@ -99,7 +99,7 @@ public class CoolDownBehaviour : StateMachineBehaviour
     private void PawSlamPicked(Animator animator)
     {
         ResetAttackBools(animator);
-        animator.SetBool("Slam", true);
+        animator.SetBool("Paw8", true);
         animator.SetTrigger("IsPaw");
         animator.SetBool("CoolDown", false);
     }
@@ -122,7 +122,7 @@ public class CoolDownBehaviour : StateMachineBehaviour
     private void ResetAttackBools(Animator animator)
     {
         animator.SetBool("Summon", false);
-        animator.SetBool("Slam", false);
+        animator.SetBool("Paw8", false);
         animator.SetBool("Claw", false);
         animator.SetBool("HairBall", false);
     }

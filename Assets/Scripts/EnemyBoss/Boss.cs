@@ -11,9 +11,7 @@ public class Boss : MonoBehaviour
     public Transform[] spawnPoints; // Points where rats will be spawned
     public int numberOfRats = 6; // Number of rats to spawn
     public PlayerControllera playerController; // Reference to the player's controller script
-
-    private int summonsLeftToKill = 0; // Number of summoned rats that need to be killed
-    private bool died = false; 
+    private bool died = false;
 
     // Array of attack stage names
     private string[] attackStages = { "PawAttack", "HairballAttack", "ClawAttack", "SummonMinions" };
@@ -30,20 +28,13 @@ public class Boss : MonoBehaviour
     public float fadeDuration = 1.0f; // Duration for the pawEye to fade away
     private Vector3 pawStopPosition; // Variable to store the position where the paw stops
 
-    //private int inactiveRatsCount = 0; // Track the number of inactive rats
-    private int activeRatsCount = 0;
+    public int activeRatsCount;
 
     private void Start()
     {
         myAnim = GetComponent<Animator>(); // Get the Animator component
         attacking = false; // Initialize attacking flag to false
         playerController = GetComponent<PlayerControllera>();
-
-    }
-
-    private void Update()
-    {
-
     }
 
     // Method to start the HairBallRoll attack
@@ -154,47 +145,64 @@ public class Boss : MonoBehaviour
         Destroy(savePawInstance); // Destroy the SavePaw instance
     }
 
-    // Coroutine for the Claw attack
     private IEnumerator ClawAttackCoroutine(System.Action onComplete)
     {
         Debug.Log("Starting Claw attack");
 
         // Variables for the attack logic
-        float followDuration = 10.0f; // Duration to follow the player before spawning claws
-        float clawSpawnInterval = 12.0f; // Interval between spawning claws
+        float followDuration = 5.0f; // Duration to follow the player before spawning claws (adjusted to split between two paws)
         int maxClawSpawns = 3; // Maximum number of claws to spawn before cooldown
-        int clawSpawnCount = 3; // Counter for claws spawned
-        float attackTimer = 10.0f; // Timer for tracking attack duration
+        int clawSpawnCount = 0; // Counter for claws spawned
+        bool isPawEyeActive = true; // Flag to track which paw is active
 
         // Loop until attack conditions are met
         while (clawSpawnCount < maxClawSpawns)
         {
-            // Move PawEye towards the player
-            pawEye.ActivatePaw();
-            yield return new WaitForSeconds(followDuration / 2); // Follow for half the duration
-            pawStopPosition = pawEye.transform.position; // Store the position where PawEye stopped
-
-            // Move PawMouth towards the player
-            pawMouth.ActivatePaw();
-            yield return new WaitForSeconds(followDuration / 2); // Follow for the remaining half duration
-            pawStopPosition = pawMouth.transform.position; // Store the position where PawMouth stopped
-
-            // Check if attack duration has reached the claw spawn interval
-            attackTimer += followDuration;
-            if (attackTimer >= clawSpawnInterval)
+            if (isPawEyeActive)
             {
+                // Set stop duration for PawEye
+                pawEye.SetStopDuration(followDuration);
+
+                // Activate and move PawEye towards the player
+                Debug.Log("PawEye activated");
+                pawEye.ActivatePaw();
+                yield return new WaitForSeconds(followDuration); // Follow for the specified duration
+                pawStopPosition = pawEye.transform.position; // Store the position where PawEye stopped
+                Debug.Log("PawEye stopped at position: " + pawStopPosition);
+
                 // Spawn a claw at the stored position
                 SpawnClaw(pawStopPosition);
-
-                // Reset the attack timer
-                attackTimer = 0.0f;
                 clawSpawnCount++;
+
+                // Deactivate PawEye and switch to PawMouth
+                pawEye.DeactivatePaw();
+                isPawEyeActive = false;
+            }
+            else
+            {
+                // Set stop duration for PawMouth
+                pawMouth.SetStopDuration(followDuration);
+
+                // Activate and move PawMouth towards the player
+                Debug.Log("PawMouth activated");
+                pawMouth.ActivatePaw();
+                yield return new WaitForSeconds(followDuration); // Follow for the specified duration
+                pawStopPosition = pawMouth.transform.position; // Store the position where PawMouth stopped
+                Debug.Log("PawMouth stopped at position: " + pawStopPosition);
+
+                // Spawn a claw at the stored position
+                SpawnClaw(pawStopPosition);
+                clawSpawnCount++;
+
+                // Deactivate PawMouth and switch to PawEye
+                pawMouth.DeactivatePaw();
+                isPawEyeActive = true;
             }
         }
 
         Debug.Log("Claw attack completed");
 
-        // Deactivate PawEye and PawMouth
+        // Ensure both paws are deactivated
         pawEye.DeactivatePaw();
         pawMouth.DeactivatePaw();
 
@@ -210,6 +218,8 @@ public class Boss : MonoBehaviour
         // Instantiate your claw prefab or perform any claw attack logic here
         Instantiate(Claw, spawnPosition, Quaternion.identity);
     }
+
+
 
     // Coroutine for the Slamming attack
     private IEnumerator SlammingAttackCoroutine(System.Action onComplete)
@@ -230,7 +240,6 @@ public class Boss : MonoBehaviour
         attacking = false; // Reset attacking flag
     }
 
-
     // Coroutine for the Summoning attack
     private IEnumerator SummoningAttackCoroutine(System.Action onComplete)
     {
@@ -239,18 +248,12 @@ public class Boss : MonoBehaviour
         // Freeze the player controls
         FreezePlayer(true);
 
-        // Initialize the number of rats to be killed
-        summonsLeftToKill = numberOfRats;
-
-        List<GameObject> pawInstances = new List<GameObject>();
-
-        // Loop to summon rats and paws at the same spawn points
+        // Loop to summon rats at the spawn points
         for (int i = 0; i < numberOfRats; i++)
         {
             // Select a spawn point from the spawnPoints array
             Transform spawnPoint = spawnPoints[i % spawnPoints.Length];
             Debug.Log("Spawning rat at: " + spawnPoint.position);
-            activeRatsCount++;
 
             // Calculate duration based on distance and speed
             float distance = Vector3.Distance(transform.position, spawnPoint.position);
@@ -262,13 +265,35 @@ public class Boss : MonoBehaviour
 
             // Instantiate the rat at the selected spawn point
             GameObject ratInstance = Instantiate(ratPrefab, spawnPoint.position, spawnPoint.rotation);
+            activeRatsCount++;
+            Debug.Log("Active rats count after spawning: " + activeRatsCount);
 
             yield return new WaitForSeconds(0.2f);
         }
 
         Debug.Log("Summoning attack completed");
+
         // Unfreeze the player controls
         FreezePlayer(false);
+
+        // Call the callback to signal completion
+        onComplete?.Invoke();
+        attacking = false; // Reset attacking flag
+    }
+
+    private IEnumerator MovePawTowardsTarget(GameObject paw, Vector3 targetPosition, float duration)
+    {
+        Vector3 startPosition = paw.transform.position;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            paw.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        paw.transform.position = targetPosition;
     }
 
     public void KillRat()
@@ -280,28 +305,7 @@ public class Boss : MonoBehaviour
             myAnim.SetBool("Summon", false); // Set the CoolDown animation state
             attacking = false;
         }
-
     }
-
-    private IEnumerator CheckAttackProgress()
-    {
-        float timeoutDuration = 40.0f; // Timeout duration in seconds
-
-        yield return new WaitForSeconds(timeoutDuration);
-
-        // Check if the boss is still attacking after the timeout
-        if (attacking)
-        {
-            Debug.Log("Timeout reached, switching to cooldown mode.");
-
-            // Trigger cooldown mode manually
-            myAnim.SetBool("CoolDown", true);
-
-            // Optionally, progress to the next attack stage if needed
-            ProgressToNextAttackStage();
-        }
-    }
-
 
     // Check if the boss is ready for the next attack
     public bool IsReadyForNextAttack()
@@ -318,25 +322,14 @@ public class Boss : MonoBehaviour
         myAnim.SetTrigger(nextAttack); // Trigger the next attack animation
     }
 
-    // Check if the boss has died
-    public bool HasDied
+    public void OnBossDefeated()
     {
-        get { return died; }
-    }
-
-    // Method to move a paw towards a target position
-    private IEnumerator MovePawTowardsTarget(GameObject paw, Vector3 targetPosition, float duration)
-    {
-        float elapsedTime = 0f;
-        Vector3 initialPosition = paw.transform.position;
-
-        while (elapsedTime < duration)
+        if (!died)
         {
-            paw.transform.position = Vector3.Lerp(initialPosition, targetPosition, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
+            died = true;
+            myAnim.SetBool("isDead", true);
+            // Handle the logic for when the boss is defeated
+            Debug.Log("Boss defeated");
         }
-
-        paw.transform.position = targetPosition;
     }
 }
