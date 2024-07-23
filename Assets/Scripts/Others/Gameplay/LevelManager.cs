@@ -11,6 +11,8 @@ public class LevelManager : MonoBehaviour
     public PlayerControllera thePlayer; // Reference to an object of PlayerController
     public GameObject deathSplosion;
 
+    public GameObject animationPrefab;
+
     public AudioSource coinSound;
     public AudioSource levelMusic;
     public AudioSource gameOverMusic;
@@ -212,7 +214,19 @@ public class LevelManager : MonoBehaviour
         coinSound.Play();
         UpdateHeartMeter();
         Debug.Log("Player healed. Current health: " + healthCount);
+
+        // Instantiate the animation at the player's position
+        InstantiateAnimationAtPlayerPosition();
     }
+
+    private void InstantiateAnimationAtPlayerPosition()
+    {
+        if (animationPrefab != null && thePlayer != null)
+        {
+            Instantiate(animationPrefab, thePlayer.transform.position, Quaternion.identity);
+        }
+    }
+
 
     public void AddExp(int ExpToAdd)
     {

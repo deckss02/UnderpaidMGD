@@ -69,3 +69,6 @@ TagManager:
   - name: Claw
     uniqueID: 1668863877
     locked: 0
+  - name: Ultimate
+    uniqueID: 1473795527
+    locked: 0
