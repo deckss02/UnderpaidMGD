@@ -1,27 +1,25 @@
+using System.Collections; // Ensure this is included
 using UnityEngine;
 
 public class RatController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 1f; // Speed at which the enemy moves
     [SerializeField] private int damageAmount = 1; // Amount of damage to apply
+
+    [SerializeField] private int maxHealth = 1; // Maximum health for the rat
+    private int currentHealth; // Current health of the rat
     private Rigidbody2D enemyRigidbody; // Reference to the Rigidbody2D component
-    private EnemyHealth enemyHealth; // Reference to the EnemyHealth script
     public Boss boss;
+
+    private Collider2D ratCollider; // Reference to the rat's collider
+    private bool hasTakenDamage = false; // Flag to track if damage has been applied
 
     void Start()
     {
         enemyRigidbody = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component attached to the enemy
-        enemyHealth = GetComponent<EnemyHealth>(); // Get the EnemyHealth component attached to the enemy
         boss = FindObjectOfType<Boss>();
-
-        if (enemyHealth == null)
-        {
-            Debug.LogError("EnemyHealth component not found on the specified boss object or its parents.");
-        }
-        else
-        {
-            Debug.Log("EnemyHealth component found.");
-        }
+        currentHealth = maxHealth; // Initialize current health
+        ratCollider = GetComponent<Collider2D>(); // Get the Collider2D component attached to the rat
     }
 
     void Update()
@@ -43,23 +41,28 @@ public class RatController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // Debugging log to check collision
+        Debug.Log($"Collision detected with {collision.gameObject.name}");
+
         // Check if the collider is a boundary
         if (collision.CompareTag("Boundary"))
         {
             Flip();
         }
 
-        // Check if the collider is tagged as a Bullet and if EnemyHealth is not null
-        if (collision.CompareTag("Bullet") && enemyHealth != null)
+        // Check if the collider is tagged as a Bullet and apply damage if not already done
+        if (collision.CompareTag("Bullet"))
         {
-            Debug.Log($"Bullet hit enemy. Applying {damageAmount} damage.");
-            enemyHealth.TakeDamage(damageAmount);
-            Destroy(collision.gameObject); // Destroy the bullet after hitting the enemy
-
-            // Check if the enemy is destroyed (health <= 0) and handle accordingly
-            if (enemyHealth.currentHealth <= 0)
+            if (!hasTakenDamage)
             {
-                Die(); // Destroy the enemy
+                Debug.Log($"Bullet hit rat. Applying {damageAmount} damage.");
+                TakeDamage(damageAmount); // Apply damage to the rat
+                Destroy(collision.gameObject); // Destroy the bullet after hitting the rat
+                hasTakenDamage = true; // Set the flag to true to prevent further damage
+                // Optionally, disable the collider to prevent multiple hits
+                ratCollider.enabled = false;
+                // Re-enable the collider after a short delay
+                StartCoroutine(EnableColliderAfterDelay(0.6f));
             }
         }
         else
@@ -69,11 +72,15 @@ public class RatController : MonoBehaviour
             {
                 Debug.Log("Collision detected but not with a Bullet.");
             }
-            // Log an error if EnemyHealth component is missing
-            if (enemyHealth == null)
-            {
-                Debug.Log("Cannot apply damage because EnemyHealth component is missing.");
-            }
+        }
+    }
+
+    public void TakeDamage(int amount)
+    {
+        currentHealth -= amount; // Reduce current health
+        if (currentHealth <= 0)
+        {
+            Die(); // Destroy the rat if health is 0 or less
         }
     }
 
@@ -82,12 +89,20 @@ public class RatController : MonoBehaviour
         transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
     }
 
-    // Method to call when the rat dies
-    public void Die()
+    private void Die()
     {
-        boss.KillRat();
-        Destroy(gameObject); // Destroy the enemy game object
-        
+        Debug.Log("Rat is dying");
+        if (boss != null)
+        {
+            boss.KillRat(); // Notify the boss
+        }
+        Destroy(gameObject); // Destroy the rat game object
+    }
+
+    private IEnumerator EnableColliderAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        ratCollider.enabled = true; // Re-enable the collider after the delay
+        hasTakenDamage = false; // Reset the damage flag
     }
 }
-

@@ -5,29 +5,22 @@ using UnityEngine;
 public class ClawBehaviour : StateMachineBehaviour
 {
     private Boss boss;
-
-    private bool hasAttacked = false; // Flag to track whether the summonminion attack has been executed
+    private bool hasAttacked = false; // Flag to track whether the claw attack has been executed
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        // Get the Boss component from the animator's GameObject
         if (boss == null)
             boss = animator.GetComponent<Boss>();
 
-
-        // Start the Claw attack with a callback to this behaviour
         if (boss != null)
         {
-            boss.StartClawAttack(OnClawComplete);
+            boss.StartClawAttack(null); // No need to pass a callback
         }
         else
         {
             Debug.LogError("Boss component is not assigned.");
         }
-    }
-    // Callback method to be called when the claw attack is complete
-    private void OnClawComplete()
-    {
-        hasAttacked = true; // Set the flag to true to trigger state transition
     }
 
     // Called on each Update frame while the state is being evaluated
@@ -46,5 +39,6 @@ public class ClawBehaviour : StateMachineBehaviour
         // Reset the flag for the next time this state is entered
         hasAttacked = false;
         animator.SetBool("Claw", false);
+        animator.SetBool("CoolDown", false); // Reset the cooldown state
     }
 }

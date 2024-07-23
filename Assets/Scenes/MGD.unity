@@ -3276,6 +3276,63 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.402884, y: 0.271103}
   m_EdgeRadius: 0
+--- !u!1001 &220490576
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 387277561}
+    m_Modifications:
+    - target: {fileID: 294914349148564630, guid: 298ae4bf9ba82c543bba9c1fd49d4888, type: 3}
+      propertyPath: m_Name
+      value: Claw
+      objectReference: {fileID: 0}
+    - target: {fileID: 3663538632120871707, guid: 298ae4bf9ba82c543bba9c1fd49d4888, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 3663538632120871707, guid: 298ae4bf9ba82c543bba9c1fd49d4888, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.62
+      objectReference: {fileID: 0}
+    - target: {fileID: 3663538632120871707, guid: 298ae4bf9ba82c543bba9c1fd49d4888, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3663538632120871707, guid: 298ae4bf9ba82c543bba9c1fd49d4888, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3663538632120871707, guid: 298ae4bf9ba82c543bba9c1fd49d4888, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3663538632120871707, guid: 298ae4bf9ba82c543bba9c1fd49d4888, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3663538632120871707, guid: 298ae4bf9ba82c543bba9c1fd49d4888, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3663538632120871707, guid: 298ae4bf9ba82c543bba9c1fd49d4888, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3663538632120871707, guid: 298ae4bf9ba82c543bba9c1fd49d4888, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3663538632120871707, guid: 298ae4bf9ba82c543bba9c1fd49d4888, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 298ae4bf9ba82c543bba9c1fd49d4888, type: 3}
 --- !u!1 &222759439
 GameObject:
   m_ObjectHideFlags: 0
@@ -4995,6 +5052,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1331144989}
+  - {fileID: 521984603}
   m_Father: {fileID: 647737863}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &396582487 stripped
@@ -6643,6 +6701,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &521984603 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3663538632120871707, guid: 298ae4bf9ba82c543bba9c1fd49d4888, type: 3}
+  m_PrefabInstance: {fileID: 220490576}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &523199503
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10224,11 +10287,12 @@ MonoBehaviour:
   myAnim: {fileID: 1660756513}
   attacking: 0
   pawEye: {fileID: 1072291351}
-  Claw: {fileID: 1844958533646499943, guid: 298ae4bf9ba82c543bba9c1fd49d4888, type: 3}
+  Claw: {fileID: 294914349148564630, guid: 298ae4bf9ba82c543bba9c1fd49d4888, type: 3}
   pawMouth: {fileID: 1425209454}
   pawEyePrefab: {fileID: 3554715552372258584, guid: d1cad77703533da42b877a92893286d2, type: 3}
   SavePaw: {fileID: 3554715552372258584, guid: 81cda7a82fb3a19468f6c189c4d975b6, type: 3}
   fadeDuration: 2
+  activeRatsCount: 0
 --- !u!50 &755109652
 Rigidbody2D:
   serializedVersion: 4
@@ -11243,7 +11307,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 235591839047802364, guid: c47ffc53318bdfb4d8da09652ee5167c, type: 3}
       propertyPath: m_TagString
-      value: Enemy
+      value: Rat
       objectReference: {fileID: 0}
     - target: {fileID: 235591839047802364, guid: c47ffc53318bdfb4d8da09652ee5167c, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -11392,7 +11456,7 @@ PrefabInstance:
     - target: {fileID: 8985174284306368973, guid: c47ffc53318bdfb4d8da09652ee5167c, type: 3}
       propertyPath: enemyHealth
       value: 
-      objectReference: {fileID: 1011731227}
+      objectReference: {fileID: 0}
     - target: {fileID: 8985174284306368973, guid: c47ffc53318bdfb4d8da09652ee5167c, type: 3}
       propertyPath: maxBounds.x
       value: 4.1
@@ -11461,9 +11525,6 @@ PrefabInstance:
     - {fileID: 5964256080676342427, guid: c47ffc53318bdfb4d8da09652ee5167c, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 235591839047802364, guid: c47ffc53318bdfb4d8da09652ee5167c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1011731227}
     - targetCorrespondingSourceObject: {fileID: 235591839047802364, guid: c47ffc53318bdfb4d8da09652ee5167c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1011731234}
@@ -13994,20 +14055,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 235591839047802364, guid: c47ffc53318bdfb4d8da09652ee5167c, type: 3}
   m_PrefabInstance: {fileID: 821674906}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1011731227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1011731224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32f6240ad37a5424abb0faee486f6691, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 1
-  currentHealth: 1
 --- !u!61 &1011731234
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14067,7 +14114,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 1
   damageAmount: 1
-  boss: {fileID: 0}
+  maxHealth: 1
+  boss: {fileID: 755109651}
 --- !u!1 &1018739108
 GameObject:
   m_ObjectHideFlags: 0
@@ -22935,6 +22983,7 @@ MonoBehaviour:
   SwordSlash: {fileID: 9100000, guid: 13d978d2b8aa1d5428e7075249f42b6b, type: 2}
   ClaymoreSlash: {fileID: 9100000, guid: 73bf2f0ac3b938141813daf4787b31fc, type: 2}
   slashPosition: {fileID: 1754020764}
+  slashAnimator: {fileID: 1754020766}
 --- !u!95 &1754020766
 Animator:
   serializedVersion: 5

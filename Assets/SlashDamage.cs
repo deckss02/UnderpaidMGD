@@ -15,10 +15,18 @@ public class SlashDamage : MonoBehaviour
         {
             if (hitCollider.CompareTag("Enemy"))
             {
-                EnemyHealth enemyHealth = hitCollider.GetComponent<EnemyHealth>();
-                if (enemyHealth != null)
+                EnemyController enemyController = hitCollider.GetComponent<EnemyController>();
+                if (enemyController != null)
                 {
-                    enemyHealth.TakeDamage((int)damageAmount);
+                    enemyController.TakeDamage((int)damageAmount);
+                }
+            }
+            else if (hitCollider.CompareTag("Rat"))
+            {
+                RatController ratController = hitCollider.GetComponent<RatController>();
+                if (ratController != null)
+                {
+                    ratController.TakeDamage((int)damageAmount);
                 }
             }
             else if (hitCollider.CompareTag("WeakPoint"))
@@ -38,12 +46,5 @@ public class SlashDamage : MonoBehaviour
                 }
             }
         }
-    }
-
-    // Optional: Visualize the damage area in the editor
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 0.5f); // Adjust the radius as needed
     }
 }

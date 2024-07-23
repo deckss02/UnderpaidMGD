@@ -13,22 +13,15 @@ public class SummonMinionsBehaviour : StateMachineBehaviour
         if (boss == null)
             boss = animator.GetComponent<Boss>();
 
-        // Start the summoning minions attack with a callback to this behaviour
+        // Start the summoning minions attack
         if (boss != null)
         {
-            boss.StartSummoningAttack(OnSummonComplete);
+            boss.StartSummoningAttack(null); // No need to pass a callback
         }
         else
         {
             Debug.LogError("Boss component is not assigned.");
         }
-    }
-
-    // Callback method to be called when the summon attack is complete
-    private void OnSummonComplete()
-    {
-        // Transition to CoolDown state when the summon attack is complete
-        boss.myAnim.SetBool("CoolDown", true);
     }
 
     // Called on each Update frame while the state is being evaluated
@@ -42,7 +35,9 @@ public class SummonMinionsBehaviour : StateMachineBehaviour
     {
         // Reset the cooldown flag for the next time this state is entered
         animator.SetBool("Summon", false); // Reset summoning trigger
+        animator.SetBool("CoolDown", true); // Reset summoning trigger
     }
 }
+
 
 
