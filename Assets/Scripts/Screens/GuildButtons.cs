@@ -20,7 +20,8 @@ public class GuildButtons : MonoBehaviour
     {
         
     }
-
+    
+    /*
     public void StartLevel()
     {
         switch (LevelNumber)
@@ -33,6 +34,7 @@ public class GuildButtons : MonoBehaviour
                 break;
         }
     }
+    */
 
     public void StartLevelOne()
     {

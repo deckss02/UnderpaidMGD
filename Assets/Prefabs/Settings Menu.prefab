@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 4017569228748728740}
   - component: {fileID: 8876218706523851107}
   - component: {fileID: 1935384840792969780}
+  - component: {fileID: -922651744186825666}
   m_Layer: 5
   m_Name: Settings Menu
   m_TagString: Untagged
@@ -219,6 +220,21 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &-922651744186825666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115589826985812930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea0c4337c977b46499b9c19b3b3b03d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mixer: {fileID: 24100000, guid: 3e6884de4819d4240baf67080dc59229, type: 2}
+  MusicSlider: {fileID: 2411458429116305832}
+  SoundSlider: {fileID: 2977154613706256245}
 --- !u!1 &1325102762930583161
 GameObject:
   m_ObjectHideFlags: 0
