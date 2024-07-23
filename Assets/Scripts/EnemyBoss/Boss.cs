@@ -145,47 +145,64 @@ public class Boss : MonoBehaviour
         Destroy(savePawInstance); // Destroy the SavePaw instance
     }
 
-    // Coroutine for the Claw attack
     private IEnumerator ClawAttackCoroutine(System.Action onComplete)
     {
         Debug.Log("Starting Claw attack");
 
         // Variables for the attack logic
-        float followDuration = 10.0f; // Duration to follow the player before spawning claws
-        float clawSpawnInterval = 12.0f; // Interval between spawning claws
+        float followDuration = 5.0f; // Duration to follow the player before spawning claws (adjusted to split between two paws)
         int maxClawSpawns = 3; // Maximum number of claws to spawn before cooldown
-        int clawSpawnCount = 3; // Counter for claws spawned
-        float attackTimer = 10.0f; // Timer for tracking attack duration
+        int clawSpawnCount = 0; // Counter for claws spawned
+        bool isPawEyeActive = true; // Flag to track which paw is active
 
         // Loop until attack conditions are met
         while (clawSpawnCount < maxClawSpawns)
         {
-            // Move PawEye towards the player
-            pawEye.ActivatePaw();
-            yield return new WaitForSeconds(followDuration / 2); // Follow for half the duration
-            pawStopPosition = pawEye.transform.position; // Store the position where PawEye stopped
-
-            // Move PawMouth towards the player
-            pawMouth.ActivatePaw();
-            yield return new WaitForSeconds(followDuration / 2); // Follow for the remaining half duration
-            pawStopPosition = pawMouth.transform.position; // Store the position where PawMouth stopped
-
-            // Check if attack duration has reached the claw spawn interval
-            attackTimer += followDuration;
-            if (attackTimer >= clawSpawnInterval)
+            if (isPawEyeActive)
             {
+                // Set stop duration for PawEye
+                pawEye.SetStopDuration(followDuration);
+
+                // Activate and move PawEye towards the player
+                Debug.Log("PawEye activated");
+                pawEye.ActivatePaw();
+                yield return new WaitForSeconds(followDuration); // Follow for the specified duration
+                pawStopPosition = pawEye.transform.position; // Store the position where PawEye stopped
+                Debug.Log("PawEye stopped at position: " + pawStopPosition);
+
                 // Spawn a claw at the stored position
                 SpawnClaw(pawStopPosition);
-
-                // Reset the attack timer
-                attackTimer = 0.0f;
                 clawSpawnCount++;
+
+                // Deactivate PawEye and switch to PawMouth
+                pawEye.DeactivatePaw();
+                isPawEyeActive = false;
+            }
+            else
+            {
+                // Set stop duration for PawMouth
+                pawMouth.SetStopDuration(followDuration);
+
+                // Activate and move PawMouth towards the player
+                Debug.Log("PawMouth activated");
+                pawMouth.ActivatePaw();
+                yield return new WaitForSeconds(followDuration); // Follow for the specified duration
+                pawStopPosition = pawMouth.transform.position; // Store the position where PawMouth stopped
+                Debug.Log("PawMouth stopped at position: " + pawStopPosition);
+
+                // Spawn a claw at the stored position
+                SpawnClaw(pawStopPosition);
+                clawSpawnCount++;
+
+                // Deactivate PawMouth and switch to PawEye
+                pawMouth.DeactivatePaw();
+                isPawEyeActive = true;
             }
         }
 
         Debug.Log("Claw attack completed");
 
-        // Deactivate PawEye and PawMouth
+        // Ensure both paws are deactivated
         pawEye.DeactivatePaw();
         pawMouth.DeactivatePaw();
 
@@ -201,6 +218,8 @@ public class Boss : MonoBehaviour
         // Instantiate your claw prefab or perform any claw attack logic here
         Instantiate(Claw, spawnPosition, Quaternion.identity);
     }
+
+
 
     // Coroutine for the Slamming attack
     private IEnumerator SlammingAttackCoroutine(System.Action onComplete)
