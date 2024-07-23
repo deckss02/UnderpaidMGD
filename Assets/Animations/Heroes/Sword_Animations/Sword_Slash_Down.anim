@@ -20,17 +20,19 @@ AnimationClip:
   m_PPtrCurves:
   - serializedVersion: 2
     curve:
-    - time: 0
+    - time: 0.16666667
       value: {fileID: -92620050, guid: 703e7aeff4da0a24fa3e6c040c72aa1b, type: 3}
-    - time: 0
+    - time: 0.16666667
       value: {fileID: 162594159, guid: 703e7aeff4da0a24fa3e6c040c72aa1b, type: 3}
-    - time: 0.1
+    - time: 0.2
       value: {fileID: 1636823222, guid: 703e7aeff4da0a24fa3e6c040c72aa1b, type: 3}
-    - time: 0.23333333
+    - time: 0.26666668
+      value: {fileID: 1636823222, guid: 703e7aeff4da0a24fa3e6c040c72aa1b, type: 3}
+    - time: 0.33333334
       value: {fileID: -92620050, guid: 703e7aeff4da0a24fa3e6c040c72aa1b, type: 3}
-    - time: 0.33333334
+    - time: 0.46666667
       value: {fileID: -1059256177, guid: 703e7aeff4da0a24fa3e6c040c72aa1b, type: 3}
-    - time: 0.33333334
+    - time: 0.46666667
       value: {fileID: 0}
     attribute: m_Sprite
     path: 
@@ -57,6 +59,7 @@ AnimationClip:
     - {fileID: -92620050, guid: 703e7aeff4da0a24fa3e6c040c72aa1b, type: 3}
     - {fileID: 162594159, guid: 703e7aeff4da0a24fa3e6c040c72aa1b, type: 3}
     - {fileID: 1636823222, guid: 703e7aeff4da0a24fa3e6c040c72aa1b, type: 3}
+    - {fileID: 1636823222, guid: 703e7aeff4da0a24fa3e6c040c72aa1b, type: 3}
     - {fileID: -92620050, guid: 703e7aeff4da0a24fa3e6c040c72aa1b, type: 3}
     - {fileID: -1059256177, guid: 703e7aeff4da0a24fa3e6c040c72aa1b, type: 3}
     - {fileID: 0}
@@ -65,7 +68,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.36666667
+    m_StopTime: 0.5
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -85,14 +88,49 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.1
+  - time: 0.2
+    functionName: DealDamage
+    data: 
+    objectReferenceParameter: {fileID: 2436171167904923445, guid: 15ab292628cc9e1488105faa530b440a, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.23333333
     functionName: DealDamage
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.23333333
+  - time: 0.26666668
+    functionName: DealDamage
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.3
+    functionName: DealDamage
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.33333334
+    functionName: DealDamage
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.36666667
+    functionName: DealDamage
+    data: 
+    objectReferenceParameter: {fileID: 2436171167904923445, guid: 15ab292628cc9e1488105faa530b440a, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.4
     functionName: DealDamage
     data: 
     objectReferenceParameter: {fileID: 0}
