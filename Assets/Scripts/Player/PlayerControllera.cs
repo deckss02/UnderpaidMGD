@@ -16,12 +16,14 @@ public class PlayerControllera : MonoBehaviour
  //   public Vector3 respawnPosition;
 
     public LevelManager theLevelManager; //Make a reference to LvlManager
+    public PlayerSwap_Button Swap_Button;//References the Swap Button Script;Will do so later when Kore/Shield Char appear
 
     public float knockbackForce;
     public float knockbackLength; //Amt of timr the player being knocked back
     private float knockbackCounter; //Count down if time for player being knocked back
     public AudioSource jumpSound;
     public AudioSource hurtSound;
+    public AudioSource SwordSound;
     public bool canMove = true; // When game is paused, player cannot move
 
   // public GameObject bulletToRight;
@@ -46,6 +48,8 @@ public class PlayerControllera : MonoBehaviour
         myAnim = GetComponent<Animator>(); //Get and store a reference to the Animator component so that we can access it
     //    respawnPosition = transform.position; //When game starts, respawn position equals to the current players position
         theLevelManager = FindObjectOfType<LevelManager>();
+
+        Swap_Button = FindObjectOfType<PlayerSwap_Button>();
     }
 
     // Update is called once per frame
@@ -92,12 +96,14 @@ public class PlayerControllera : MonoBehaviour
     {
         if (dir > 0)
         {
+            SwordSound.Play();
             rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
             transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             facingRight = true;
         }
         else if (dir < 0)
         {
+            SwordSound.Play();
             rb.velocity = new Vector2(-moveSpeed, rb.velocity.y); //Move to the left
             transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
             facingRight = false;
