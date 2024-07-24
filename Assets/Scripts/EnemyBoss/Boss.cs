@@ -216,8 +216,10 @@ public class Boss : MonoBehaviour
 
         // Define the spawn points
         Transform[] spawnPoints = new Transform[] { spawnPoint1, spawnPoint2, spawnPoint3, spawnPoint4 };
-        float totalAttackDuration = 8.0f; // Total duration for the attack
-        float moveDuration = 1.0f; // Time to move to each spawn point
+        float totalAttackDuration = 20.0f; // Total duration for the attack
+        float moveDuration = 3.0f; // Time to move to each spawn point
+        int numberOfLoops = 4; // Number of times to loop through all spawn points
+        float cooldownDuration = 5.0f; // Cooldown duration after completing all loops
 
         // Calculate the time to stay at each spawn point
         float timePerSpawnPoint = (totalAttackDuration - (moveDuration * (spawnPoints.Length - 1))) / spawnPoints.Length;
@@ -239,32 +241,38 @@ public class Boss : MonoBehaviour
         pawMouth.ActivatePaw();
         pawEye.ActivatePaw();
 
-        foreach (Transform spawnPoint in spawnPoints)
+        for (int loop = 0; loop < numberOfLoops; loop++)
         {
-            // Move to spawn point
-            float startTime = Time.time;
-            while (Vector3.Distance(pawMouth.transform.position, spawnPoint.position) > 0.1f)
+            foreach (Transform spawnPoint in spawnPoints)
             {
-                pawMouth.transform.position = Vector3.MoveTowards(pawMouth.transform.position, spawnPoint.position, Time.deltaTime / moveDuration);
-                yield return null;
-            }
+                // Move to spawn point
+                float startTime = Time.time;
+                while (Vector3.Distance(pawMouth.transform.position, spawnPoint.position) > 0.1f)
+                {
+                    pawMouth.transform.position = Vector3.MoveTowards(pawMouth.transform.position, spawnPoint.position, Time.deltaTime * moveDuration);
+                    yield return null;
+                }
 
-            // Ensure PawMouth is at the spawn point
-            pawMouth.transform.position = spawnPoint.position;
+                // Ensure PawMouth is at the spawn point
+                pawMouth.transform.position = spawnPoint.position;
 
-            // Calculate remaining time at this spawn point
-            float elapsed = Time.time - startTime;
-            float remainingTimeAtPoint = Mathf.Max(timePerSpawnPoint - elapsed, 0);
+                // Calculate remaining time at this spawn point
+                float elapsed = Time.time - startTime;
+                float remainingTimeAtPoint = Mathf.Max(timePerSpawnPoint - elapsed, 0);
 
-            // Pause at the spawn point
-            yield return new WaitForSeconds(remainingTimeAtPoint);
+                // Spawn claws in compass directions
+                foreach (Vector3 direction in directions)
+                {
+                    SpawnClaw(pawMouth.transform.position, direction);
+                }
 
-            // Spawn claws in compass directions
-            foreach (Vector3 direction in directions)
-            {
-                SpawnClaw(pawMouth.transform.position, direction);
+                // Pause at the spawn point
+                yield return new WaitForSeconds(remainingTimeAtPoint);
             }
         }
+
+        // Cooldown period after completing all loops
+        yield return new WaitForSeconds(cooldownDuration);
 
         // Deactivate PawEye and PawMouth
         pawEye.DeactivatePaw();
@@ -275,7 +283,11 @@ public class Boss : MonoBehaviour
         // Call the callback to signal completion
         onComplete?.Invoke();
         attacking = false; // Reset attacking flag
+        myAnim.SetBool("Paw8", false);
+        myAnim.SetBool("CoolDown", true);
     }
+
+
 
 
 

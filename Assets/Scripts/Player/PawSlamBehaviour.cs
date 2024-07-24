@@ -3,10 +3,7 @@ using UnityEngine;
 
 public class PawSlamBehaviour : StateMachineBehaviour
 {
-    private Boss boss;
-    private PawAI pawAI;
-
-    private bool hasAttacked = false; // Flag to track whether the pawslam attack has been executed
+    private Boss boss; // Reference to the Boss script
 
     // Called when the state starts evaluating
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -15,44 +12,37 @@ public class PawSlamBehaviour : StateMachineBehaviour
         if (boss == null)
             boss = animator.GetComponent<Boss>();
 
-        // Get the PawAI component from the animator's GameObject
-        if (pawAI == null)
-            pawAI = animator.GetComponentInChildren<PawAI>();
-
-        // Start the coroutine for the Paw Slam attack
-        if (boss != null && pawAI != null)
+        // Start the Paw Slam attack
+        if (boss != null)
         {
-            boss.StartSlammingAttack(OnSlamComplete);
+            boss.StartSlammingAttack(OnSlamComplete); // Pass a callback to handle completion
         }
         else
         {
-            Debug.LogError("Boss or PawAI component is not assigned.");
+            Debug.LogError("Boss component is not assigned.");
         }
     }
-    // Callback method to be called when the claw attack is complete
+
+    // Callback method to be called when the slam attack is complete
     private void OnSlamComplete()
     {
-        hasAttacked = true; // Set the flag to true to trigger state transition
+        // The animator will handle state transition using the "CoolDown" parameter
+        boss.myAnim.SetBool("CoolDown", true);
     }
 
     // Called on each Update frame while the state is being evaluated
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        // Check if the slam attack has been executed and transition to cooldown state
-        if (hasAttacked)
-        {
-            animator.SetBool("CoolDown", true);
-        }
+        // No additional logic needed for each frame
     }
 
     // Called when the state stops being evaluated
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        // Reset the flag for the next time this state is entered
-        hasAttacked = false;
+        // Reset flags for the next time this state is entered
+        animator.SetBool("Cooldown", true);
         animator.SetBool("Paw8", false);
         animator.ResetTrigger("IsPaw");
         Debug.Log("Exited Paw Slam attack state");
     }
 }
-
