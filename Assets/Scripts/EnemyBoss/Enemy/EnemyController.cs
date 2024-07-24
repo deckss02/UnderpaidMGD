@@ -4,14 +4,16 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 1f; // Speed at which the enemy moves
     [SerializeField] private int damageAmount = 1; // Amount of damage to apply
-    [SerializeField] private int maxHealth = 3; // Maximum health for the enemy
+    [SerializeField] private int maxHealth = 1; // Maximum health for the enemy
     private int currentHealth; // Current health of the enemy
     private Rigidbody2D enemyRigidbody; // Reference to the Rigidbody2D component
+    public EnemyCounter enemycounter;
 
     void Start()
     {
         enemyRigidbody = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component attached to the enemy
         currentHealth = maxHealth; // Initialize current health
+        enemycounter = FindObjectOfType<EnemyCounter>();
     }
 
     void Update()
@@ -54,6 +56,7 @@ public class EnemyController : MonoBehaviour
         if (currentHealth <= 0)
         {
             Die(); // Destroy the enemy if health is 0 or less
+            enemycounter.EnemyKilled();
         }
     }
 
