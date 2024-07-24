@@ -7,6 +7,12 @@ public class Boss : MonoBehaviour
     public GameObject hairballPrefab; // Prefab for the hairball projectile
     public Transform[] firePoints; // Points from which hairballs will be fired
 
+    public Transform spawnPoint1;
+    public Transform spawnPoint2;
+    public Transform spawnPoint3;
+    public Transform spawnPoint4;
+    public GameObject clawBulletPrefab; // New prefab for the claw bullet
+
     public GameObject ratPrefab; // Prefab for the rat enemy
     public Transform[] spawnPoints; // Points where rats will be spawned
     public int numberOfRats = 6; // Number of rats to spawn
@@ -74,15 +80,15 @@ public class Boss : MonoBehaviour
         }
     }
 
-    // Coroutine for the HairBallRoll attack
     private IEnumerator HairBallRollAttackCoroutine(System.Action onComplete)
     {
         Debug.Log("Starting HairBallRoll attack");
         pawEye.gameObject.SetActive(false);
 
-        // Fixed number of hairballs to spawn
-        int[] hairballOptions = { 2, 3, 4 };
-        int numberOfHairballs = hairballOptions[Random.Range(0, hairballOptions.Length)];
+        // Random number of hairballs to spawn within a specified range
+        int minHairballs = 2;
+        int maxHairballs = 3;
+        int numberOfHairballs = Random.Range(minHairballs, maxHairballs + 1);
         List<GameObject> pawEyeInstances = new List<GameObject>();
         List<GameObject> savePawInstances = new List<GameObject>();
 
@@ -92,15 +98,18 @@ public class Boss : MonoBehaviour
             // Determine if this fire point should spawn a hairball
             bool spawnHairball = Random.value < 0.5f; // Example condition, adjust as needed
 
-            if (spawnHairball)
+            if (spawnHairball && numberOfHairballs > 0)
             {
                 // Instantiate PawEye prefab
                 GameObject pawEyeInstance = Instantiate(pawEyePrefab, firePoint.position, firePoint.rotation);
                 pawEyeInstances.Add(pawEyeInstance);
 
+                // Wait for a few seconds before spawning the hairball
+                yield return new WaitForSeconds(0.5f); // Adjust as needed
+
                 // Spawn hairball at the selected fire point
-                yield return new WaitForSeconds(0.3f);
                 Instantiate(hairballPrefab, firePoint.position, firePoint.rotation);
+                numberOfHairballs--;
             }
             else
             {
@@ -150,66 +159,48 @@ public class Boss : MonoBehaviour
         Debug.Log("Starting Claw attack");
 
         // Variables for the attack logic
-        float followDuration = 5.0f; // Duration to follow the player before spawning claws (adjusted to split between two paws)
-        int maxClawSpawns = 3; // Maximum number of claws to spawn before cooldown
+        float followDuration = 5.0f; // Duration to wait before spawning claws
+        int maxClawSpawns = 4; // Number of claws to spawn
         int clawSpawnCount = 0; // Counter for claws spawned
-        bool isPawEyeActive = true; // Flag to track which paw is active
+
+        // Set initial position
+        Vector3 currentPosition = pawMouth.transform.position;
 
         // Loop until attack conditions are met
         while (clawSpawnCount < maxClawSpawns)
         {
-            if (isPawEyeActive)
-            {
-                // Set stop duration for PawEye
-                pawEye.SetStopDuration(followDuration);
+            // Set stop duration for PawMouth
+            pawMouth.SetStopDuration(followDuration);
 
-                // Activate and move PawEye towards the player
-                Debug.Log("PawEye activated");
-                pawEye.ActivatePaw();
-                yield return new WaitForSeconds(followDuration); // Follow for the specified duration
-                pawStopPosition = pawEye.transform.position; // Store the position where PawEye stopped
-                Debug.Log("PawEye stopped at position: " + pawStopPosition);
+            // Activate PawMouth
+            Debug.Log("PawMouth activated");
+            pawMouth.ActivatePaw();
 
-                // Spawn a claw at the stored position
-                SpawnClaw(pawStopPosition);
-                clawSpawnCount++;
+            // Spawn a claw at the current position
+            SpawnClaw(currentPosition);
+            clawSpawnCount++;
 
-                // Deactivate PawEye and switch to PawMouth
-                pawEye.DeactivatePaw();
-                isPawEyeActive = false;
-            }
-            else
-            {
-                // Set stop duration for PawMouth
-                pawMouth.SetStopDuration(followDuration);
+            // Wait for the specified duration at the current position
+            yield return new WaitForSeconds(followDuration);
 
-                // Activate and move PawMouth towards the player
-                Debug.Log("PawMouth activated");
-                pawMouth.ActivatePaw();
-                yield return new WaitForSeconds(followDuration); // Follow for the specified duration
-                pawStopPosition = pawMouth.transform.position; // Store the position where PawMouth stopped
-                Debug.Log("PawMouth stopped at position: " + pawStopPosition);
+            // Update currentPosition to PawMouth's new position after waiting
+            currentPosition = pawMouth.transform.position;
 
-                // Spawn a claw at the stored position
-                SpawnClaw(pawStopPosition);
-                clawSpawnCount++;
-
-                // Deactivate PawMouth and switch to PawEye
-                pawMouth.DeactivatePaw();
-                isPawEyeActive = true;
-            }
+            // Deactivate PawMouth
+            pawMouth.DeactivatePaw();
         }
 
         Debug.Log("Claw attack completed");
 
-        // Ensure both paws are deactivated
-        pawEye.DeactivatePaw();
+        // Ensure PawMouth is deactivated
         pawMouth.DeactivatePaw();
 
         // Call the callback to signal completion
         onComplete?.Invoke();
         attacking = false; // Reset attacking flag
     }
+
+
 
     // Method to spawn a claw at a specific position
     private void SpawnClaw(Vector3 spawnPosition)
@@ -219,28 +210,105 @@ public class Boss : MonoBehaviour
         Instantiate(Claw, spawnPosition, Quaternion.identity);
     }
 
-
-
-    // Coroutine for the Slamming attack
     private IEnumerator SlammingAttackCoroutine(System.Action onComplete)
     {
         Debug.Log("Starting Paw Slamming attack");
-        pawMouth.ActivatePaw(); // Activate PawMouth
-        pawEye.ActivatePaw(); // Activate PawEye
 
-        // Simulate the Paw Slamming attack duration
-        yield return new WaitForSeconds(20.0f);
+        // Define the spawn points
+        Transform[] spawnPoints = new Transform[] { spawnPoint1, spawnPoint2, spawnPoint3, spawnPoint4 };
+        float totalAttackDuration = 8.0f; // Total duration for the attack
+        float moveDuration = 1.0f; // Time to move to each spawn point
+
+        // Calculate the time to stay at each spawn point
+        float timePerSpawnPoint = (totalAttackDuration - (moveDuration * (spawnPoints.Length - 1))) / spawnPoints.Length;
+
+        // Define compass directions
+        Vector3[] directions = new Vector3[]
+        {
+        Vector3.up, // North
+        Vector3.down, // South
+        Vector3.right, // East
+        Vector3.left, // West
+        new Vector3(1, 1, 0).normalized, // North-East
+        new Vector3(-1, 1, 0).normalized, // North-West
+        new Vector3(1, -1, 0).normalized, // South-East
+        new Vector3(-1, -1, 0).normalized // South-West
+        };
+
+        // Activate PawMouth and PawEye
+        pawMouth.ActivatePaw();
+        pawEye.ActivatePaw();
+
+        foreach (Transform spawnPoint in spawnPoints)
+        {
+            // Move to spawn point
+            float startTime = Time.time;
+            while (Vector3.Distance(pawMouth.transform.position, spawnPoint.position) > 0.1f)
+            {
+                pawMouth.transform.position = Vector3.MoveTowards(pawMouth.transform.position, spawnPoint.position, Time.deltaTime / moveDuration);
+                yield return null;
+            }
+
+            // Ensure PawMouth is at the spawn point
+            pawMouth.transform.position = spawnPoint.position;
+
+            // Calculate remaining time at this spawn point
+            float elapsed = Time.time - startTime;
+            float remainingTimeAtPoint = Mathf.Max(timePerSpawnPoint - elapsed, 0);
+
+            // Pause at the spawn point
+            yield return new WaitForSeconds(remainingTimeAtPoint);
+
+            // Spawn claws in compass directions
+            foreach (Vector3 direction in directions)
+            {
+                SpawnClaw(pawMouth.transform.position, direction);
+            }
+        }
+
+        // Deactivate PawEye and PawMouth
+        pawEye.DeactivatePaw();
+        pawMouth.DeactivatePaw();
 
         Debug.Log("Paw Slamming attack completed");
 
-        pawEye.DeactivatePaw(); // Deactivate PawEye
-        pawMouth.DeactivatePaw(); // Deactivate PawMouth
         // Call the callback to signal completion
         onComplete?.Invoke();
         attacking = false; // Reset attacking flag
     }
 
-    // Coroutine for the Summoning attack
+
+
+    // Method to spawn a claw projectile
+    private void SpawnClaw(Vector3 position, Vector3 direction)
+    {
+        Debug.Log("Spawning Claw at: " + position);
+
+        // Instantiate the claw prefab or perform any claw attack logic here
+        if (Claw != null)
+        {
+            GameObject clawInstance = Instantiate(Claw, position, Quaternion.identity);
+            Claw clawScript = clawInstance.GetComponent<Claw>();
+
+            if (clawScript != null)
+            {
+                clawScript.Shoot(direction); // Ensure this method exists in your Claw script
+            }
+            else
+            {
+                Debug.LogError("Claw script not found on Claw prefab.");
+                Destroy(clawInstance);
+            }
+        }
+        else
+        {
+            Debug.LogError("Claw prefab not assigned.");
+        }
+    }
+
+
+
+
     private IEnumerator SummoningAttackCoroutine(System.Action onComplete)
     {
         Debug.Log("Starting Summoning attack");
@@ -260,15 +328,16 @@ public class Boss : MonoBehaviour
             float speed = 5.0f; // Adjust speed as needed
             float duration = distance / speed;
 
-            // Move the paw towards the spawn point
-            yield return StartCoroutine(MovePawTowardsTarget(transform.gameObject, spawnPoint.position, duration));
+            // Instantiate the paw at the Boss's position and move towards the spawn point
+            GameObject pawInstance = Instantiate(pawEyePrefab, transform.position, Quaternion.identity);
+            StartCoroutine(MovePawTowardsTarget(pawInstance, spawnPoint.position, duration));
 
             // Instantiate the rat at the selected spawn point
             GameObject ratInstance = Instantiate(ratPrefab, spawnPoint.position, spawnPoint.rotation);
             activeRatsCount++;
             Debug.Log("Active rats count after spawning: " + activeRatsCount);
 
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.4f);
         }
 
         Debug.Log("Summoning attack completed");
@@ -281,20 +350,32 @@ public class Boss : MonoBehaviour
         attacking = false; // Reset attacking flag
     }
 
-    private IEnumerator MovePawTowardsTarget(GameObject paw, Vector3 targetPosition, float duration)
+private IEnumerator MovePawTowardsTarget(GameObject paw, Vector3 targetPosition, float duration)
+{
+    Vector3 startPosition = paw.transform.position;
+    float elapsedTime = 0;
+
+    while (elapsedTime < duration)
     {
-        Vector3 startPosition = paw.transform.position;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            paw.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        paw.transform.position = targetPosition;
+        paw.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / duration);
+        elapsedTime += Time.deltaTime;
+        yield return null;
     }
+
+    paw.transform.position = targetPosition;
+
+    // Call the new fade method after reaching the target
+    StartCoroutine(FadeAwayPaw(paw));
+}
+
+
+    private IEnumerator FadeAwayPaw(GameObject pawInstance)
+    {
+        // Fade out effect logic can be added here if needed (e.g., scale down, change opacity)
+        yield return new WaitForSeconds(fadeDuration); // Wait for fade duration
+        Destroy(pawInstance); // Destroy the paw instance
+    }
+
 
     public void KillRat()
     {
