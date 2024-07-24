@@ -11,6 +11,7 @@ public class BossHealth : MonoBehaviour
     public GameObject theWinScreen;
     private Animator animator;
     private SpriteRenderer bossSpriteRenderer;
+    private Color originalColor; // Store the original color of the boss sprite
 
     [Header("iFrames")]
     [SerializeField] private float iFramesDuration = 50.0f; // Increase this value for a longer invincibility period
@@ -26,6 +27,9 @@ public class BossHealth : MonoBehaviour
         currentHealth = maxHealth;
         animator = GetComponent<Animator>(); // Get the Animator component
         bossSpriteRenderer = GetComponent<SpriteRenderer>(); // Get the SpriteRenderer component from the current GameObject
+
+        // Store the original color of the boss sprite
+        originalColor = bossSpriteRenderer.color;
 
         // Find all game objects with the tag "WeakPoint" and get their colliders
         GameObject[] weakPoints = GameObject.FindGameObjectsWithTag("WeakPoint");
@@ -100,7 +104,7 @@ public class BossHealth : MonoBehaviour
         {
             bossSpriteRenderer.color = new Color(1, 0, 0, 0.5f);
             yield return new WaitForSeconds(iFramesDuration / (numberOfFlashes * 2));
-            bossSpriteRenderer.color = Color.white;
+            bossSpriteRenderer.color = originalColor;
             yield return new WaitForSeconds(iFramesDuration / (numberOfFlashes * 2));
         }
 
@@ -179,5 +183,3 @@ public class BossHealth : MonoBehaviour
         }
     }
 }
-
-

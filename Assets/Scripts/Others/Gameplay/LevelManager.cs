@@ -37,7 +37,8 @@ public class LevelManager : MonoBehaviour
     public GameObject gameOverScreen; // Referring to the Game Over Screen game object
 
     public Image heart1;
-    public Image heart2; // Reference to 2 heart images
+    public Image heart2;
+    public Image heart3;// Reference to 3 heart images
 
     public Sprite heartFull;
     public Sprite heartHalf;
@@ -154,33 +155,60 @@ public class LevelManager : MonoBehaviour
     //     }
     // }
 
+    //Update the heart meter
     public void UpdateHeartMeter()
     {
         switch (healthCount)
         {
+            //When healthCount = 600, full healthCount
+            case 600:
+                heart1.sprite = heartFull;
+                heart2.sprite = heartFull;
+                heart3.sprite = heartFull;
+                break; //Keyword, jumps the code execution of the switch
+
+            //Take away half of the heart when player gets hit once
+            case 500:
+                heart1.sprite = heartFull;
+                heart2.sprite = heartFull;
+                heart3.sprite = heartHalf;
+                break;
+
             case 400:
                 heart1.sprite = heartFull;
                 heart2.sprite = heartFull;
+                heart3.sprite = heartEmpty;
                 break;
+
             case 300:
                 heart1.sprite = heartFull;
                 heart2.sprite = heartHalf;
+                heart3.sprite = heartEmpty;
                 break;
+
             case 200:
                 heart1.sprite = heartFull;
                 heart2.sprite = heartEmpty;
+                heart3.sprite = heartEmpty;
                 break;
+
             case 100:
                 heart1.sprite = heartHalf;
                 heart2.sprite = heartEmpty;
+                heart3.sprite = heartEmpty;
                 break;
+
             case 0:
                 heart1.sprite = heartEmpty;
                 heart2.sprite = heartEmpty;
+                heart3.sprite = heartEmpty;
                 break;
+
+            //Any other situations 
             default:
-                heart1.sprite = heartFull;
-                heart2.sprite = heartFull;
+                heart1.sprite = heartEmpty;
+                heart2.sprite = heartEmpty;
+                heart3.sprite = heartEmpty;
                 break;
         }
     }
