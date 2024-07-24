@@ -11,7 +11,10 @@ public class EnemyCounter : MonoBehaviour
     public Button Ultimate;
     public TextMeshProUGUI enemiesLeftText;
     public float freezeTime = 5.0f; // Duration to freeze the player
-    private PlayerController playerController; // Reference to the PlayerController script
+    private PlayerControllera playerController; // Reference to the PlayerController script
+    public GameObject ES1;
+    public GameObject ES2;
+    public GameObject ES3;
 
     void Start()
     {
@@ -24,7 +27,7 @@ public class EnemyCounter : MonoBehaviour
         boss.SetActive(false);
 
         // Find the PlayerController in the scene
-        playerController = FindObjectOfType<PlayerController>();
+        playerController = FindObjectOfType<PlayerControllera>();
 
         // Check if PlayerController was found
         if (playerController == null)
@@ -96,6 +99,11 @@ public class EnemyCounter : MonoBehaviour
         // Activate the boss GameObject
         boss.SetActive(true);
         Ultimate.gameObject.SetActive(true);
+        ES1.gameObject.SetActive(false);
+        ES2.gameObject.SetActive(false);
+        ES3.gameObject.SetActive(false);
+
+
     }
 
     // Update the TextMeshPro with the remaining enemies count
