@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class InnButtons : MonoBehaviour
+public class Skip : MonoBehaviour
 {
 
     // Start is called before the first frame update
@@ -18,9 +20,9 @@ public class InnButtons : MonoBehaviour
         
     }
 
-    public void MainMenu()
+    public void SkipDialogue(GameObject dialogueBox)
     {
-        SceneManager.LoadScene("Town");
+        dialogueBox.SetActive(false);
     }
 
 }

@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 public class GuildButtons : MonoBehaviour
 {
     public int LevelNumber;
+
+    public GameObject LevelOnePrimerCanvas;
+    public GameObject LevelTwoPrimerCanvas;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,15 +20,44 @@ public class GuildButtons : MonoBehaviour
     {
         
     }
-
+    
+   
     public void StartLevel()
     {
         switch (LevelNumber)
         {
+
+            case 0:
+                LevelOnePrimerCanvas.SetActive(true);
+                break;
+            case 1:
+                LevelTwoPrimerCanvas.SetActive(true);
+                break;
+        }
+    }
+    
+    public void AcceptQuest()
+    {
+        switch (LevelNumber)
+        {
+
             case 0:
                 SceneManager.LoadScene("MGD");
+                break;
+            case 1:
+                LevelTwoPrimerCanvas.SetActive(true);
                 break;
         }
     }
 
+ /*
+    public void StartLevelOne()
+    {
+        SceneManager.LoadScene("MGD");
+    }
+*/
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("Town");
+    }
 }
