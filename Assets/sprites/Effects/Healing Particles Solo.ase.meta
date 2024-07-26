@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6ebcd7ed89f833d40a108836242360b6
+guid: 46447643da99b714eb0adca2040d2e46
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -121,16 +121,16 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Healing Particles Solo
     originalName: 
-    pivot: {x: 0.35294124, y: -1.6875}
+    pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 17
-      height: 16
-    spriteID: d4ff93b34593d1f4fa488289e2c7fb9e
+      width: 72
+      height: 72
+    spriteID: 362abcb1420bc854fa05b1b90e5c7aec
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -151,11 +151,11 @@ ScriptedImporter:
     - name: Healing Particles Solo
       frameIndex: 0
       cellRect:
-        x: 30
-        y: 27
-        width: 17
-        height: 16
-      spriteId: d4ff93b34593d1f4fa488289e2c7fb9e
+        x: 0
+        y: 0
+        width: 72
+        height: 72
+      spriteId: 362abcb1420bc854fa05b1b90e5c7aec
     linkedCells: []
     parentIndex: -1
   platformSettings: []
