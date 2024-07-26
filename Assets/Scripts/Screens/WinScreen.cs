@@ -82,7 +82,7 @@ public class WinScreen : MonoBehaviour
     public void BackToMainMenu()
     {
         Time.timeScale = 1.0f; // Avoid game stuck at frozen when changing
-        SceneManager.LoadScene("StartGame");
+        SceneManager.LoadScene("Town");
         if (UIHolder != null)
         {
             UIHolder.SetActive(false);
