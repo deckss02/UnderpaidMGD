@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
     private Rigidbody2D enemyRigidbody; // Reference to the Rigidbody2D component
     public EnemyCounter enemycounter;
 
+    private bool isKilled = false; // Flag to check if the enemy is already counted as killed
     void Start()
     {
         enemyRigidbody = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component attached to the enemy
@@ -40,13 +41,17 @@ public class EnemyController : MonoBehaviour
         {
             Flip();
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    { 
 
         // Check if the collider is tagged as a Bullet and apply damage
-        if (collision.CompareTag("Bullet"))
+        if (collision.collider.CompareTag("Bullet"))
         {
             Debug.Log($"Bullet hit enemy. Applying {damageAmount} damage.");
             TakeDamage(damageAmount); // Apply damage to the enemy
-            Destroy(collision.gameObject); // Destroy the bullet after hitting the enemy
+            Destroy(collision.collider.gameObject); // Destroy the bullet after hitting the enemy
         }
     }
 
@@ -56,7 +61,6 @@ public class EnemyController : MonoBehaviour
         if (currentHealth <= 0)
         {
             Die(); // Destroy the enemy if health is 0 or less
-            enemycounter.EnemyKilled();
         }
     }
 
@@ -67,7 +71,12 @@ public class EnemyController : MonoBehaviour
 
     public void Die()
     {
-        Debug.Log("Enemy is dying");
+        if (!isKilled) // Check if the enemy is already killed
+        {
+            Debug.Log("Enemy is dying");
+            isKilled = true; // Set the flag to true
+            enemycounter.EnemyKilled();
+        }
         Destroy(gameObject); // Destroy the enemy game object
     }
 }

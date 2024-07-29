@@ -89,7 +89,7 @@ public class SwordUser : MonoBehaviour
             Animator weaponAnimator = currentWeapon.GetComponent<Animator>();
             if (weaponAnimator != null)
             {
-                weaponAnimator.SetTrigger("AttkDown");
+                weaponAnimator.SetTrigger("AttackDown");
             }
             else
             {

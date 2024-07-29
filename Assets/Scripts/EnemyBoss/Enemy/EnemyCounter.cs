@@ -63,6 +63,10 @@ public class EnemyCounter : MonoBehaviour
         // Destroy all remaining enemies
         DestroyAllEnemies();
 
+        ES1.gameObject.SetActive(false);
+        ES2.gameObject.SetActive(false);
+        ES3.gameObject.SetActive(false);
+
         // Wait for the specified freeze time
         yield return new WaitForSeconds(freezeTime);
 
@@ -99,11 +103,6 @@ public class EnemyCounter : MonoBehaviour
         // Activate the boss GameObject
         boss.SetActive(true);
         Ultimate.gameObject.SetActive(true);
-        ES1.gameObject.SetActive(false);
-        ES2.gameObject.SetActive(false);
-        ES3.gameObject.SetActive(false);
-
-
     }
 
     // Update the TextMeshPro with the remaining enemies count

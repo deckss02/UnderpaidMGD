@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 
 public class SkillButton : MonoBehaviour
@@ -9,9 +10,7 @@ public class SkillButton : MonoBehaviour
     private LevelManager theLevelManager;
 
     public AudioSource audioSource;
-
     public AudioClip RheaHeals;
-    public AudioClip CornClaymore;
 
     public int healAmount = 200; // Amount of health to restore
 
@@ -27,15 +26,6 @@ public class SkillButton : MonoBehaviour
         {
             audioSource.PlayOneShot(RheaHeals);
             theLevelManager.Heal(healAmount);
-        }
-    }
-
-    public void UseBladeSkill()
-    {
-        if(theLevelManager != null) 
-        { 
-            audioSource.PlayOneShot(CornClaymore);
-        
         }
     }
 }

@@ -47,4 +47,17 @@ public class SlashDamage : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        // Handle collision with the Boss using trigger detection
+        if (collision.CompareTag("Boss"))
+        {
+            BossHealth bossHealth = collision.GetComponent<BossHealth>();
+            if (bossHealth != null)
+            {
+                bossHealth.TakeDamage(damageAmount);
+            }
+        }
+    }
 }

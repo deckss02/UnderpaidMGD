@@ -106,7 +106,7 @@ AnimatorController:
   m_Name: Sword_Cornelius
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: AttkDown
+  - m_Name: AttackDown
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -226,7 +226,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: AttkDown
+    m_ConditionEvent: AttackDown
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5119280968996668569}
