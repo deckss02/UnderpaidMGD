@@ -32,8 +32,6 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private int numberOfFlashes;
     private SpriteRenderer playerSpriteRenderer;
 
-    public int expCount; // Keep track of number of coins that the player collected
-    public TextMeshProUGUI expText;
     public GameObject gameOverScreen; // Referring to the Game Over Screen game object
 
     public Image heart1;
@@ -50,7 +48,6 @@ public class LevelManager : MonoBehaviour
     {
         thePlayer = FindObjectOfType<PlayerControllera>();
         swap_Button = FindObjectOfType<PlayerSwap_Button>();
-        expText.text = "Exp: " + expCount;
         healthCount = maxHealth;
         playerSpriteRenderer = thePlayer.GetComponent<SpriteRenderer>();
 
@@ -253,14 +250,6 @@ public class LevelManager : MonoBehaviour
         {
             Instantiate(animationPrefab, thePlayer.transform.position, Quaternion.identity);
         }
-    }
-
-
-    public void AddExp(int ExpToAdd)
-    {
-        expCount += ExpToAdd;
-        expText.text = "Exp: " + expCount;
-        coinSound.Play();
     }
 
     // public IEnumerator RespawnCo()

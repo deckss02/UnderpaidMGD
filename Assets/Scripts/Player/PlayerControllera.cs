@@ -29,7 +29,6 @@ public class PlayerControllera : MonoBehaviour
   // private Vector2 bulletPos; //Coordinates where the bullet should be instantiated
   // public float fireRate;
   // private float nextFire;
-    public bool isMoving;
 
     private bool facingRight = true;
     private GameObject Enemy;

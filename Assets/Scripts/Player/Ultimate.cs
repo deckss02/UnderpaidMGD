@@ -10,14 +10,16 @@ public class Ultimate : MonoBehaviour
 
     private bool ultimateReady = false; // Flag to check if the ultimate is ready
     private Transform buttonTransform; // Transform of the Ultimate button
+    private Button ultimateButton; // Reference to the Button component
 
     void Start()
     {
-        // Cache the button's transform
+        // Cache the button's transform and Button component
         buttonTransform = transform;
+        ultimateButton = GetComponent<Button>();
 
         // Optionally, you can disable the ultimate button initially
-        GetComponent<Button>().interactable = false;
+        ultimateButton.interactable = false;
     }
 
     void Update()
@@ -26,7 +28,7 @@ public class Ultimate : MonoBehaviour
         if (bossHealth.currentHealth <= 40f && !ultimateReady)
         {
             // Enable the ultimate button
-            GetComponent<Button>().interactable = true;
+            ultimateButton.interactable = true;
             ultimateReady = true;
         }
     }
@@ -34,19 +36,22 @@ public class Ultimate : MonoBehaviour
     // Function to use the ultimate ability
     public void UseUltimate()
     {
+        Debug.Log("Ultimate Playing!!!!");
         if (ultimateReady)
         {
             // Instantiate the ultimate visual effect at the button's position
             Instantiate(ultimatePrefab, buttonTransform.position, Quaternion.identity);
 
             // Deal damage to the boss
-            bossHealth.TakeDamage(ultimateDamage);
+            bossHealth.TriggerUltimateDamage(ultimateDamage);
 
             // Reset the ultimate
             ultimateReady = false;
 
-            // Disable the ultimate button
-            GetComponent<Button>().interactable = false;
+            // Disable the ultimate button permanently
+            ultimateButton.interactable = false;
+            ultimateButton.gameObject.SetActive(false); // Optionally disable the entire button GameObject
         }
     }
 }
+

@@ -19,7 +19,7 @@ public class BossHealth : MonoBehaviour
 
     private Collider2D[] weakPointColliders; // References to all weak point colliders
     private bool isInvincible = false;
-    private PlayerController playerController; // Reference to the player's controller script
+    private PlayerControllera playerController; // Reference to the player's controller script
 
     void Start()
     {
@@ -41,7 +41,7 @@ public class BossHealth : MonoBehaviour
         }
 
         // Find the player controller in the scene
-        playerController = FindObjectOfType<PlayerController>();
+        playerController = FindObjectOfType<PlayerControllera>();
     }
 
     void Update()
@@ -50,9 +50,9 @@ public class BossHealth : MonoBehaviour
         healthBar.value = currentHealth;
 
         // Check if the boss is dead and ensure all attacks and cooldowns are stopped
-        if (animator.GetBool("isDead"))
+        if (currentHealth <= 0 && !animator.GetBool("isDead"))
         {
-            StopAllActions();
+            Die();
         }
     }
 
@@ -78,6 +78,17 @@ public class BossHealth : MonoBehaviour
                 animator.SetTrigger("Damage");
                 StartCoroutine(Invincibility());
             }
+        }
+    }
+
+    public void TriggerUltimateDamage(float damageAmount)
+    {
+        TakeDamage(damageAmount);
+
+        // Check if the boss is dead and trigger the win screen
+        if (currentHealth <= 0)
+        {
+            TriggerWinScreen();
         }
     }
 
@@ -144,8 +155,20 @@ public class BossHealth : MonoBehaviour
             playerController.enabled = false;
         }
 
-        // Optionally, destroy the boss after the death animation finishes
-        // Destroy(gameObject); 
+        // Stop all attacks and cooldowns
+        StopAllActions();
+
+        // Optionally, disable the Animator
+        if (animator != null)
+        {
+            animator.enabled = false;
+        }
+
+        // Freeze the game
+        Time.timeScale = 0f;
+
+        // Trigger the win screen
+        TriggerWinScreen();
     }
 
     public void StopAllActions()
@@ -167,8 +190,10 @@ public class BossHealth : MonoBehaviour
 
     private IEnumerator TriggerWinScreenCoroutine()
     {
-        yield return new WaitForSeconds(1.0f); // Adjust this delay if needed
+        // Wait for a moment before displaying the win screen to ensure it's visible
+        yield return new WaitForSecondsRealtime(1.0f); // Adjust this delay if needed
         theWinScreen.SetActive(true);
+        Time.timeScale = 1f; // Restore the time scale if you need interactions in the win screen
     }
 
     public void EnableWeakPoints(bool enable)

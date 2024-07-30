@@ -29,7 +29,7 @@ public class PlayerSwap_Button : MonoBehaviour
     public float switchCooldown = 1f; // Cooldown period in seconds
     private float nextSwitchTime = 0f; // Time when switching is allowed again
 
-    private SwordUser sworduser; // Reference to the SwordUser component for the main player
+    public SwordUser sworduser; // Reference to the SwordUser component for the main player
 
     private bool forceSwitched = false; // Flag to disable swapping after forced switch
 
@@ -38,6 +38,10 @@ public class PlayerSwap_Button : MonoBehaviour
         controller = FindObjectOfType<PlayerControllera>();
         levelManager = FindObjectOfType<LevelManager>();
         sworduser = Player.GetComponent<SwordUser>();
+        if (sworduser == null)
+        {
+            Debug.LogError("SwordUser component not found on Player.");
+        }
         CSkill.SetActive(true);
     }
 
@@ -72,10 +76,12 @@ public class PlayerSwap_Button : MonoBehaviour
             // Equip the correct weapon based on the active character
             if (isCorneliusActive)
             {
+                Debug.Log("Switching to Sword");
                 sworduser.SwitchToSword();
             }
             else
             {
+                Debug.Log("Switching to Claymore");
                 sworduser.SwitchToClaymore();
             }
 
@@ -114,17 +120,22 @@ public class PlayerSwap_Button : MonoBehaviour
 
     public void ForceSwitchCharacter()
     {
+        Debug.Log("ForceSwitchCharacter called");
         // Perform the switch based on the current state
         if (isCorneliusActive && levelManager.CornDeath)
         {
             SwitchToRhea();
             SwitchToRheaBox();
+            Debug.Log("Forcing switch to Claymore");
+            sworduser.SwitchToSword(); // Added line to switch weapon
             isCorneliusActive = false;
         }
         else if (!isCorneliusActive && levelManager.RheaDeath)
         {
             SwitchToCornelius();
             SwitchToCornBox();
+            Debug.Log("Forcing switch to Sword");
+            sworduser.SwitchToClaymore(); // Added line to switch weapon
             isCorneliusActive = true;
         }
 
@@ -132,4 +143,3 @@ public class PlayerSwap_Button : MonoBehaviour
         forceSwitched = true;
     }
 }
-

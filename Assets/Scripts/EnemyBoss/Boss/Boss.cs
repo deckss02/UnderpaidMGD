@@ -83,7 +83,6 @@ public class Boss : MonoBehaviour
     private IEnumerator HairBallRollAttackCoroutine(System.Action onComplete)
     {
         Debug.Log("Starting HairBallRoll attack");
-        pawEye.gameObject.SetActive(false);
 
         // Random number of hairballs to spawn within a specified range
         int minHairballs = 2;

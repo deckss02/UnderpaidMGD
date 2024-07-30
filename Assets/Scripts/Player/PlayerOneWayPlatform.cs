@@ -1,10 +1,11 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerOneWayPlatform : MonoBehaviour
 {
-    public GameObject currentOneWayPlatform;
-   
+    public List<GameObject> currentOneWayPlatforms = new List<GameObject>(); // List to track all platforms the player is interacting with
+
     [SerializeField] private BoxCollider2D playerCollider;
 
     private PlayerController playerController;
@@ -14,48 +15,58 @@ public class PlayerOneWayPlatform : MonoBehaviour
         playerController = GetComponent<PlayerController>();
     }
 
-
     private void Update()
     {
-      //if (Input.GetButtonDown("Down")|| Input.GetKeyDown(KeyCode.DownArrow))
-      //{
-      //    if (currentOneWayPlatform != null)
-      //    {
-      //        StartCoroutine(DisableCollision());
-      //    }
-      //}
+        // Uncomment this if you want to use a button press for jumping down
+        // if (Input.GetButtonDown("Down") || Input.GetKeyDown(KeyCode.DownArrow))
+        // {
+        //     if (currentOneWayPlatforms.Count > 0)
+        //     {
+        //         StartCoroutine(DisableCollision());
+        //     }
+        // }
     }
 
     public void JumpDown()
     {
-        if (currentOneWayPlatform != null)
+        if (currentOneWayPlatforms.Count > 0)
         {
             StartCoroutine(DisableCollision());
         }
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("OneWayPlatform"))
         {
-            currentOneWayPlatform = collision.gameObject;
+            currentOneWayPlatforms.Add(collision.gameObject); // Add the platform to the list
         }
     }
 
-    public void OnCollisionExit2D(Collision2D collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("OneWayPlatform"))
         {
-            currentOneWayPlatform = null;
+            currentOneWayPlatforms.Remove(collision.gameObject); // Remove the platform from the list
         }
     }
 
-    public IEnumerator DisableCollision()
+    private IEnumerator DisableCollision()
     {
-        BoxCollider2D platformCollider = currentOneWayPlatform.GetComponent<BoxCollider2D>();
+        // Disable collision for all platforms in the list
+        foreach (var platform in currentOneWayPlatforms)
+        {
+            BoxCollider2D platformCollider = platform.GetComponent<BoxCollider2D>();
+            Physics2D.IgnoreCollision(playerCollider, platformCollider);
+        }
 
-        Physics2D.IgnoreCollision(playerCollider, platformCollider);
         yield return new WaitForSeconds(1f);
-        Physics2D.IgnoreCollision(playerCollider, platformCollider, false);
+
+        // Re-enable collision for all platforms in the list
+        foreach (var platform in currentOneWayPlatforms)
+        {
+            BoxCollider2D platformCollider = platform.GetComponent<BoxCollider2D>();
+            Physics2D.IgnoreCollision(playerCollider, platformCollider, false);
+        }
     }
 }

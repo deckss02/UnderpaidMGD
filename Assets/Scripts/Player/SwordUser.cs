@@ -19,19 +19,6 @@ public class SwordUser : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Check if prefabs are assigned
-        if (ClaymorePrefab == null)
-        {
-            Debug.LogError("ClaymorePrefab is not assigned in the Inspector.");
-            return;
-        }
-
-        if (SwordPrefab == null)
-        {
-            Debug.LogError("SwordPrefab is not assigned in the Inspector.");
-            return;
-        }
-
         // Instantiate both weapons and set them as inactive
         claymoreInstance = Instantiate(ClaymorePrefab, ClaymorePosition.position, ClaymorePosition.rotation);
         claymoreInstance.transform.SetParent(ClaymorePosition);
@@ -55,6 +42,7 @@ public class SwordUser : MonoBehaviour
 
     public void SwitchToClaymore()
     {
+        Debug.Log("SwitchToClaymore called");
         EquipWeapon(claymoreInstance);
         if (slashManager != null)
         {
@@ -64,6 +52,7 @@ public class SwordUser : MonoBehaviour
 
     public void SwitchToSword()
     {
+        Debug.Log("SwitchToSword called");
         EquipWeapon(swordInstance);
         if (slashManager != null)
         {
@@ -75,10 +64,12 @@ public class SwordUser : MonoBehaviour
     {
         if (currentWeapon != null)
         {
+            Debug.Log("Deactivating current weapon: " + currentWeapon.name);
             currentWeapon.SetActive(false); // Deactivate the current weapon
         }
 
         currentWeapon = weapon;
+        Debug.Log("Activating new weapon: " + currentWeapon.name);
         currentWeapon.SetActive(true); // Activate the new weapon
     }
 
@@ -89,6 +80,7 @@ public class SwordUser : MonoBehaviour
             Animator weaponAnimator = currentWeapon.GetComponent<Animator>();
             if (weaponAnimator != null)
             {
+                Debug.Log("Triggering attack animation on weapon: " + currentWeapon.name);
                 weaponAnimator.SetTrigger("AttackDown");
             }
             else
