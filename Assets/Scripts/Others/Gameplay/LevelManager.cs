@@ -9,7 +9,6 @@ public class LevelManager : MonoBehaviour
 {
     public float waitToRespawn;
     public PlayerControllera thePlayer; // Reference to an object of PlayerController
-    public GameObject deathSplosion;
 
     public GameObject animationPrefab;
 
@@ -83,7 +82,6 @@ public class LevelManager : MonoBehaviour
             if (CornDeath && RheaDeath)
             {
                 thePlayer.gameObject.SetActive(false);
-                Instantiate(deathSplosion, thePlayer.transform.position, thePlayer.transform.rotation);
                 gameOverScreen.SetActive(true);
                 levelMusic.Stop();
                 gameOverMusic.Play();

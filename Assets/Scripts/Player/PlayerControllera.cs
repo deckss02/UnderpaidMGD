@@ -146,17 +146,17 @@ public class PlayerControllera : MonoBehaviour
         transform.localScale = scale;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == "WeakPoint")
-        {
-            var bossHealth = other.GetComponent<BossHealth>();
-            if (bossHealth != null)
-            {
-                bossHealth.TakeDamage(20f);
-            }
-        }
-    }
+  // void OnTriggerEnter2D(Collider2D other)
+  // {
+  //     if (other.tag == "WeakPoint")
+  //     {
+  //         var bossHealth = other.GetComponent<BossHealth>();
+  //         if (bossHealth != null)
+  //         {
+  //             bossHealth.TakeDamage(20f);
+  //         }
+  //     }
+  // }
 
     public void Knockback()
     {

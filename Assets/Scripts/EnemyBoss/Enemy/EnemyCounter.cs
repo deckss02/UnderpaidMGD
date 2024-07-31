@@ -15,6 +15,7 @@ public class EnemyCounter : MonoBehaviour
     public GameObject ES1;
     public GameObject ES2;
     public GameObject ES3;
+    public GameObject ES4;
 
     void Start()
     {
@@ -66,6 +67,7 @@ public class EnemyCounter : MonoBehaviour
         ES1.gameObject.SetActive(false);
         ES2.gameObject.SetActive(false);
         ES3.gameObject.SetActive(false);
+        ES4.gameObject.SetActive(false);
 
         // Wait for the specified freeze time
         yield return new WaitForSeconds(freezeTime);

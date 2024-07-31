@@ -38,10 +38,6 @@ public class PlayerSwap_Button : MonoBehaviour
         controller = FindObjectOfType<PlayerControllera>();
         levelManager = FindObjectOfType<LevelManager>();
         sworduser = Player.GetComponent<SwordUser>();
-        if (sworduser == null)
-        {
-            Debug.LogError("SwordUser component not found on Player.");
-        }
         CSkill.SetActive(true);
     }
 
@@ -76,12 +72,10 @@ public class PlayerSwap_Button : MonoBehaviour
             // Equip the correct weapon based on the active character
             if (isCorneliusActive)
             {
-                Debug.Log("Switching to Sword");
                 sworduser.SwitchToSword();
             }
             else
             {
-                Debug.Log("Switching to Claymore");
                 sworduser.SwitchToClaymore();
             }
 
@@ -126,7 +120,6 @@ public class PlayerSwap_Button : MonoBehaviour
         {
             SwitchToRhea();
             SwitchToRheaBox();
-            Debug.Log("Forcing switch to Claymore");
             sworduser.SwitchToSword(); // Added line to switch weapon
             isCorneliusActive = false;
         }
@@ -134,7 +127,6 @@ public class PlayerSwap_Button : MonoBehaviour
         {
             SwitchToCornelius();
             SwitchToCornBox();
-            Debug.Log("Forcing switch to Sword");
             sworduser.SwitchToClaymore(); // Added line to switch weapon
             isCorneliusActive = true;
         }
