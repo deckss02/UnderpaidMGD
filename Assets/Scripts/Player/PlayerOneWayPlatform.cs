@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class PlayerOneWayPlatform : MonoBehaviour
 {
-    public List<GameObject> currentOneWayPlatforms = new List<GameObject>(); // List to track all platforms the player is interacting with
-
+    public GameObject currentOneWayPlatform;
     [SerializeField] private BoxCollider2D playerCollider;
 
-    private PlayerController playerController;
+    private PlayerControllera playerController;
 
     void Start()
     {
-        playerController = GetComponent<PlayerController>();
+        playerController = GetComponent<PlayerControllera>();
     }
 
     private void Update()
@@ -29,44 +28,34 @@ public class PlayerOneWayPlatform : MonoBehaviour
 
     public void JumpDown()
     {
-        if (currentOneWayPlatforms.Count > 0)
+        if (currentOneWayPlatform != null)
         {
             StartCoroutine(DisableCollision());
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("OneWayPlatform"))
         {
-            currentOneWayPlatforms.Add(collision.gameObject); // Add the platform to the list
+            currentOneWayPlatform = collision.gameObject;
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    public void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("OneWayPlatform"))
         {
-            currentOneWayPlatforms.Remove(collision.gameObject); // Remove the platform from the list
+            currentOneWayPlatform = null;
         }
     }
 
-    private IEnumerator DisableCollision()
+    public IEnumerator DisableCollision()
     {
-        // Disable collision for all platforms in the list
-        foreach (var platform in currentOneWayPlatforms)
-        {
-            BoxCollider2D platformCollider = platform.GetComponent<BoxCollider2D>();
-            Physics2D.IgnoreCollision(playerCollider, platformCollider);
-        }
+        BoxCollider2D platformCollider = currentOneWayPlatform.GetComponent<BoxCollider2D>();
 
+        Physics2D.IgnoreCollision(playerCollider, platformCollider);
         yield return new WaitForSeconds(1f);
-
-        // Re-enable collision for all platforms in the list
-        foreach (var platform in currentOneWayPlatforms)
-        {
-            BoxCollider2D platformCollider = platform.GetComponent<BoxCollider2D>();
-            Physics2D.IgnoreCollision(playerCollider, platformCollider, false);
-        }
+        Physics2D.IgnoreCollision(playerCollider, platformCollider, false);
     }
 }

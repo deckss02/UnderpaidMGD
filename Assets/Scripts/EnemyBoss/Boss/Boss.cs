@@ -5,6 +5,7 @@ using UnityEngine;
 public class Boss : MonoBehaviour
 {
     public GameObject hairballPrefab; // Prefab for the hairball projectile
+    public FollowPath followPathComponent;
     public Transform[] firePoints; // Points from which hairballs will be fired
 
     public Transform spawnPoint1;
@@ -41,6 +42,23 @@ public class Boss : MonoBehaviour
         myAnim = GetComponent<Animator>(); // Get the Animator component
         attacking = false; // Initialize attacking flag to false
         playerController = GetComponent<PlayerControllera>();
+        followPathComponent = GetComponent<FollowPath>();
+    }
+
+    public void DeactivateFollowPath()
+    {
+        if (followPathComponent != null)
+        {
+            followPathComponent.SetActive(false);
+        }
+    }
+
+    public void ActivateFollowPath()
+    {
+        if (followPathComponent != null)
+        {
+            followPathComponent.SetActive(true);
+        }
     }
 
     // Method to start the HairBallRoll attack
@@ -156,6 +174,7 @@ public class Boss : MonoBehaviour
     private IEnumerator ClawAttackCoroutine(System.Action onComplete)
     {
         Debug.Log("Starting Claw attack");
+        DeactivateFollowPath();
 
         // Variables for the attack logic
         float followDuration = 5.0f; // Duration to wait before spawning claws
@@ -197,6 +216,7 @@ public class Boss : MonoBehaviour
         // Call the callback to signal completion
         onComplete?.Invoke();
         attacking = false; // Reset attacking flag
+        ActivateFollowPath();
     }
 
 
@@ -212,11 +232,12 @@ public class Boss : MonoBehaviour
     private IEnumerator SlammingAttackCoroutine(System.Action onComplete)
     {
         Debug.Log("Starting Paw Slamming attack");
+        DeactivateFollowPath();
 
         // Define the spawn points
         Transform[] spawnPoints = new Transform[] { spawnPoint1, spawnPoint2, spawnPoint3, spawnPoint4 };
         float totalAttackDuration = 20.0f; // Total duration for the attack
-        float moveDuration = 3.0f; // Time to move to each spawn point
+        float moveDuration = 6.0f; // Time to move to each spawn point
         int numberOfLoops = 4; // Number of times to loop through all spawn points
         float cooldownDuration = 5.0f; // Cooldown duration after completing all loops
 
@@ -245,10 +266,12 @@ public class Boss : MonoBehaviour
             foreach (Transform spawnPoint in spawnPoints)
             {
                 // Move to spawn point
-                float startTime = Time.time;
-                while (Vector3.Distance(pawMouth.transform.position, spawnPoint.position) > 0.1f)
+                float elapsedTime = 0;
+                Vector3 startPosition = pawMouth.transform.position;
+                while (elapsedTime < moveDuration)
                 {
-                    pawMouth.transform.position = Vector3.MoveTowards(pawMouth.transform.position, spawnPoint.position, Time.deltaTime * moveDuration);
+                    pawMouth.transform.position = Vector3.Lerp(startPosition, spawnPoint.position, elapsedTime / moveDuration);
+                    elapsedTime += Time.deltaTime;
                     yield return null;
                 }
 
@@ -256,8 +279,7 @@ public class Boss : MonoBehaviour
                 pawMouth.transform.position = spawnPoint.position;
 
                 // Calculate remaining time at this spawn point
-                float elapsed = Time.time - startTime;
-                float remainingTimeAtPoint = Mathf.Max(timePerSpawnPoint - elapsed, 0);
+                float remainingTimeAtPoint = timePerSpawnPoint;
 
                 // Spawn claws in compass directions
                 foreach (Vector3 direction in directions)
@@ -284,9 +306,8 @@ public class Boss : MonoBehaviour
         attacking = false; // Reset attacking flag
         myAnim.SetBool("Paw8", false);
         myAnim.SetBool("CoolDown", true);
+        ActivateFollowPath();
     }
-
-
 
 
 
