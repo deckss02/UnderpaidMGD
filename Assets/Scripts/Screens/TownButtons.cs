@@ -8,6 +8,7 @@ public class TownButtons : MonoBehaviour
 {
     // Start is called before the first frame update
 
+    public Animator Transitionanim;
 
     void Start()
     {
@@ -23,18 +24,25 @@ public class TownButtons : MonoBehaviour
 
     public void InnMove()
     {
+        StartCoroutine(LoadingScene());
         SceneManager.LoadScene("Inn");
     }
 
     public void TheatreMove()
     {
+        StartCoroutine(LoadingScene());
         SceneManager.LoadScene("Theatre");
-
     }
 
     public void GuildMove()
     {
+        StartCoroutine(LoadingScene());
         SceneManager.LoadScene("Guild");
     }
 
+    IEnumerator LoadingScene()
+    {
+        Transitionanim.SetTrigger("Start");
+        yield return new WaitForSeconds(1.5f);
+    }
 }
