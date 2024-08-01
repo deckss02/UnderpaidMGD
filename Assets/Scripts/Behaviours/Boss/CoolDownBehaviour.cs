@@ -1,14 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CoolDownBehaviour : StateMachineBehaviour
 {
     private Boss boss; // Reference to the Boss script
     private BossHealth bossHealth; // Reference to the BossHealth script
+    private Animator pawEyeAnimator; // Reference to the PawEye animator
+    private Animator pawMouthAnimator; // Reference to the PawMouth animator
     private float cooldownTime = 5.0f; // Duration of the cooldown
     private float timer;
     private int stagesCompleted = 0; // Counter to track completed stages
+
+    private float resetDelay = 1.5f; // Delay before resetting state
+    private float resetTime; // Time at which the state should be reset
 
     // Called when the state starts evaluating
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -17,12 +20,38 @@ public class CoolDownBehaviour : StateMachineBehaviour
         boss = animator.GetComponent<Boss>();
         bossHealth = animator.GetComponent<BossHealth>();
         timer = cooldownTime;
+        resetTime = Time.time + resetDelay; // Set the reset time
+
+        // Find PawEye and PawMouth GameObjects and get their Animator components
+        GameObject pawEyeObject = GameObject.Find("PawEye"); // Replace with your actual name or tag
+        GameObject pawMouthObject = GameObject.Find("PawMouth"); // Replace with your actual name or tag
+
+        if (pawEyeObject != null)
+        {
+            pawEyeAnimator = pawEyeObject.GetComponent<Animator>();
+        }
+
+        if (pawMouthObject != null)
+        {
+            pawMouthAnimator = pawMouthObject.GetComponent<Animator>();
+        }
 
         // Enable the weak point collider and disable invincibility
         if (bossHealth != null)
         {
             bossHealth.EnableWeakPoints(true);
             bossHealth.DisableInvincibility();
+
+            // Set PawEye and PawMouth to cooldown state
+            if (pawEyeAnimator != null)
+            {
+                pawEyeAnimator.SetBool("CD", true);
+            }
+
+            if (pawMouthAnimator != null)
+            {
+                pawMouthAnimator.SetBool("CD", true);
+            }
         }
 
         Debug.Log("Entered Cooldown state");
@@ -63,6 +92,12 @@ public class CoolDownBehaviour : StateMachineBehaviour
             // Reset the timer
             timer = cooldownTime;
         }
+
+        // Check if it's time to reset the cooldown state
+        if (Time.time >= resetTime)
+        {
+            ResetState();
+        }
     }
 
     // Called when the state stops being evaluated
@@ -70,8 +105,23 @@ public class CoolDownBehaviour : StateMachineBehaviour
     {
         // Perform actions on exiting Cooldown state, if any
         Debug.Log("Exited Cooldown state");
+    }
 
-        // Disable the weak point collider and enable invincibility
+    // Function to reset state after a delay
+    private void ResetState()
+    {
+        // Reset PawEye and PawMouth to normal state
+        if (pawEyeAnimator != null)
+        {
+            pawEyeAnimator.SetBool("CD", false);
+        }
+
+        if (pawMouthAnimator != null)
+        {
+            pawMouthAnimator.SetBool("CD", false);
+        }
+
+        // Reset invincibility and weak points
         if (bossHealth != null)
         {
             bossHealth.EnableWeakPoints(false);

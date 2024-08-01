@@ -40,7 +40,7 @@ public class PawSlamBehaviour : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         // Reset flags for the next time this state is entered
-        animator.SetBool("Cooldown", true);
+        animator.SetBool("CoolDown", true);
         animator.SetBool("Paw8", false);
         animator.ResetTrigger("IsPaw");
         Debug.Log("Exited Paw Slam attack state");

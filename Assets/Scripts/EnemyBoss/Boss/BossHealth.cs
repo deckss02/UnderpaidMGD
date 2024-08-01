@@ -1,11 +1,12 @@
 using System.Collections;
-using System.Collections.Generic; // Add this for List<T>
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BossHealth : MonoBehaviour
 {
     public float maxHealth = 120f;
+    public FollowPath followPathComponent;
     public float currentHealth;
     public Slider healthBar; // Reference to a health bar UI component
     public GameObject theWinScreen;
@@ -27,6 +28,18 @@ public class BossHealth : MonoBehaviour
     [Header("Death Animation")]
     [SerializeField] private float deathAnimationDuration = 2.0f;
 
+    // References to PawMouth and PawEye animators
+    public Animator pawMouthAnimator;
+    public Animator pawEyeAnimator;
+
+    // Reference to PawMouth and PawEye GameObjects
+    public GameObject pawMouth;
+    public GameObject pawEye;
+
+    // New public transform points
+    public Transform fadePoint1;
+    public Transform fadePoint2;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -43,6 +56,7 @@ public class BossHealth : MonoBehaviour
         }
 
         playerController = FindObjectOfType<PlayerControllera>();
+        followPathComponent = GetComponent<FollowPath>();
     }
 
     void Update()
@@ -70,6 +84,10 @@ public class BossHealth : MonoBehaviour
             if (animator != null)
             {
                 animator.SetTrigger("Damage");
+
+                pawMouthAnimator.SetTrigger("Da");
+                pawEyeAnimator.SetTrigger("Da");
+
                 StartCoroutine(Invincibility());
             }
         }
@@ -122,9 +140,16 @@ public class BossHealth : MonoBehaviour
     {
         Debug.Log("Boss defeated!");
 
+        StopAllActions();
+
         if (animator != null)
         {
             animator.SetBool("isDead", true);
+
+            pawMouthAnimator.SetTrigger("Death");
+            pawEyeAnimator.SetTrigger("Death");
+
+            DeactivateFollowPath();
         }
 
         if (playerController != null)
@@ -132,9 +157,15 @@ public class BossHealth : MonoBehaviour
             playerController.enabled = false;
         }
 
-        StopAllActions();
-
         StartCoroutine(HandleDeathAnimation());
+    }
+
+    public void DeactivateFollowPath()
+    {
+        if (followPathComponent != null)
+        {
+            followPathComponent.SetActive(false);
+        }
     }
 
     private IEnumerator HandleDeathAnimation()
@@ -155,6 +186,19 @@ public class BossHealth : MonoBehaviour
         if (animator != null)
         {
             animator.SetBool("isDead", true);
+            DeactivateFollowPath();
+        }
+
+        // Deactivate FollowPath scripts and move the Paws
+        if (pawMouth != null)
+        {
+            pawMouth.GetComponent<FollowPath>().SetActive(false);
+            pawMouth.transform.position = fadePoint1.position;
+        }
+        if (pawEye != null)
+        {
+            pawEye.GetComponent<FollowPath>().SetActive(false);
+            pawEye.transform.position = fadePoint2.position;
         }
 
         // Wait for the ultimate effect to finish
@@ -172,7 +216,6 @@ public class BossHealth : MonoBehaviour
         Time.timeScale = 0f;
         TriggerWinScreen();
     }
-
 
     public void StopAllActions()
     {

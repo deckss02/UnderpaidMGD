@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PawEye : PawAI
 {
+    public GameObject paw;
+
     protected override IEnumerator MoveInCircle()
     {
         float angle = 0f;
@@ -16,6 +18,7 @@ public class PawEye : PawAI
                 float x = player.position.x + Mathf.Cos(angle) * circleRadius;
                 float y = player.position.y + Mathf.Sin(angle) * circleRadius;
                 Vector3 targetPosition = new Vector3(x, y, 0);
+                paw.transform.rotation = Quaternion.identity;
 
                 transform.position = Vector2.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
 

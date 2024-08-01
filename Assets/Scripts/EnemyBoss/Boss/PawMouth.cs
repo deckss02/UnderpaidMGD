@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PawMouth : PawAI
 {
+    public GameObject paw;
+
     protected override IEnumerator MoveInCircle()
     {
         float angle = 0f;
@@ -17,6 +19,7 @@ public class PawMouth : PawAI
                 float y = player.position.y + Mathf.Sin(angle) * circleRadius;
                 Vector3 targetPosition = new Vector3(x, y, 0);
 
+                paw.transform.rotation = Quaternion.identity;
                 transform.position = Vector2.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
 
                 Vector3 direction = targetPosition - transform.position;
