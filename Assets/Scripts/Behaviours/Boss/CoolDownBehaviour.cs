@@ -6,11 +6,11 @@ public class CoolDownBehaviour : StateMachineBehaviour
     private BossHealth bossHealth; // Reference to the BossHealth script
     private Animator pawEyeAnimator; // Reference to the PawEye animator
     private Animator pawMouthAnimator; // Reference to the PawMouth animator
-    private float cooldownTime = 5.0f; // Duration of the cooldown
+    private float cooldownTime = 7.0f; // Duration of the cooldown
     private float timer;
     private int stagesCompleted = 0; // Counter to track completed stages
 
-    private float resetDelay = 1.5f; // Delay before resetting state
+    private float resetDelay = 3.5f; // Delay before resetting state
     private float resetTime; // Time at which the state should be reset
 
     // Called when the state starts evaluating
@@ -144,6 +144,7 @@ public class CoolDownBehaviour : StateMachineBehaviour
         ResetAttackBools(animator);
         animator.SetBool("Summon", true);
         animator.SetBool("CoolDown", false);
+
     }
 
     private void PawSlamPicked(Animator animator)

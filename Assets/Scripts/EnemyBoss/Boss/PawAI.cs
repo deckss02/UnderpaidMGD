@@ -3,9 +3,8 @@ using UnityEngine;
 
 public class PawAI : MonoBehaviour
 {
-    public Transform target; // Target to move around, usually the player
-    public float stopDuration = 10f; // Time to stop before returning to the original position
-    public float circleRadius = 3f; // Radius of the circular path
+    public Transform target; // Target to move towards, usually the player
+    public float circleRadius = 2.7f; // Radius for circular movement
 
     protected Transform player; // Reference to the player's transform
     protected Vector3 originalPosition; // Store the initial position to return to
@@ -30,7 +29,7 @@ public class PawAI : MonoBehaviour
         originalPosition = transform.position; // Store the original position
 
         // Start the movement coroutine
-        StartCoroutine(MoveInCircle());
+        StartCoroutine(MoveTowardsPlayer());
     }
 
     void OnDrawGizmos()
@@ -42,20 +41,15 @@ public class PawAI : MonoBehaviour
         }
     }
 
-    // Coroutine to start moving in a circle around the player
-    protected virtual IEnumerator MoveInCircle()
+    // Coroutine to move towards the player
+    protected virtual IEnumerator MoveTowardsPlayer()
     {
-        float angle = 0f;
         while (true)
         {
             if (isActive && !isReturning)
             {
-                // Calculate the new position in a circle around the player
-                float x = player.position.x + Mathf.Cos(angle) * circleRadius;
-                float y = player.position.y + Mathf.Sin(angle) * circleRadius;
-                Vector3 targetPosition = new Vector3(x, y, 0);
-
-                // Move towards the target position
+                // Move towards the player's position
+                Vector3 targetPosition = player.position;
                 transform.position = Vector2.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
 
                 // Smoothly rotate towards the movement direction
@@ -64,20 +58,8 @@ public class PawAI : MonoBehaviour
                 Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, targetAngle));
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
-                // Update the angle to continue moving in a circle
-                angle += movementSpeed * Time.deltaTime;
-                if (angle >= 360f) angle -= 360f;
-
+                // Continue moving
                 yield return null; // Wait for the next frame
-            }
-            else if (isActive)
-            {
-                // Pause for the specified stop duration
-                yield return new WaitForSeconds(stopDuration);
-
-                // Continue moving after the stop duration
-                isActive = false; // Deactivate to trigger the return to original position
-                ReturnToOriginalPosition();
             }
             else
             {
@@ -92,7 +74,7 @@ public class PawAI : MonoBehaviour
         if (!isReturning)
         {
             isReturning = true;
-            StopCoroutine(MoveInCircle());
+            StopCoroutine(MoveTowardsPlayer());
             StartCoroutine(ReturnToOriginalPositionCoroutine());
         }
     }
@@ -115,10 +97,10 @@ public class PawAI : MonoBehaviour
         }
         isReturning = false; // Reset the flag once the paw reaches the original position
 
-        // Resume moving in a circle if still active
+        // Resume moving towards the player if still active
         if (isActive)
         {
-            StartCoroutine(MoveInCircle());
+            StartCoroutine(MoveTowardsPlayer());
         }
     }
 
@@ -133,11 +115,5 @@ public class PawAI : MonoBehaviour
     {
         isActive = false;
         ReturnToOriginalPosition();
-    }
-
-    // Method to set the stop duration externally
-    public void SetStopDuration(float duration)
-    {
-        stopDuration = duration;
     }
 }

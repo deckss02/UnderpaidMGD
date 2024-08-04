@@ -4,31 +4,31 @@ using UnityEngine;
 
 public class PlayerControllera : MonoBehaviour
 {
-    public Transform groundCheck;  //Declare variable to store position of groundCheck Object
-    public float groundCheckRadius; //Declare variable to store the radius of a circle to be created
-    public LayerMask realGround;   //Declare variable to identify which layer in unity is enabled
-    public bool isGrounded;        //Boolean to determine whether player touch ground
+    public Transform groundCheck;  // Declare variable to store position of groundCheck Object
+    public float groundCheckRadius; // Declare variable to store the radius of a circle to be created
+    public LayerMask realGround;   // Declare variable to identify which layer in unity is enabled
+    public bool isGrounded;        // Boolean to determine whether player touches ground
 
-    public float moveSpeed; //Controll the speed that player is moving around the world
+    public float moveSpeed; // Control the speed that player is moving around the world
     private Rigidbody2D rb;
-    public float jumpSpeed; //Controll the speed that player is moving when jumping
+    public float jumpSpeed; // Control the speed that player is moving when jumping
     private Animator myAnim;
- //   public Vector3 respawnPosition;
+    // public Vector3 respawnPosition;
 
-    public LevelManager theLevelManager; //Make a reference to LvlManager
+    public LevelManager theLevelManager; // Make a reference to LevelManager
 
     public float knockbackForce;
-    public float knockbackLength; //Amt of timr the player being knocked back
-    private float knockbackCounter; //Count down if time for player being knocked back
+    public float knockbackLength; // Amount of time the player is being knocked back
+    private float knockbackCounter; // Count down if time for player being knocked back
     public AudioSource jumpSound;
     public AudioSource hurtSound;
     public bool canMove = true; // When game is paused, player cannot move
 
-  // public GameObject bulletToRight;
-  // public GameObject bulletToLeft; //Game Object will be instantiated when hit the fire button
-  // private Vector2 bulletPos; //Coordinates where the bullet should be instantiated
-  // public float fireRate;
-  // private float nextFire;
+    // public GameObject bulletToRight;
+    // public GameObject bulletToLeft; // Game Object will be instantiated when hit the fire button
+    // private Vector2 bulletPos; // Coordinates where the bullet should be instantiated
+    // public float fireRate;
+    // private float nextFire;
 
     private bool facingRight = true;
     private GameObject Enemy;
@@ -40,10 +40,9 @@ public class PlayerControllera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>(); //Get and store a reference to the Rigidbody2D component so that we can access it
-
-        myAnim = GetComponent<Animator>(); //Get and store a reference to the Animator component so that we can access it
-    //    respawnPosition = transform.position; //When game starts, respawn position equals to the current players position
+        rb = GetComponent<Rigidbody2D>(); // Get and store a reference to the Rigidbody2D component so that we can access it
+        myAnim = GetComponent<Animator>(); // Get and store a reference to the Animator component so that we can access it
+        // respawnPosition = transform.position; // When game starts, respawn position equals to the current player's position
         theLevelManager = FindObjectOfType<LevelManager>();
     }
 
@@ -51,7 +50,8 @@ public class PlayerControllera : MonoBehaviour
     void Update()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, realGround);
-        if (knockbackCounter <= 0 && canMove) //If there is no knockback
+
+        if (knockbackCounter <= 0 && canMove) // If there is no knockback and the player can move
         {
             // Jump input handling with cooldown check
             if (Input.GetButtonDown("Jump") && Time.time >= nextJumpTime)
@@ -61,25 +61,25 @@ public class PlayerControllera : MonoBehaviour
                 nextJumpTime = Time.time + jumpCooldown; // Set the next allowed jump time
             }
 
-          // // Firing logic
-          // if (Input.GetKeyDown(KeyCode.L) && Time.time > nextFire)
-          // {
-          //     nextFire = Time.time + fireRate;
-          //     Fire();
-          // }
+            // // Firing logic
+            // if (Input.GetKeyDown(KeyCode.L) && Time.time > nextFire)
+            // {
+            //     nextFire = Time.time + fireRate;
+            //     Fire();
+            // }
         }
 
         if (knockbackCounter > 0)
         {
-            knockbackCounter -= Time.deltaTime;   //Time Count down
+            knockbackCounter -= Time.deltaTime;   // Time Count down
 
             if (transform.localScale.x > 0)
             {
-                rb.velocity = new Vector3(-knockbackForce, knockbackForce, 0.0f); //The force to push the player back
+                rb.velocity = new Vector3(-knockbackForce, knockbackForce, 0.0f); // The force to push the player back
             }
             else
             {
-                rb.velocity = new Vector3(knockbackForce, knockbackForce, 0.0f); //The force to push the player back
+                rb.velocity = new Vector3(knockbackForce, knockbackForce, 0.0f); // The force to push the player back
             }
         }
 
@@ -89,6 +89,8 @@ public class PlayerControllera : MonoBehaviour
 
     public void Move(float dir)
     {
+        if (!canMove) return; // Prevent movement if the player is frozen
+
         if (dir > 0)
         {
             rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
@@ -97,7 +99,7 @@ public class PlayerControllera : MonoBehaviour
         }
         else if (dir < 0)
         {
-            rb.velocity = new Vector2(-moveSpeed, rb.velocity.y); //Move to the left
+            rb.velocity = new Vector2(-moveSpeed, rb.velocity.y); // Move to the left
             transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
             facingRight = false;
         }
@@ -110,7 +112,7 @@ public class PlayerControllera : MonoBehaviour
     public void Jump()
     {
         // Cannot jump if not on the ground or if the cooldown hasn't expired.
-        if (!isGrounded || Time.time < nextJumpTime)
+        if (!isGrounded || Time.time < nextJumpTime || !canMove)
             return;
 
         rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
@@ -118,22 +120,22 @@ public class PlayerControllera : MonoBehaviour
         myAnim.SetBool("Ground", false);
     }
 
-  // public void Fire()
-  // {
-  //     bulletPos = transform.position;
-  //
-  //     // Adjust bullet position based on facing direction
-  //     if (facingRight)
-  //     {
-  //         bulletPos += new Vector2(+1f, -0.43f);
-  //         Instantiate(bulletToRight, bulletPos, Quaternion.identity);
-  //     }
-  //     else
-  //     {
-  //         bulletPos += new Vector2(-1f, -0.43f);
-  //         Instantiate(bulletToLeft, bulletPos, Quaternion.identity);
-  //     }
-  // }
+    // public void Fire()
+    // {
+    //     bulletPos = transform.position;
+    //
+    //     // Adjust bullet position based on facing direction
+    //     if (facingRight)
+    //     {
+    //         bulletPos += new Vector2(+1f, -0.43f);
+    //         Instantiate(bulletToRight, bulletPos, Quaternion.identity);
+    //     }
+    //     else
+    //     {
+    //         bulletPos += new Vector2(-1f, -0.43f);
+    //         Instantiate(bulletToLeft, bulletPos, Quaternion.identity);
+    //     }
+    // }
 
     void Flip()
     {
@@ -146,20 +148,26 @@ public class PlayerControllera : MonoBehaviour
         transform.localScale = scale;
     }
 
-  // void OnTriggerEnter2D(Collider2D other)
-  // {
-  //     if (other.tag == "WeakPoint")
-  //     {
-  //         var bossHealth = other.GetComponent<BossHealth>();
-  //         if (bossHealth != null)
-  //         {
-  //             bossHealth.TakeDamage(20f);
-  //         }
-  //     }
-  // }
+    // void OnTriggerEnter2D(Collider2D other)
+    // {
+    //     if (other.tag == "WeakPoint")
+    //     {
+    //         var bossHealth = other.GetComponent<BossHealth>();
+    //         if (bossHealth != null)
+    //         {
+    //             bossHealth.TakeDamage(20f);
+    //         }
+    //     }
+    // }
 
     public void Knockback()
     {
         knockbackCounter = knockbackLength;
+    }
+
+    // Method to freeze or unfreeze the player
+    public void FreezePlayer(bool freeze)
+    {
+        canMove = !freeze;
     }
 }

@@ -4,17 +4,27 @@ using UnityEngine;
 
 public class PawEye : PawAI
 {
+    public float stopDuration = 10f; // Duration to pause before spawning a claw
+
     public GameObject paw;
 
-    protected override IEnumerator MoveInCircle()
+
+    protected override void Start()
+    {
+        base.Start(); // Call the base class Start method
+        // Any additional initialization for PawMouth
+        StartCoroutine(MoveInCircle());
+    }
+
+    // Coroutine to move in a circle around the player
+    private IEnumerator MoveInCircle()
     {
         float angle = 0f;
-
         while (true)
         {
             if (isActive && !isReturning)
             {
-                // Custom movement logic for AnotherPaw
+                // Custom movement logic for PawMouth
                 float x = player.position.x + Mathf.Cos(angle) * circleRadius;
                 float y = player.position.y + Mathf.Sin(angle) * circleRadius;
                 Vector3 targetPosition = new Vector3(x, y, 0);

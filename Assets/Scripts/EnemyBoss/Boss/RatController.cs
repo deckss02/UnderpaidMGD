@@ -13,6 +13,7 @@ public class RatController : MonoBehaviour
 
     private Collider2D ratCollider; // Reference to the rat's collider
     private bool hasTakenDamage = false; // Flag to track if damage has been applied
+    private bool isKilled = false; // Flag to check if the enemy is already counted as killed
 
     void Start()
     {
@@ -92,9 +93,10 @@ public class RatController : MonoBehaviour
     private void Die()
     {
         Debug.Log("Rat is dying");
-        if (boss != null)
+        if (!isKilled)
         {
             boss.KillRat(); // Notify the boss
+            isKilled = true; // Set the flag to true
         }
         Destroy(gameObject); // Destroy the rat game object
     }

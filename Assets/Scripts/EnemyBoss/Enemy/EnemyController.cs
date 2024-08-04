@@ -9,16 +9,24 @@ public class EnemyController : MonoBehaviour
     private Rigidbody2D enemyRigidbody; // Reference to the Rigidbody2D component
     public EnemyCounter enemycounter;
 
+    public Transform groundCheck;  //Declare variable to store position of groundCheck Object
+    public float groundCheckRadius; //Declare variable to store the radius of a circle to be created
+    public LayerMask realGround;   //Declare variable to identify which layer in unity is enabled
+    public bool isGrounded;        //Boolean to determine whether player touch ground
+    private Animator myAnim;
+
     private bool isKilled = false; // Flag to check if the enemy is already counted as killed
     void Start()
     {
         enemyRigidbody = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component attached to the enemy
+        myAnim = GetComponent<Animator>(); //Get and store a reference to the Animator component so that we can access it
         currentHealth = maxHealth; // Initialize current health
         enemycounter = FindObjectOfType<EnemyCounter>();
     }
 
     void Update()
     {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, realGround);
         if (IsFacingRight())
         {
             enemyRigidbody.velocity = new Vector2(moveSpeed, 0f);
@@ -27,6 +35,7 @@ public class EnemyController : MonoBehaviour
         {
             enemyRigidbody.velocity = new Vector2(-moveSpeed, 0f);
         }
+        myAnim.SetBool("Ground", isGrounded);
     }
 
     private bool IsFacingRight()

@@ -18,7 +18,7 @@ public class Boss : MonoBehaviour
     public GameObject ratPrefab; // Prefab for the rat enemy
     public Transform[] spawnPoints; // Points where rats will be spawned
     public int numberOfRats = 6; // Number of rats to spawn
-    public PlayerControllera playerController; // Reference to the player's controller script
+    public PlayerControllera playerControllera; // Reference to the player's controller script
     private bool died = false;
     private string[] attackStages = { "PawAttack", "HairballAttack", "ClawAttack", "SummonMinions" };
     private int currentAttackStage = 0; // Current attack stage index
@@ -38,7 +38,7 @@ public class Boss : MonoBehaviour
     {
         myAnim = GetComponent<Animator>(); // Get the Animator component
         attacking = false; // Initialize attacking flag to false
-        playerController = GetComponent<PlayerControllera>();
+        playerControllera = FindObjectOfType<PlayerControllera>();
         followPathComponentPawEye = pawEye.GetComponent<FollowPath>();
         followPathComponentPawMouth = pawMouth.GetComponent<FollowPath>();
         followPathComponentPawEye.SetActive(true);
@@ -64,15 +64,6 @@ public class Boss : MonoBehaviour
     {
         attacking = true; // Set attacking flag to true
         StartCoroutine(SummoningAttackCoroutine(onComplete)); // Start the Summoning attack coroutine
-    }
-
-    // Method to freeze or unfreeze the player
-    private void FreezePlayer(bool freeze)
-    {
-        if (playerController != null)
-        {
-            playerController.canMove = !freeze; // Set the player's canMove property
-        }
     }
 
     private IEnumerator HairBallRollAttackCoroutine(System.Action onComplete)
@@ -140,7 +131,7 @@ public class Boss : MonoBehaviour
         Debug.Log("Starting Summoning attack");
 
         // Freeze the player controls
-        FreezePlayer(true);
+        playerControllera.FreezePlayer(true);
 
         // Loop to summon rats at the spawn points
         for (int i = 0; i < numberOfRats; i++)
@@ -169,7 +160,7 @@ public class Boss : MonoBehaviour
         Debug.Log("Summoning attack completed");
 
         // Unfreeze the player controls
-        FreezePlayer(false);
+        playerControllera.FreezePlayer(false);
 
         // Call the callback to signal completion
         onComplete?.Invoke();
@@ -209,61 +200,60 @@ public class Boss : MonoBehaviour
 
     private IEnumerator ClawAttackCoroutine(System.Action onComplete)
     {
+        // Deactivate any path-following components
         followPathComponentPawEye.SetActive(false);
         followPathComponentPawMouth.SetActive(false);
-        Debug.Log("Starting Claw attack");
-        pawMouth.ActivatePaw();
 
-        // Variables for the attack logic
-        float followDuration = 9.0f; // Duration to wait before spawning claws
-        int maxClawSpawns = 6; // Number of claws to spawn
+        Debug.Log("Starting Claw attack");
+        pawMouth.ActivatePaw(); // Start the paw movement
+
+        float followDuration = 10.0f; // Duration to wait before spawning claws
+        int maxClawSpawns = 4; // Number of claws to spawn
         int clawSpawnCount = 0; // Counter for claws spawned
 
-        // Set initial position
-        Vector3 currentPosition = pawMouth.transform.position;
-
-        // Loop until attack conditions are met
         while (clawSpawnCount < maxClawSpawns)
         {
-            // Set stop duration for PawMouth
             pawMouth.SetStopDuration(followDuration);
-
-            // Activate PawMouth
             Debug.Log("PawMouth activated");
-            pawMouth.ActivatePaw();
 
-            // Spawn a claw at the current position
-            SpawnClaw(currentPosition);
-            clawSpawnCount++;
-
-            // Wait for the specified duration at the current position
+            // Wait for the paw to follow the player and pause
             yield return new WaitForSeconds(followDuration);
 
-            // Update currentPosition to PawMouth's new position after waiting
-            currentPosition = pawMouth.transform.position;
+            // Spawn a claw at the current position (paw's position)
+            Vector3 spawnPosition = pawMouth.transform.position;
+            SpawnClaw(spawnPosition);
+            clawSpawnCount++;
 
-            // Deactivate PawMouth
+            // Deactivate the paw after spawning a claw
             pawMouth.DeactivatePaw();
+            Debug.Log("PawMouth deactivated");
+
+            // Small wait time to prevent overlap issues
+            yield return new WaitForSeconds(1.0f);
         }
+
         Debug.Log("Claw attack completed");
-        pawMouth.DeactivatePaw();
-        //pawEye.DeactivatePaw();
+
+        // Reactivate path-following components
         followPathComponentPawEye.SetActive(true);
         followPathComponentPawMouth.SetActive(true);
-        // Call the callback to signal completion
+
+        // Reset animation states
         myAnim.SetBool("Claw", false);
         myAnim.SetBool("CoolDown", true);
+
+        // Complete the attack
         onComplete?.Invoke();
-        attacking = false; // Reset attacking flag
+        attacking = false;
     }
 
     // Method to spawn a claw at a specific position
     private void SpawnClaw(Vector3 spawnPosition)
     {
         Debug.Log("Spawning Claw at: " + spawnPosition);
-        // Instantiate your claw prefab or perform any claw attack logic here
         Instantiate(clawBulletPrefab, spawnPosition, Quaternion.identity);
     }
+
 
     private IEnumerator SlammingAttackCoroutine(System.Action onComplete)
     {
@@ -275,14 +265,12 @@ public class Boss : MonoBehaviour
         Transform[] spawnPoints1 = new Transform[] { spawnPoint1, spawnPoint2, spawnPoint3, spawnPoint4 };
         Transform[] spawnPoints2 = new Transform[] { spawnPt1, spawnPt2, spawnPt3, spawnPt4 };
 
-        float totalAttackDuration = 10.0f; // Total duration for the attack
-        float moveDuration = 3.0f; // Time to move to each spawn point
+        float totalAttackDuration = 1.0f; // Total duration for the attack
         int numberOfLoops = 2; // Number of times to loop through all spawn points
         float cooldownDuration = 2.0f; // Cooldown duration after completing all loops
-        float clawLifetime = 20.0f; // Lifetime of each claw
-
-        // Calculate the time to stay at each spawn point
-        float timePerSpawnPoint = (totalAttackDuration - (moveDuration * (spawnPoints1.Length - 1))) / spawnPoints1.Length;
+        float clawLifetime = 8.0f; // Lifetime of each claw
+        float pawSpeed = 2.0f; // Speed of the paw
+        float moveDistance = 5.0f; // Distance the paw moves
 
         // Define compass directions
         Vector3[] directions = new Vector3[]
@@ -306,20 +294,24 @@ public class Boss : MonoBehaviour
 
             foreach (Transform spawnPoint in currentSpawnPoints)
             {
-                // Move to spawn point
+                // Calculate the duration based on distance and speed
+                float moveDuration = moveDistance / pawSpeed;
                 float elapsedTime = 0;
                 Vector3 startPosition = pawMouth.transform.position;
+                Vector3 targetPosition = Vector3.MoveTowards(startPosition, spawnPoint.position, moveDistance);
+
                 while (elapsedTime < moveDuration)
                 {
-                    pawMouth.transform.position = Vector3.Lerp(startPosition, spawnPoint.position, elapsedTime / moveDuration);
+                    pawMouth.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / moveDuration);
                     elapsedTime += Time.deltaTime;
                     yield return null;
                 }
 
-                // Ensure PawMouth is at the spawn point
-                pawMouth.transform.position = spawnPoint.position;
+                // Ensure PawMouth is at the target position
+                pawMouth.transform.position = targetPosition;
 
                 // Calculate remaining time at this spawn point
+                float timePerSpawnPoint = (totalAttackDuration - (moveDuration * (spawnPoints1.Length - 1))) / spawnPoints1.Length;
                 float remainingTimeAtPoint = timePerSpawnPoint;
 
                 // Spawn claws in compass directions

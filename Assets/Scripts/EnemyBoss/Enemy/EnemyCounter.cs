@@ -9,9 +9,10 @@ public class EnemyCounter : MonoBehaviour
     public int enemiesLeftToKill = 0;
     public GameObject boss;
     public Button Ultimate;
+
+    public PlayerControllera playerController; // Reference to the player's controller script
     public TextMeshProUGUI enemiesLeftText;
     public float freezeTime = 5.0f; // Duration to freeze the player
-    private PlayerControllera playerController; // Reference to the PlayerController script
     public GameObject ES1;
     public GameObject ES2;
     public GameObject ES3;
@@ -20,21 +21,12 @@ public class EnemyCounter : MonoBehaviour
     void Start()
     {
         Ultimate.gameObject.SetActive(false);
-
+        playerController = FindObjectOfType<PlayerControllera>();
         // Update the TextMeshPro with initial enemies count
         UpdateEnemyCountText();
 
         // Deactivate boss initially
         boss.SetActive(false);
-
-        // Find the PlayerController in the scene
-        playerController = FindObjectOfType<PlayerControllera>();
-
-        // Check if PlayerController was found
-        if (playerController == null)
-        {
-            Debug.LogError("PlayerController not found in the scene.");
-        }
     }
 
     // Function to be called when an enemy is killed
@@ -59,7 +51,7 @@ public class EnemyCounter : MonoBehaviour
     private IEnumerator ActivateBossSequence()
     {
         // Freeze the player
-        FreezePlayer(true);
+        playerController.FreezePlayer(true);
 
         // Destroy all remaining enemies
         DestroyAllEnemies();
@@ -76,17 +68,7 @@ public class EnemyCounter : MonoBehaviour
         ActivateBoss();
 
         // Unfreeze the player
-        FreezePlayer(false);
-    }
-
-    // Function to freeze or unfreeze the player
-    private void FreezePlayer(bool freeze)
-    {
-        if (playerController != null)
-        {
-            // Toggle the player's ability to move
-            playerController.canMove = !freeze;
-        }
+        playerController.FreezePlayer(false);
     }
 
     // Function to destroy all remaining enemies in the scene
