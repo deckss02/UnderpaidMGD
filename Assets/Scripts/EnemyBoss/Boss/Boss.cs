@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
+    public EyeShoot eyeShoot;
     public MouthMove mouthMove; // Reference to the MouthMove script
     public GameObject hairballPrefab; // Prefab for the hairball projectile
     public Transform[] firePoints; // Points from which hairballs will be fired
@@ -45,6 +46,7 @@ public class Boss : MonoBehaviour
         followPathComponentPawMouth = pawMouth.GetComponent<FollowPath>();
         followPathComponentPawEye.SetActive(true);
         followPathComponentPawMouth.SetActive(true);
+        eyeShoot.enabled = false;
     }
 
     public void StartHairBallRollAttack(System.Action onComplete)
@@ -70,7 +72,6 @@ public class Boss : MonoBehaviour
 
     private IEnumerator HairBallRollAttackCoroutine(System.Action onComplete)
     {
-        Debug.Log("Starting HairBallRoll attack");
         int minHairballs = 2;        // Random number of hairballs to spawn within a specified range
         int maxHairballs = 3;
         int numberOfHairballs = Random.Range(minHairballs, maxHairballs + 1);
@@ -103,7 +104,6 @@ public class Boss : MonoBehaviour
         {
             StartCoroutine(FadeAway(savePawInstance));
         }
-        Debug.Log("HairBallRoll attack completed");
         onComplete?.Invoke();
         attacking = false; // Reset attacking flag
     }
@@ -116,13 +116,10 @@ public class Boss : MonoBehaviour
 
     private IEnumerator SummoningAttackCoroutine(System.Action onComplete)
     {
-        Debug.Log("Starting Summoning attack");
         playerControllera.FreezePlayer(true);
-
         for (int i = 0; i < numberOfRats; i++) // Loop to summon rats at the spawn points
         {
             Transform spawnPoint = spawnPoints[i % spawnPoints.Length]; // Select a spawn point from the spawnPoints array
-            Debug.Log("Spawning rat at: " + spawnPoint.position);
             float distance = Vector3.Distance(transform.position, spawnPoint.position);
             float speed = 5.0f; // Adjust speed as needed
             float duration = distance / speed;
@@ -132,10 +129,8 @@ public class Boss : MonoBehaviour
 
             GameObject ratInstance = Instantiate(ratPrefab, spawnPoint.position, spawnPoint.rotation); // Instantiate the rat at the selected spawn point
             activeRatsCount++;
-            Debug.Log("Active rats count after spawning: " + activeRatsCount);
             yield return new WaitForSeconds(0.4f);
         }
-        Debug.Log("Summoning attack completed");
         playerControllera.FreezePlayer(false);
         onComplete?.Invoke();
         attacking = false; // Reset attacking flag
@@ -171,6 +166,7 @@ public class Boss : MonoBehaviour
 
     private IEnumerator ClawAttackCoroutine(System.Action onComplete)
     {
+        eyeShoot.enabled = true;
         followPath.SetUseFading(false);
         followPathComponentPawMouth.SetActive(false);
         Debug.Log("Starting Claw attack");
@@ -195,9 +191,9 @@ public class Boss : MonoBehaviour
             mouthMove.StartMovingPaw();
             yield return new WaitForSeconds(1.0f);
         }
-        Debug.Log("Claw attack completed");
         mouthMove.StopMovingPaw();
         followPathComponentPawMouth.SetActive(true);
+        eyeShoot.enabled = false;
         myAnim.SetBool("Claw", false);
         myAnim.SetBool("CoolDown", true);
         followPath.SetUseFading(true);
@@ -214,6 +210,7 @@ public class Boss : MonoBehaviour
 
     private IEnumerator SlammingAttackCoroutine(System.Action onComplete)
     {
+        eyeShoot.enabled = true;
         Debug.Log("Starting Paw Slamming attack");
         followPath.SetUseFading(false);
         followPathComponentPawEye.SetActive(false);
@@ -225,7 +222,7 @@ public class Boss : MonoBehaviour
         float totalAttackDuration = 6.0f; // Total duration for the attack
         int numberOfLoops = 2; // Number of times to loop through all spawn points
         float cooldownDuration = 2.0f; // Cooldown duration after completing all loops
-        float clawLifetime = 0.5f; // Lifetime of each claw
+        float clawLifetime = 0.3f; // Lifetime of each claw
         float pawSpeed = 2.0f; // Speed of the paw
         float moveDistance = 5.0f; // Distance the paw moves
 
@@ -278,7 +275,7 @@ public class Boss : MonoBehaviour
         }
         yield return new WaitForSeconds(cooldownDuration);
         pawMouth.DeactivatePaw();
-        Debug.Log("Paw Slamming attack completed");
+        eyeShoot.enabled = false;
         followPathComponentPawEye.SetActive(true);
         followPathComponentPawMouth.SetActive(true);
         onComplete?.Invoke();

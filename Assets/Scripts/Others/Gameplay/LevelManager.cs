@@ -35,7 +35,7 @@ public class LevelManager : MonoBehaviour
 
     public Image heart1;
     public Image heart2;
-    public Image heart3;// Reference to 3 heart images
+    public Image heart3; // Reference to 3 heart images
 
     public Sprite heartFull;
     public Sprite heartHalf;
@@ -106,7 +106,7 @@ public class LevelManager : MonoBehaviour
         UpdateHeartMeter();
         thePlayer.Knockback();
         thePlayer.hurtSound.Play();
-        StartCoroutine(Invnerability());
+        StartCoroutine(Invulnerability());
     }
 
     public void SwapHealth()
@@ -121,7 +121,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    private IEnumerator Invnerability()
+    public IEnumerator Invulnerability()
     {
         Physics2D.IgnoreLayerCollision(9, 10, true);
         for (int i = 0; i < numberOfFlashes; i++)
@@ -133,22 +133,6 @@ public class LevelManager : MonoBehaviour
         }
         Physics2D.IgnoreLayerCollision(9, 10, false);
     }
-
-    // public void Respawn()
-    // {
-    //     if (RheaDeath == true && CornDeath == true)
-    //     {
-    //         StartCoroutine("RespawnCo");
-    //     }
-    //     else
-    //     {
-    //         thePlayer.gameObject.SetActive(false);
-    //         Instantiate(deathSplosion, thePlayer.transform.position, thePlayer.transform.rotation);
-    //         gameOverScreen.SetActive(true);
-    //         levelMusic.Stop();
-    //         gameOverMusic.Play();
-    //     }
-    // }
 
     //Update the heart meter
     public void UpdateHeartMeter()
@@ -249,14 +233,4 @@ public class LevelManager : MonoBehaviour
             Instantiate(animationPrefab, thePlayer.transform.position, Quaternion.identity);
         }
     }
-
-    // public IEnumerator RespawnCo()
-    // {
-    //     thePlayer.gameObject.SetActive(false);
-    //     Instantiate(deathSplosion, thePlayer.transform.position, thePlayer.transform.rotation);
-    //     yield return new WaitForSeconds(waitToRespawn);
-    //     respawning = false;
-    //     thePlayer.transform.position = thePlayer.respawnPosition;
-    //     thePlayer.gameObject.SetActive(true);
-    // }
 }

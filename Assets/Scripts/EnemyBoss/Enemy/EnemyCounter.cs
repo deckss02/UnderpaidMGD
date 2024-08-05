@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -18,6 +17,13 @@ public class EnemyCounter : MonoBehaviour
     public GameObject ES3;
     public GameObject ES4;
 
+    public GameObject shootingPawPrefab; // Prefab for the first Shooting Paw
+    public GameObject shootingPawPrefab1; // Prefab for the second Shooting Paw
+    public int shootingPawSpawnThreshold = 10; // Number of enemies left when the Shooting Paws should spawn
+
+    private GameObject shootingPawInstance1; // Instance of the first Shooting Paw
+    private GameObject shootingPawInstance2; // Instance of the second Shooting Paw
+
     void Start()
     {
         Ultimate.gameObject.SetActive(false);
@@ -27,6 +33,12 @@ public class EnemyCounter : MonoBehaviour
 
         // Deactivate boss initially
         boss.SetActive(false);
+
+        // Deactivate shooting paws initially
+        if (shootingPawPrefab != null)
+            shootingPawPrefab.SetActive(false);
+        if (shootingPawPrefab1 != null)
+            shootingPawPrefab1.SetActive(false);
     }
 
     // Function to be called when an enemy is killed
@@ -40,10 +52,31 @@ public class EnemyCounter : MonoBehaviour
         // Update the TextMeshPro with new enemies count
         UpdateEnemyCountText();
 
+        // Check if the Shooting Paws should be activated
+        CheckShootingPaws();
+
         // If no enemies left, start the boss activation sequence
         if (enemiesLeftToKill <= 0)
         {
             StartCoroutine(ActivateBossSequence());
+        }
+    }
+
+    // Function to check if the Shooting Paws should be activated or destroyed
+    void CheckShootingPaws()
+    {
+        if (enemiesLeftToKill <= shootingPawSpawnThreshold)
+        {
+            if (shootingPawInstance1 == null)
+            {
+                shootingPawInstance1 = Instantiate(shootingPawPrefab, transform.position, Quaternion.identity);
+                shootingPawInstance1.SetActive(true);
+            }
+            if (shootingPawInstance2 == null)
+            {
+                shootingPawInstance2 = Instantiate(shootingPawPrefab1, transform.position, Quaternion.identity);
+                shootingPawInstance2.SetActive(true);
+            }
         }
     }
 

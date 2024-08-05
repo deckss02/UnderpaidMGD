@@ -13,7 +13,6 @@ public class PlayerControllera : MonoBehaviour
     private Rigidbody2D rb;
     public float jumpSpeed; // Control the speed that player is moving when jumping
     private Animator myAnim;
-    // public Vector3 respawnPosition;
 
     public LevelManager theLevelManager; // Make a reference to LevelManager
 
@@ -23,12 +22,6 @@ public class PlayerControllera : MonoBehaviour
     public AudioSource jumpSound;
     public AudioSource hurtSound;
     public bool canMove = true; // When game is paused, player cannot move
-
-    // public GameObject bulletToRight;
-    // public GameObject bulletToLeft; // Game Object will be instantiated when hit the fire button
-    // private Vector2 bulletPos; // Coordinates where the bullet should be instantiated
-    // public float fireRate;
-    // private float nextFire;
 
     private bool facingRight = true;
     private GameObject Enemy;
@@ -42,7 +35,6 @@ public class PlayerControllera : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>(); // Get and store a reference to the Rigidbody2D component so that we can access it
         myAnim = GetComponent<Animator>(); // Get and store a reference to the Animator component so that we can access it
-        // respawnPosition = transform.position; // When game starts, respawn position equals to the current player's position
         theLevelManager = FindObjectOfType<LevelManager>();
     }
 
@@ -60,13 +52,6 @@ public class PlayerControllera : MonoBehaviour
                 jumpSound.Play();
                 nextJumpTime = Time.time + jumpCooldown; // Set the next allowed jump time
             }
-
-            // // Firing logic
-            // if (Input.GetKeyDown(KeyCode.L) && Time.time > nextFire)
-            // {
-            //     nextFire = Time.time + fireRate;
-            //     Fire();
-            // }
         }
 
         if (knockbackCounter > 0)
@@ -120,23 +105,6 @@ public class PlayerControllera : MonoBehaviour
         myAnim.SetBool("Ground", false);
     }
 
-    // public void Fire()
-    // {
-    //     bulletPos = transform.position;
-    //
-    //     // Adjust bullet position based on facing direction
-    //     if (facingRight)
-    //     {
-    //         bulletPos += new Vector2(+1f, -0.43f);
-    //         Instantiate(bulletToRight, bulletPos, Quaternion.identity);
-    //     }
-    //     else
-    //     {
-    //         bulletPos += new Vector2(-1f, -0.43f);
-    //         Instantiate(bulletToLeft, bulletPos, Quaternion.identity);
-    //     }
-    // }
-
     void Flip()
     {
         // Flip the player's facing direction
@@ -148,18 +116,6 @@ public class PlayerControllera : MonoBehaviour
         transform.localScale = scale;
     }
 
-    // void OnTriggerEnter2D(Collider2D other)
-    // {
-    //     if (other.tag == "WeakPoint")
-    //     {
-    //         var bossHealth = other.GetComponent<BossHealth>();
-    //         if (bossHealth != null)
-    //         {
-    //             bossHealth.TakeDamage(20f);
-    //         }
-    //     }
-    // }
-
     public void Knockback()
     {
         knockbackCounter = knockbackLength;
@@ -169,5 +125,10 @@ public class PlayerControllera : MonoBehaviour
     public void FreezePlayer(bool freeze)
     {
         canMove = !freeze;
+
+        if (freeze)
+        {
+            StartCoroutine(theLevelManager.Invulnerability());
+        }
     }
 }
