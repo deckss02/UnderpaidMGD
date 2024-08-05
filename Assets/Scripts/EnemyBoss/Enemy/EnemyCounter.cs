@@ -19,7 +19,7 @@ public class EnemyCounter : MonoBehaviour
 
     public GameObject shootingPawPrefab; // Prefab for the first Shooting Paw
     public GameObject shootingPawPrefab1; // Prefab for the second Shooting Paw
-    public int shootingPawSpawnThreshold = 10; // Number of enemies left when the Shooting Paws should spawn
+    public int shootingPawSpawnThreshold = 15; // Number of enemies left when the Shooting Paws should spawn
 
     private GameObject shootingPawInstance1; // Instance of the first Shooting Paw
     private GameObject shootingPawInstance2; // Instance of the second Shooting Paw
@@ -107,6 +107,8 @@ public class EnemyCounter : MonoBehaviour
     // Function to destroy all remaining enemies in the scene
     void DestroyAllEnemies()
     {
+        shootingPawPrefab.SetActive(false);
+        shootingPawPrefab1.SetActive(false);
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (var enemy in enemies)
         {
