@@ -10790,6 +10790,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d6b82041f8a48c4a8505f72e6e9dad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mouthMove: {fileID: 1425209456}
   hairballPrefab: {fileID: 3687297798469502240, guid: 3a192313a171d494385618e776510fdd, type: 3}
   firePoints:
   - {fileID: 1896749667}
@@ -10824,6 +10825,7 @@ MonoBehaviour:
   pawEyePrefab: {fileID: 3554715552372258584, guid: d1cad77703533da42b877a92893286d2, type: 3}
   SavePaw: {fileID: 3554715552372258584, guid: 81cda7a82fb3a19468f6c189c4d975b6, type: 3}
   activeRatsCount: 0
+  followPath: {fileID: 1425209455}
 --- !u!50 &755109652
 Rigidbody2D:
   serializedVersion: 4
@@ -15742,6 +15744,7 @@ MonoBehaviour:
   moveSpeed: 1.5
   switchInterval: 9
   fadeDuration: 1
+  useFading: 1
 --- !u!1 &1078776896
 GameObject:
   m_ObjectHideFlags: 0
@@ -20097,6 +20100,7 @@ GameObject:
   - component: {fileID: 1425209452}
   - component: {fileID: 1425209454}
   - component: {fileID: 1425209455}
+  - component: {fileID: 1425209456}
   m_Layer: 10
   m_Name: PawMouth
   m_TagString: WeakPoint
@@ -20244,7 +20248,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1425209448}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9dc53eb69115e349bb9fcd4e2b4efd3, type: 3}
   m_Name: 
@@ -20256,9 +20260,6 @@ MonoBehaviour:
   minMovementSpeed: 1
   maxMovementSpeed: 1.3
   stopDuration: 5
-  circleDuration: 13
-  moveDuration: 3
-  backOffDuration: 10
 --- !u!114 &1425209455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20294,6 +20295,25 @@ MonoBehaviour:
   moveSpeed: 0.8
   switchInterval: 6
   fadeDuration: 1
+  useFading: 1
+--- !u!114 &1425209456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425209448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c6a0e34acd71f4aacfef397df3262f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  circleDuration: 6
+  moveDuration: 2
+  backOffDistance: 6
+  player: {fileID: 1660756516}
+  circleRadius: 2.7
+  movementSpeed: 1.5
 --- !u!1 &1435881641
 GameObject:
   m_ObjectHideFlags: 0

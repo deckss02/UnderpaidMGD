@@ -8,6 +8,7 @@ public class FollowPath : MonoBehaviour
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private float switchInterval = 10f; // Time in seconds to switch waypoint patterns
     [SerializeField] private float fadeDuration = 1f; // Duration of the fade in/out effect
+    [SerializeField] private bool useFading = true; // Flag to control fading
 
     private Transform[] currentWaypoints;
     private int waypointIndex = 0;
@@ -78,8 +79,12 @@ public class FollowPath : MonoBehaviour
         {
             yield return new WaitForSeconds(switchInterval); // Wait for the specified interval
 
-            // Fade out, switch pattern, then fade in
-            yield return StartCoroutine(FadeOut());
+            if (useFading)
+            {
+                // Fade out, switch pattern, then fade in
+                yield return StartCoroutine(FadeOut());
+            }
+
             if (currentWaypoints == waypointsPattern1)
             {
                 SwitchWaypointPattern(2);
@@ -88,7 +93,11 @@ public class FollowPath : MonoBehaviour
             {
                 SwitchWaypointPattern(1);
             }
-            yield return StartCoroutine(FadeIn());
+
+            if (useFading)
+            {
+                yield return StartCoroutine(FadeIn());
+            }
         }
     }
 
@@ -122,5 +131,11 @@ public class FollowPath : MonoBehaviour
             yield return null;
         }
         spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1);
+    }
+
+    // Method to set the fading flag
+    public void SetUseFading(bool useFading)
+    {
+        this.useFading = useFading;
     }
 }
