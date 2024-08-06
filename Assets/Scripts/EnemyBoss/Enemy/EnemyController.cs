@@ -53,7 +53,7 @@ public class EnemyController : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
-    { 
+    {
 
         // Check if the collider is tagged as a Bullet and apply damage
         if (collision.collider.CompareTag("Bullet"))
