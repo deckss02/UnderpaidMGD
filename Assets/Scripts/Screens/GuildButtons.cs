@@ -42,10 +42,10 @@ public class GuildButtons : MonoBehaviour
         {
 
             case 0:
-                SceneManager.LoadScene("MGD");
+                SceneManager.LoadScene("Level 1");
                 break;
             case 1:
-                LevelTwoPrimerCanvas.SetActive(true);
+                SceneManager.LoadScene("Level 2");
                 break;
         }
     }
