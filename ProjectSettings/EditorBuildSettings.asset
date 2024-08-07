@@ -8,13 +8,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/StartGame.unity
     guid: 7c2ab76f06974bb4c82da90e4b2a613b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Town.unity
     guid: 22bcfeb7f6aaac44ea70e17d8b0785a3
   - enabled: 0
     path: Assets/Scenes/Level01.unity
     guid: 8913f3ffab0e0d04dbf946b0877c29a8
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Guild.unity
     guid: 4b30be362d068da439037d3c47a341c8
   - enabled: 1
