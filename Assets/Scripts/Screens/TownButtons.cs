@@ -24,25 +24,38 @@ public class TownButtons : MonoBehaviour
 
     public void InnMove()
     {
-        StartCoroutine(LoadingScene());
-        SceneManager.LoadScene("Inn");
+        StartCoroutine(LoadingInn());
+
     }
 
     public void TheatreMove()
     {
-        StartCoroutine(LoadingScene());
-        SceneManager.LoadScene("Theatre");
+        StartCoroutine(LoadingTheatre());
     }
 
     public void GuildMove()
     {
-        StartCoroutine(LoadingScene());
-        SceneManager.LoadScene("Guild");
+        StartCoroutine(LoadingGuild());
     }
 
-    IEnumerator LoadingScene()
+    IEnumerator LoadingInn()
     {
         Transitionanim.SetTrigger("Start");
         yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene("Inn");
+    }
+
+    IEnumerator LoadingTheatre()
+    {
+        Transitionanim.SetTrigger("Start");
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene("Inn");
+    }
+
+    IEnumerator LoadingGuild()
+    {
+        Transitionanim.SetTrigger("Start");
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene("Guild");
     }
 }

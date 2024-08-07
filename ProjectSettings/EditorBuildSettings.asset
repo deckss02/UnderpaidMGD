@@ -23,7 +23,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/HallofFame.unity
     guid: 6425dfba4495dd24a82ebd4e210e5afc
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Inn.unity
     guid: ae65f97e047bf284e895be4a2dd82dc5
   - enabled: 0
