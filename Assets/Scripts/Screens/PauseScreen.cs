@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class PauseScreen : MonoBehaviour
@@ -9,6 +10,9 @@ public class PauseScreen : MonoBehaviour
     private PlayerControllera thePlayer;
     private LevelManager theLevelManager;
     public GameObject Button;
+
+    public int countdownTime;
+    public Text countdownDisplay;
 
     void Start()
     {
@@ -34,6 +38,8 @@ public class PauseScreen : MonoBehaviour
 
     public void ResumeGame()
     {
+        StartCoroutine(Countdown());
+
         Time.timeScale = 1.0f; // Resume back to normal real-time
 
         pauseMenu.SetActive(false);
@@ -54,5 +60,25 @@ public class PauseScreen : MonoBehaviour
         Time.timeScale = 1.0f; // Avoid game stuck at frozen when changing
         SceneManager.LoadScene("Town");
         Button.SetActive(false);
+    }
+
+    IEnumerator Countdown()
+    {
+        while(countdownTime > 0)
+        {
+            countdownDisplay.text = countdownTime.ToString();
+
+            yield return new WaitForSeconds(1f);
+
+            countdownTime--;
+        }
+
+        countdownDisplay.text = "BEGIN!";
+
+        ResumeGame();
+
+        countdownDisplay.gameObject.SetActive(false);
+        
+        yield return new WaitForSeconds(1f);
     }
 }
