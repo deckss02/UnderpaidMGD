@@ -8,6 +8,7 @@ public class EnemyCounter : MonoBehaviour
     public int enemiesLeftToKill = 0;
     public GameObject boss;
     public Button Ultimate;
+    public GameObject BossHealth;
 
     public PlayerControllera playerController; // Reference to the player's controller script
     public TextMeshProUGUI enemiesLeftText;
@@ -26,6 +27,7 @@ public class EnemyCounter : MonoBehaviour
 
     void Start()
     {
+        BossHealth.gameObject.SetActive(false);
         Ultimate.gameObject.SetActive(false);
         playerController = FindObjectOfType<PlayerControllera>();
         // Update the TextMeshPro with initial enemies count
@@ -97,6 +99,7 @@ public class EnemyCounter : MonoBehaviour
         // Wait for the specified freeze time
         yield return new WaitForSeconds(freezeTime);
 
+        BossHealth.gameObject.SetActive(true);
         // Activate the boss
         ActivateBoss();
 
