@@ -11,7 +11,7 @@ public class SummonMinionsTimBehaviour : StateMachineBehaviour
     {
         // Get the Boss component from the animator's GameObject
         if (bossTim == null)
-            bossTim = animator.GetComponent<Boss>();
+            bossTim = animator.GetComponent<BossTim>();
 
         // Start the summoning minions attack
         if (bossTim != null)

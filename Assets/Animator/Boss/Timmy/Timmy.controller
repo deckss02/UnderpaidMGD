@@ -379,9 +379,6 @@ AnimatorStateTransition:
     m_ConditionEvent: CoolDown
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: IsPaw
-    m_EventTreshold: 0
-  - m_ConditionMode: 1
     m_ConditionEvent: VineT
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
