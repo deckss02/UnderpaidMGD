@@ -1,11 +1,9 @@
 using UnityEngine;
 
-public class CoolDownBehaviour : StateMachineBehaviour
+public class CoolDownTimBehaviour : StateMachineBehaviour
 {
     private Boss boss; // Reference to the Boss script
     private BossHealth bossHealth; // Reference to the BossHealth script
-    private Animator pawEyeAnimator; // Reference to the PawEye animator
-    private Animator pawMouthAnimator; // Reference to the PawMouth animator
     private float cooldownTime = 5.0f; // Duration of the cooldown
     private float timer;
     private int stagesCompleted = 0; // Counter to track completed stages
@@ -22,36 +20,11 @@ public class CoolDownBehaviour : StateMachineBehaviour
         timer = cooldownTime;
         resetTime = Time.time + resetDelay; // Set the reset time
 
-        // Find PawEye and PawMouth GameObjects and get their Animator components
-        GameObject pawEyeObject = GameObject.Find("PawEye"); // Replace with your actual name or tag
-        GameObject pawMouthObject = GameObject.Find("PawMouth"); // Replace with your actual name or tag
-
-        if (pawEyeObject != null)
-        {
-            pawEyeAnimator = pawEyeObject.GetComponent<Animator>();
-        }
-
-        if (pawMouthObject != null)
-        {
-            pawMouthAnimator = pawMouthObject.GetComponent<Animator>();
-        }
-
         // Enable the weak point collider and disable invincibility
         if (bossHealth != null)
         {
             bossHealth.EnableWeakPoints(true);
             bossHealth.DisableInvincibility();
-
-            // Set PawEye and PawMouth to cooldown state
-            if (pawEyeAnimator != null)
-            {
-                pawEyeAnimator.SetBool("CD", true);
-            }
-
-            if (pawMouthAnimator != null)
-            {
-                pawMouthAnimator.SetBool("CD", true);
-            }
         }
 
         Debug.Log("Entered Cooldown state");
@@ -75,14 +48,14 @@ public class CoolDownBehaviour : StateMachineBehaviour
                 case "SummonMinions":
                     SummonMinionsPicked(animator);
                     break;
-                case "Paw8":
-                    PawSlamPicked(animator);
+                case "VineTeleport":
+                    VineTeleportPicked(animator);
                     break;
-                case "Claw":
-                    ClawPicked(animator);
+                case "ExplodingBird":
+                    ExplodingBirdPicked(animator);
                     break;
-                case "HairBallRoll":
-                    HairBallRollPicked(animator);
+                case "VineLane":
+                    VineLanePicked(animator);
                     break;
                 default:
                     Debug.LogError("Invalid attack stage: " + nextAttackStage);
@@ -110,17 +83,6 @@ public class CoolDownBehaviour : StateMachineBehaviour
     // Function to reset state after a delay
     private void ResetState()
     {
-        // Reset PawEye and PawMouth to normal state
-        if (pawEyeAnimator != null)
-        {
-            pawEyeAnimator.SetBool("CD", false);
-        }
-
-        if (pawMouthAnimator != null)
-        {
-            pawMouthAnimator.SetBool("CD", false);
-        }
-
         // Reset invincibility and weak points
         if (bossHealth != null)
         {
@@ -132,7 +94,7 @@ public class CoolDownBehaviour : StateMachineBehaviour
     // Get the next attack stage based on stagesCompleted
     private string GetNextAttackStage()
     {
-        string[] attackStages = { "SummonMinions", "Paw8", "Claw", "HairBallRoll" };
+        string[] attackStages = { "VineLane", "VineTeleport", "ExplodingBird", "SummonMinions" };
         int index = stagesCompleted % attackStages.Length; // Loop through stages
         stagesCompleted++; // Increment the counter
         return attackStages[index];
@@ -147,34 +109,33 @@ public class CoolDownBehaviour : StateMachineBehaviour
 
     }
 
-    private void PawSlamPicked(Animator animator)
+    private void VineTeleportPicked(Animator animator)
     {
         ResetAttackBools(animator);
-        animator.SetBool("Paw8", true);
-        animator.SetTrigger("IsPaw");
+        animator.SetBool("VineT", true);
         animator.SetBool("CoolDown", false);
     }
 
-    private void ClawPicked(Animator animator)
+    private void ExplodingBirdPicked(Animator animator)
     {
         ResetAttackBools(animator);
-        animator.SetBool("Claw", true);
+        animator.SetBool("Bird", true);
         animator.SetBool("CoolDown", false);
     }
 
-    private void HairBallRollPicked(Animator animator)
+    private void VineLanePicked(Animator animator)
     {
         ResetAttackBools(animator);
-        animator.SetBool("HairBall", true);
+        animator.SetBool("VineL", true);
         animator.SetBool("CoolDown", false);
     }
 
     // Reset all attack bools
     private void ResetAttackBools(Animator animator)
     {
+        animator.SetBool("VineL", false);
+        animator.SetBool("VineT", false);
+        animator.SetBool("Bird", false);
         animator.SetBool("Summon", false);
-        animator.SetBool("Paw8", false);
-        animator.SetBool("Claw", false);
-        animator.SetBool("HairBall", false);
     }
 }

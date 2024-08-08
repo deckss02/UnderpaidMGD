@@ -15,7 +15,10 @@ public class EnemySpawner : MonoBehaviour
         while (_spawnEnemies)
         {
             yield return new WaitForSeconds(enemySpawnRate);
-            Instantiate(enemySpawningIn, spawnPoint, Quaternion.identity);
+
+            GameObject newEnemy = Instantiate(enemySpawningIn, spawnPoint, Quaternion.identity);
+            EnemyController enemyController = newEnemy.GetComponent<EnemyController>();
+
         }
     }
 

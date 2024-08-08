@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class EnemyCounter : MonoBehaviour
+public class TimEC : MonoBehaviour
 {
     public int enemiesLeftToKill = 0;
     public GameObject boss;
@@ -18,12 +18,12 @@ public class EnemyCounter : MonoBehaviour
     public GameObject ES3;
     public GameObject ES4;
 
-    public GameObject shootingPawPrefab; // Prefab for the first Shooting Paw
-    public GameObject shootingPawPrefab1; // Prefab for the second Shooting Paw
-    public int shootingPawSpawnThreshold = 15; // Number of enemies left when the Shooting Paws should spawn
+  // public GameObject shootingPawPrefab; // Prefab for the first Shooting Paw
+  // public GameObject shootingPawPrefab1; // Prefab for the second Shooting Paw
+  // public int shootingPawSpawnThreshold = 15; // Number of enemies left when the Shooting Paws should spawn
 
-    private GameObject shootingPawInstance1; // Instance of the first Shooting Paw
-    private GameObject shootingPawInstance2; // Instance of the second Shooting Paw
+   // private GameObject shootingPawInstance1; // Instance of the first Shooting Paw
+   // private GameObject shootingPawInstance2; // Instance of the second Shooting Paw
 
     void Start()
     {
@@ -36,11 +36,11 @@ public class EnemyCounter : MonoBehaviour
         // Deactivate boss initially
         boss.SetActive(false);
 
-        // Deactivate shooting paws initially
-        if (shootingPawPrefab != null)
-            shootingPawPrefab.SetActive(false);
-        if (shootingPawPrefab1 != null)
-            shootingPawPrefab1.SetActive(false);
+       // // Deactivate shooting paws initially
+       // if (shootingPawPrefab != null)
+       //     shootingPawPrefab.SetActive(false);
+       // if (shootingPawPrefab1 != null)
+       //     shootingPawPrefab1.SetActive(false);
     }
 
     // Function to be called when an enemy is killed
@@ -55,7 +55,7 @@ public class EnemyCounter : MonoBehaviour
         UpdateEnemyCountText();
 
         // Check if the Shooting Paws should be activated
-        CheckShootingPaws();
+      //  CheckShootingPaws();
 
         // If no enemies left, start the boss activation sequence
         if (enemiesLeftToKill <= 0)
@@ -65,22 +65,22 @@ public class EnemyCounter : MonoBehaviour
     }
 
     // Function to check if the Shooting Paws should be activated or destroyed
-    void CheckShootingPaws()
-    {
-        if (enemiesLeftToKill <= shootingPawSpawnThreshold)
-        {
-            if (shootingPawInstance1 == null)
-            {
-                shootingPawInstance1 = Instantiate(shootingPawPrefab, transform.position, Quaternion.identity);
-                shootingPawInstance1.SetActive(true);
-            }
-            if (shootingPawInstance2 == null)
-            {
-                shootingPawInstance2 = Instantiate(shootingPawPrefab1, transform.position, Quaternion.identity);
-                shootingPawInstance2.SetActive(true);
-            }
-        }
-    }
+   // void CheckShootingPaws()
+   // {
+   //     if (enemiesLeftToKill <= shootingPawSpawnThreshold)
+   //     {
+   //         if (shootingPawInstance1 == null)
+   //         {
+   //             shootingPawInstance1 = Instantiate(shootingPawPrefab, transform.position, Quaternion.identity);
+   //             shootingPawInstance1.SetActive(true);
+   //         }
+   //         if (shootingPawInstance2 == null)
+   //         {
+   //             shootingPawInstance2 = Instantiate(shootingPawPrefab1, transform.position, Quaternion.identity);
+   //             shootingPawInstance2.SetActive(true);
+   //         }
+   //     }
+   // }
 
     // Coroutine to handle the boss activation sequence
     private IEnumerator ActivateBossSequence()
@@ -110,8 +110,6 @@ public class EnemyCounter : MonoBehaviour
     // Function to destroy all remaining enemies in the scene
     void DestroyAllEnemies()
     {
-        shootingPawPrefab.SetActive(false);
-        shootingPawPrefab1.SetActive(false);
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (var enemy in enemies)
         {
@@ -125,8 +123,6 @@ public class EnemyCounter : MonoBehaviour
         // Activate the boss GameObject
         boss.SetActive(true);
         Ultimate.gameObject.SetActive(true);
-        shootingPawPrefab.SetActive(false);
-        shootingPawPrefab1.SetActive(false);
     }
 
     // Update the TextMeshPro with the remaining enemies count

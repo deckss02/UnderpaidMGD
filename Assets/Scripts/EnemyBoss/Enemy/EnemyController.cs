@@ -27,6 +27,7 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, realGround);
+
         if (IsFacingRight())
         {
             enemyRigidbody.velocity = new Vector2(moveSpeed, 0f);
@@ -35,6 +36,15 @@ public class EnemyController : MonoBehaviour
         {
             enemyRigidbody.velocity = new Vector2(-moveSpeed, 0f);
         }
+
+       //if (enemyRigidbody.velocity.x < -0.01f)
+       //{
+       //    GetComponent<SpriteRenderer>().flipX = true;
+       //
+       //} else if (enemyRigidbody.velocity.x > 0.01f)
+       //{
+       //    GetComponent<SpriteRenderer>().flipX = false;
+       //}
         myAnim.SetBool("Ground", isGrounded);
     }
 
@@ -75,7 +85,8 @@ public class EnemyController : MonoBehaviour
 
     private void Flip()
     {
-        transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+         transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+        //enemyRigidbody.velocity = -enemyRigidbody.velocity;
     }
 
     public void Die()
