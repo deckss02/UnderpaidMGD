@@ -10,25 +10,25 @@ public class DeathTimBehaviour : StateMachineBehaviour
         // Set the isDead parameter to true
         animator.SetBool("isDead", true);
 
-        Collider2D bossCollider = animator.GetComponent<Collider2D>();
-        if (bossCollider != null)
+        Collider2D bossTimCollider = animator.GetComponent<Collider2D>();
+        if (bossTimCollider != null)
         {
-            bossCollider.enabled = false;
+            bossTimCollider.enabled = false;
         }
 
         // Stop any ongoing attacks
-        Boss boss = animator.GetComponent<Boss>();
-        if (boss != null)
+        BossTim bossTim = animator.GetComponent<BossTim>();
+        if (bossTim != null)
         {
-            boss.attacking = false;
-            boss.StopAllCoroutines();
+            bossTim.attacking = false;
+            bossTim.StopAllCoroutines();
         }
 
         // Ensure all actions are stopped
-        BossHealth bossHealth = animator.GetComponent<BossHealth>();
-        if (bossHealth != null)
+        BossHealthTim bossHealthTim = animator.GetComponent<BossHealthTim>();
+        if (bossHealthTim != null)
         {
-            bossHealth.StopAllActions();
+            bossHealthTim.StopAllActions();
         }
     }
 
@@ -38,10 +38,10 @@ public class DeathTimBehaviour : StateMachineBehaviour
         // Check if the current animation has finished playing
         if (stateInfo.normalizedTime >= 1.0f)
         {
-            BossHealth bossHealth = animator.GetComponent<BossHealth>();
-            if (bossHealth != null)
+            BossHealthTim bossHealthTim = animator.GetComponent<BossHealthTim>();
+            if (bossHealthTim != null)
             {
-                bossHealth.TriggerWinScreen();
+                bossHealthTim.TriggerWinScreen();
             }
         }
     }

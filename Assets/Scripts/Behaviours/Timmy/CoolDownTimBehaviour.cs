@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class CoolDownTimBehaviour : StateMachineBehaviour
 {
-    private Boss boss; // Reference to the Boss script
-    private BossHealth bossHealth; // Reference to the BossHealth script
+    private BossTim bossTim; // Reference to the Boss script
+    private BossHealthTim bossHealthTim; // Reference to the BossHealth script
     private float cooldownTime = 5.0f; // Duration of the cooldown
     private float timer;
     private int stagesCompleted = 0; // Counter to track completed stages
@@ -15,16 +15,16 @@ public class CoolDownTimBehaviour : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         // Initialize references, reset the timer
-        boss = animator.GetComponent<Boss>();
-        bossHealth = animator.GetComponent<BossHealth>();
+        bossTim = animator.GetComponent<BossTim>();
+        bossHealthTim = animator.GetComponent<BossHealthTim>();
         timer = cooldownTime;
         resetTime = Time.time + resetDelay; // Set the reset time
 
         // Enable the weak point collider and disable invincibility
-        if (bossHealth != null)
+        if (bossHealthTim != null)
         {
-            bossHealth.EnableWeakPoints(true);
-            bossHealth.DisableInvincibility();
+            bossHealthTim.EnableWeakPoints(true);
+            bossHealthTim.DisableInvincibility();
         }
 
         Debug.Log("Entered Cooldown state");
@@ -84,10 +84,10 @@ public class CoolDownTimBehaviour : StateMachineBehaviour
     private void ResetState()
     {
         // Reset invincibility and weak points
-        if (bossHealth != null)
-        {
-            bossHealth.EnableWeakPoints(false);
-            bossHealth.EnableInvincibility();
+        if (bossHealthTim != null)
+        {             
+            bossHealthTim.EnableWeakPoints(false);
+            bossHealthTim.EnableInvincibility();
         }
     }
 

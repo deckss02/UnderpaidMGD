@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class IdleTimBehaviour : StateMachineBehaviour
 {
-    private Boss boss;
+    private BossTim bossTim;
 
     // Called when the state starts evaluating
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

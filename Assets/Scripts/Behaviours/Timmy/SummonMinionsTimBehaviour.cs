@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class SummonMinionsTimBehaviour : StateMachineBehaviour
 {
-    private Boss boss; // Reference to the Boss script
+    private BossTim bossTim; // Reference to the Boss script
 
     // Called when the state starts evaluating
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         // Get the Boss component from the animator's GameObject
-        if (boss == null)
-            boss = animator.GetComponent<Boss>();
+        if (bossTim == null)
+            bossTim = animator.GetComponent<Boss>();
 
         // Start the summoning minions attack
-        if (boss != null)
+        if (bossTim != null)
         {
-            boss.StartSummoningAttack(null); // No need to pass a callback
+            bossTim.StartSummoningAttack(null); // No need to pass a callback
         }
         else
         {
