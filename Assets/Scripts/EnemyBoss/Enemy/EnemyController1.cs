@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController1 : MonoBehaviour
 {
-    //[SerializeField] private float moveSpeed = 1f; // Speed at which the enemy moves
+    [SerializeField] private float moveSpeed = 1f; // Speed at which the enemy moves
     [SerializeField] private int damageAmount = 1; // Amount of damage to apply
     [SerializeField] private int maxHealth = 1; // Maximum health for the enemy
     private int currentHealth; // Current health of the enemy
     private Rigidbody2D enemyRigidbody; // Reference to the Rigidbody2D component
-    public EnemyCounter enemycounter;
+    public TimEC timEC;
 
     public Transform groundCheck;  //Declare variable to store position of groundCheck Object
     public float groundCheckRadius; //Declare variable to store the radius of a circle to be created
@@ -21,38 +21,37 @@ public class EnemyController : MonoBehaviour
         enemyRigidbody = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component attached to the enemy
         myAnim = GetComponent<Animator>(); //Get and store a reference to the Animator component so that we can access it
         currentHealth = maxHealth; // Initialize current health
-        enemycounter = FindObjectOfType<EnemyCounter>();
+        timEC = FindObjectOfType<TimEC>();
     }
 
     void Update()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, realGround);
-        Vector2 move = new Vector2(enemyRigidbody.velocity.x, 0);
-        transform.Translate(move);
-        //if (IsFacingRight())
-        //{
-        //    enemyRigidbody.velocity = new Vector2(moveSpeed, 0f);
-        //}
-        //else
-        //{
-        //    enemyRigidbody.velocity = new Vector2(-moveSpeed, 0f);
-        //}
-        if (enemyRigidbody.velocity.x < -0.01f)
-        {
-            GetComponent<SpriteRenderer>().flipX = true;
 
-        }
-        else if (enemyRigidbody.velocity.x > 0.01f)
+        if (IsFacingRight())
         {
-            GetComponent<SpriteRenderer>().flipX = false;
+            enemyRigidbody.velocity = new Vector2(moveSpeed, 0f);
         }
+        else
+        {
+            enemyRigidbody.velocity = new Vector2(-moveSpeed, 0f);
+        }
+
+       //if (enemyRigidbody.velocity.x < -0.01f)
+       //{
+       //    GetComponent<SpriteRenderer>().flipX = true;
+       //
+       //} else if (enemyRigidbody.velocity.x > 0.01f)
+       //{
+       //    GetComponent<SpriteRenderer>().flipX = false;
+       //}
         myAnim.SetBool("Ground", isGrounded);
     }
 
-    //private bool IsFacingRight()
-    //{
-    //    return transform.localScale.x > Mathf.Epsilon;
-    //}
+    private bool IsFacingRight()
+    {
+        return transform.localScale.x > Mathf.Epsilon;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -86,8 +85,8 @@ public class EnemyController : MonoBehaviour
 
     private void Flip()
     {
-        // transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
-        enemyRigidbody.velocity = -enemyRigidbody.velocity;
+         transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+        //enemyRigidbody.velocity = -enemyRigidbody.velocity;
     }
 
     public void Die()
@@ -96,7 +95,7 @@ public class EnemyController : MonoBehaviour
         {
             Debug.Log("Enemy is dying");
             isKilled = true; // Set the flag to true
-            enemycounter.EnemyKilled();
+            timEC.EnemyKilled();
         }
         Destroy(gameObject); // Destroy the enemy game object
     }
