@@ -15,6 +15,8 @@ public class HallofFameButtons : MonoBehaviour
     public GameObject AssetsCanvas;
     public GameObject Assets2Canvas;
 
+    public Animator Transitionanim;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,42 +25,6 @@ public class HallofFameButtons : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-
-    }
-
-    
-    public void LeftButton()
-    {
-        if (canvasNumber != 0)
-        {
-            canvasNumber -= 1;
-            Leftbutton.gameObject.SetActive(true);
-        }
-        else
-        {
-            canvasNumber = 0;
-            Leftbutton.gameObject.SetActive(false);
-        }
-    }
-
-    public void RightButton()
-    {
-        if (canvasNumber != 3)
-        {
-            canvasNumber += 1;
-            Rightbutton.gameObject.SetActive(true);
-        }
-        else
-        {
-            canvasNumber = 3;
-            Rightbutton.gameObject.SetActive(false);
-        }
-    }
-
-    
-
-    public void Shuffle()
     {
         switch (canvasNumber)
         {
@@ -87,12 +53,45 @@ public class HallofFameButtons : MonoBehaviour
                 Assets2Canvas.SetActive(true);
                 break;
         }
+    }
 
+    
+    public void LeftButton()
+    {
+        if (canvasNumber != 0)
+        {
+            canvasNumber -= 1;
+            Leftbutton.gameObject.SetActive(true);
+        }
+        else
+        {
+            canvasNumber = 3;
+        }
+    }
+
+    public void RightButton()
+    {
+        if (canvasNumber != 3)
+        {
+            canvasNumber += 1;
+            Rightbutton.gameObject.SetActive(true);
+        }
+        else
+        {
+            canvasNumber = 0;
+        }
     }
 
 
     public void MainMenu()
     {
+        StartCoroutine(LoadingMainMenu());
+    }
+
+    IEnumerator LoadingMainMenu()
+    {
+        Transitionanim.SetTrigger("Start");
+        yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene("Town");
     }
 }

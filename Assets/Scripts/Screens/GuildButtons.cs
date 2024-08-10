@@ -9,6 +9,8 @@ public class GuildButtons : MonoBehaviour
 
     public GameObject LevelOnePrimerCanvas;
     public GameObject LevelTwoPrimerCanvas;
+
+    public Animator Transitionanim;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,10 +44,10 @@ public class GuildButtons : MonoBehaviour
         {
 
             case 0:
-                SceneManager.LoadScene("Level 1");
+                StartCoroutine(LoadingLevelOne());
                 break;
             case 1:
-                SceneManager.LoadScene("Level 2");
+                StartCoroutine(LoadingLevelTwo());
                 break;
         }
     }
@@ -58,6 +60,27 @@ public class GuildButtons : MonoBehaviour
 */
     public void MainMenu()
     {
+        StartCoroutine(LoadingMainMenu());
+    }
+
+    IEnumerator LoadingMainMenu()
+    {
+        Transitionanim.SetTrigger("Start");
+        yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene("Town");
+    }
+
+    IEnumerator LoadingLevelOne()
+    {
+        Transitionanim.SetTrigger("Start");
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene("Level 1");
+    }
+
+    IEnumerator LoadingLevelTwo()
+    {
+        Transitionanim.SetTrigger("Start");
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene("Level 2");
     }
 }

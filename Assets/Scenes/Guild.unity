@@ -196,6 +196,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8027717053432669781, guid: fa39a0af06994744db254e72afcd81b6, type: 3}
   m_PrefabInstance: {fileID: 1792662550}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &757251941 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8027717054122580708, guid: fa39a0af06994744db254e72afcd81b6, type: 3}
+  m_PrefabInstance: {fileID: 1792662550}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1182424181
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,6 +454,7 @@ MonoBehaviour:
   LevelNumber: 0
   LevelOnePrimerCanvas: {fileID: 1559765417}
   LevelTwoPrimerCanvas: {fileID: 0}
+  Transitionanim: {fileID: 757251941}
 --- !u!1 &1668173373
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,7 +747,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8027717053432669780, guid: fa39a0af06994744db254e72afcd81b6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8027717053432669781, guid: fa39a0af06994744db254e72afcd81b6, type: 3}
       propertyPath: m_LocalPosition.x
