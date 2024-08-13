@@ -3,17 +3,20 @@ using UnityEngine;
 
 public class RatController : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 1f; // Speed at which the enemy moves
-    [SerializeField] private int damageAmount = 1; // Amount of damage to apply
+    public float moveSpeed = 1f; // Speed at which the enemy moves
+    public int direction = 1;
+    public SpriteRenderer spriteRenderer;
 
-    [SerializeField] private int maxHealth = 1; // Maximum health for the rat
-    private int currentHealth; // Current health of the rat
+    [SerializeField] private int damageAmount = 1; // Amount of damage to apply
+    [SerializeField] private int maxHealth = 1; // Maximum health for the enemy
+    private int currentHealth; // Current health of the enemy
     private Rigidbody2D enemyRigidbody; // Reference to the Rigidbody2D component
     public Boss boss;
 
     private Collider2D ratCollider; // Reference to the rat's collider
     private bool hasTakenDamage = false; // Flag to track if damage has been applied
     private bool isKilled = false; // Flag to check if the enemy is already counted as killed
+    private SimpleFlash simpleFlash;
 
     void Start()
     {
@@ -21,34 +24,31 @@ public class RatController : MonoBehaviour
         boss = FindObjectOfType<Boss>();
         currentHealth = maxHealth; // Initialize current health
         ratCollider = GetComponent<Collider2D>(); // Get the Collider2D component attached to the rat
+        simpleFlash = GetComponent<SimpleFlash>();
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        // Set the movement and the sprite face appropriately
+        GetComponent<Rigidbody2D>().velocity = direction * moveSpeed * Vector2.right;
+        spriteRenderer.flipX = direction < 0;
     }
 
     void Update()
     {
-        if (IsFacingRight())
-        {
-            enemyRigidbody.velocity = new Vector2(moveSpeed, 0f);
-        }
-        else
-        {
-            enemyRigidbody.velocity = new Vector2(-moveSpeed, 0f);
-        }
-    }
 
-    private bool IsFacingRight()
-    {
-        return transform.localScale.x > Mathf.Epsilon;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Debugging log to check collision
-        Debug.Log($"Collision detected with {collision.gameObject.name}");
-
-        // Check if the collider is a boundary
-        if (collision.CompareTag("Boundary"))
+        // Did we touch an edge trigger area?
+        if (collision.CompareTag("EdgeTrigger"))
         {
-            Flip();
+            // Reverse direction
+            direction = -direction;
+
+            // Set the movement and the sprite face appropriately
+            GetComponent<Rigidbody2D>().velocity = direction * moveSpeed * Vector2.right;
+            spriteRenderer.flipX = direction < 0;
         }
 
         // Check if the collider is tagged as a Bullet and apply damage if not already done
@@ -66,14 +66,6 @@ public class RatController : MonoBehaviour
                 StartCoroutine(EnableColliderAfterDelay(0.6f));
             }
         }
-        else
-        {
-            // Log a message if the collision is not with a Bullet
-            if (!collision.CompareTag("Bullet"))
-            {
-                Debug.Log("Collision detected but not with a Bullet.");
-            }
-        }
     }
 
     public void TakeDamage(int amount)
@@ -85,20 +77,15 @@ public class RatController : MonoBehaviour
         }
     }
 
-    private void Flip()
-    {
-        transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
-    }
-
     private void Die()
     {
-        Debug.Log("Rat is dying");
         if (!isKilled)
         {
+            isKilled = true;
+            simpleFlash.Flash(); // Start the flash effect
             boss.KillRat(); // Notify the boss
-            isKilled = true; // Set the flag to true
+            Destroy(gameObject, 0.3f);
         }
-        Destroy(gameObject); // Destroy the rat game object
     }
 
     private IEnumerator EnableColliderAfterDelay(float delay)

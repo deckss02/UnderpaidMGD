@@ -1,10 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Bird : MonoBehaviour
+public class ParasiteRat : MonoBehaviour
 {
-    //[SerializeField] private float moveSpeed = 1f; // Speed at which the enemy moves
+    [SerializeField] private float moveSpeed = 1f; // Speed at which the enemy moves
+    public GameObject[] wayPoints;
+
+    int nextWaypoint = 1;
+    float distToPoint;
+
     [SerializeField] private int damageAmount = 1; // Amount of damage to apply
     [SerializeField] private int maxHealth = 1; // Maximum health for the enemy
     private int currentHealth; // Current health of the enemy
@@ -12,26 +15,56 @@ public class Bird : MonoBehaviour
     public TimEC timEC;
 
     private SimpleFlash simpleFlash;
+    private Animator myAnim;
+
     private bool isKilled = false; // Flag to check if the enemy is already counted as killed
 
-    // Start is called before the first frame update
     void Start()
     {
         enemyRigidbody = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component attached to the enemy
-        currentHealth = maxHealth; // Initialize current health
+        myAnim = GetComponent<Animator>(); // Get and store a reference to the Animator component
+        currentHealth = maxHealth;
         timEC = FindObjectOfType<TimEC>();
         simpleFlash = GetComponent<SimpleFlash>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        Move();
+    }
+
+    void Move()
+    {
+        distToPoint = Vector2.Distance(transform.position, wayPoints[nextWaypoint].transform.position);
+
+        transform.position = Vector2.MoveTowards(transform.position, wayPoints[nextWaypoint].transform.position, moveSpeed * Time.deltaTime);
+
+        if (distToPoint < 0.3f)
+        {
+            TakeTurn();
+        }
+    }
+
+    void TakeTurn()
+    {
+        Vector3 currRot = transform.eulerAngles;
+        currRot.z += wayPoints[nextWaypoint].transform.eulerAngles.z;
+        transform.eulerAngles = currRot;
+        ChooseNextWaypoint();
+    }
+
+    void ChooseNextWaypoint()
+    {
+        nextWaypoint++;
+
+        if (nextWaypoint == wayPoints.Length)
+        {
+            nextWaypoint = 0;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
         // Check if the collider is tagged as a Bullet and apply damage
         if (collision.collider.CompareTag("Bullet"))
         {
@@ -42,10 +75,10 @@ public class Bird : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        currentHealth -= amount; // Reduce current health
+        currentHealth -= amount;
         if (currentHealth <= 0)
         {
-            Die(); // Destroy the enemy if health is 0 or less
+            Die();
         }
     }
 
