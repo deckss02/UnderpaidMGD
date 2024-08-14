@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PauseScreen : MonoBehaviour
 {
@@ -11,8 +12,8 @@ public class PauseScreen : MonoBehaviour
     private LevelManager theLevelManager;
     public GameObject Button;
 
-    public int countdownTime;
-    public Text countdownDisplay;
+    public float countdownTime;
+    public TextMeshProUGUI countdownDisplay;
 
     void Start()
     {
@@ -20,11 +21,21 @@ public class PauseScreen : MonoBehaviour
         theLevelManager = FindObjectOfType<LevelManager>();
     }
 
+    void Update()
+    { 
+        
+    }
+
     public void PauseGame()
     {
         Time.timeScale = 0; // Freeze the game
+        countdownTime = 3;
         pauseMenu.SetActive(true);
         Button.SetActive(false);
+        countdownDisplay.gameObject.SetActive(true);
+
+        countdownDisplay.text = " ";
+
         if (thePlayer != null)
         {
             thePlayer.canMove = false;
@@ -38,12 +49,12 @@ public class PauseScreen : MonoBehaviour
 
     public void ResumeGame()
     {
+
         StartCoroutine(Countdown());
 
         Time.timeScale = 1.0f; // Resume back to normal real-time
 
-        pauseMenu.SetActive(false);
-        Button.SetActive(true);
+        
         if (thePlayer != null)
         {
             thePlayer.canMove = true;
@@ -73,12 +84,14 @@ public class PauseScreen : MonoBehaviour
             countdownTime--;
         }
 
-        countdownDisplay.text = "BEGIN!";
-
-        ResumeGame();
+        pauseMenu.SetActive(false);
+        Button.SetActive(true);
 
         countdownDisplay.gameObject.SetActive(false);
         
         yield return new WaitForSeconds(1f);
+
+        
+        ResumeGame();
     }
 }
