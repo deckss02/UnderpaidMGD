@@ -23,7 +23,7 @@ public class GameOver : MonoBehaviour
     
     public void BackToMainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("Town");
         Time.timeScale = 0;
         UIHolder.SetActive(false);
     }
@@ -38,7 +38,7 @@ public class GameOver : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("MGD");
+        SceneManager.LoadScene("Level 1");
         tryAgainButton.SetActive(true);
         UIHolder.SetActive(true);
     }

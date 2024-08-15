@@ -7,59 +7,79 @@ using UnityEngine.SceneManagement;
 
 public class Settings : MonoBehaviour
 {
-    public AudioSource MusicSource;
+    //public AudioSource MusicSource;
 
-    public Slider MusicSlider;
-    public Slider SFXSlider;
+    [SerializeField] private GameObject SettingsPanel; // Reference to the instruction panel
+    [SerializeField] private Button closeButton; // Reference to the close button
+    [SerializeField] private Button SettingsButton; // Reference to the close button
 
-    private float musicVolume = 1.0f;
-    private float SFXVolume = 1.0f;
-
-    public Animator Transitionanim;
+    //public Slider MusicSlider;
+    //public Slider SFXSlider;
+    //
+    //private float musicVolume = 1.0f;
+    //private float SFXVolume = 1.0f;
+    //
+    //public Animator Transitionanim;
     // Start is called before the first frame update
     void Start()
     {
 
-        musicVolume = PlayerPrefs.GetFloat("volume");
-        SFXVolume = PlayerPrefs.GetFloat("Svolume");
+        //musicVolume = PlayerPrefs.GetFloat("volume");
+        //SFXVolume = PlayerPrefs.GetFloat("SFX");
+        //
+        //MusicSource.volume = musicVolume;
+        //MusicSlider.value = musicVolume;
+        //
+        //AudioListener.volume = SFXVolume;
+        //SFXSlider.value = SFXVolume;
 
-        MusicSource.volume = musicVolume;
-        MusicSlider.value = musicVolume;
-
-        AudioListener.volume = SFXVolume;
-        SFXSlider.value = SFXVolume;
+        // Add listener to the close button
+        closeButton.onClick.AddListener(HideSettings);
     }
 
     void Update()
     {
-        MusicSource.volume = musicVolume;
+        // Add listener to the close button
+        SettingsButton.onClick.AddListener(ShowSettings);
 
-        AudioListener.volume = SFXVolume;
-
-        PlayerPrefs.SetFloat("volume", musicVolume);
-        PlayerPrefs.SetFloat("Svolume", SFXVolume);
+        //MusicSource.volume = musicVolume;
+        //
+        //AudioListener.volume = SFXVolume;
+        //
+        //PlayerPrefs.SetFloat("Volume", musicVolume);
+        //PlayerPrefs.SetFloat("SFX", SFXVolume);
     }
 
-    public void Updatevolume(float Volume)
-    {
-        musicVolume = Volume;
-    }
-
+    //public void Updatevolume(float Volume)
+    //{
+    //    musicVolume = Volume;
+    //}
+    //
+    //
+    //public void UpdateSound(float SFX)
+    //{
+    //    SFXVolume = SFX;
+    //}
     
-    public void UpdateSound(float SVolume)
+    //public void Tutorial()
+    //{
+    //    StartCoroutine(LoadingTutorial());
+    //}
+
+    //IEnumerator LoadingTutorial()
+    //{
+    //    Transitionanim.SetTrigger("Start");
+    //    yield return new WaitForSeconds(1.5f);
+    //    SceneManager.LoadScene("Town");
+    //}
+
+    private void ShowSettings()
     {
-        SFXVolume = SVolume;
-    }
-    
-    public void Tutorial()
-    {
-        StartCoroutine(LoadingTutorial());
+        SettingsPanel.SetActive(true); // Hide the instruction panel
     }
 
-    IEnumerator LoadingTutorial()
+    private void HideSettings()
     {
-        Transitionanim.SetTrigger("Start");
-        yield return new WaitForSeconds(1.5f);
-        SceneManager.LoadScene("Town");
+        SettingsPanel.SetActive(false); // Hide the instruction panel
     }
 }
