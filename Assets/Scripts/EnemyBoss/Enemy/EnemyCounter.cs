@@ -36,11 +36,8 @@ public class EnemyCounter : MonoBehaviour
         // Deactivate boss initially
         boss.SetActive(false);
 
-        // Deactivate shooting paws initially
-        if (shootingPawPrefab != null)
-            shootingPawPrefab.SetActive(false);
-        if (shootingPawPrefab1 != null)
-            shootingPawPrefab1.SetActive(false);
+       shootingPawPrefab.SetActive(false);
+       shootingPawPrefab1.SetActive(false);
     }
 
     // Function to be called when an enemy is killed
@@ -110,8 +107,8 @@ public class EnemyCounter : MonoBehaviour
     // Function to destroy all remaining enemies in the scene
     void DestroyAllEnemies()
     {
-        shootingPawPrefab.SetActive(false);
-        shootingPawPrefab1.SetActive(false);
+        shootingPawInstance1.SetActive(false);
+        shootingPawInstance2.SetActive(false);
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (var enemy in enemies)
         {

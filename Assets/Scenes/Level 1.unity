@@ -4914,8 +4914,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38673a8148962a24a9efd2422ec8368b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawningIn: {fileID: 0}
-  spawnerPosition: {fileID: 583253603}
+  enemySpawningIn: {fileID: 583253603}
+  spawnerPosition: {fileID: 2052687963}
   enemySpawnRate: 13
 --- !u!1 &339359179
 GameObject:
@@ -5627,7 +5627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38673a8148962a24a9efd2422ec8368b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawningIn: {fileID: 166119865}
+  enemySpawningIn: {fileID: 803115589}
   spawnerPosition: {fileID: 1745240779}
   enemySpawnRate: 10
 --- !u!1 &412015576
@@ -11693,8 +11693,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38673a8148962a24a9efd2422ec8368b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawningIn: {fileID: 0}
-  spawnerPosition: {fileID: 583253603}
+  enemySpawningIn: {fileID: 583253603}
+  spawnerPosition: {fileID: 945611733}
   enemySpawnRate: 21
 --- !u!1 &760791270
 GameObject:
@@ -12466,6 +12466,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1988771913}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 40.158}
+--- !u!1 &803115589 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 996174167265082782, guid: 2c9dd3dc8e6006f45b389c6b24a09076, type: 3}
+  m_PrefabInstance: {fileID: 90072394}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &806285054
 GameObject:
   m_ObjectHideFlags: 0
@@ -14171,7 +14176,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &898366762
 Transform:
   m_ObjectHideFlags: 0
@@ -16798,8 +16803,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38673a8148962a24a9efd2422ec8368b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawningIn: {fileID: 0}
-  spawnerPosition: {fileID: 583253603}
+  enemySpawningIn: {fileID: 583253603}
+  spawnerPosition: {fileID: 1745240779}
   enemySpawnRate: 20
 --- !u!1 &1068820840
 GameObject:
@@ -20216,8 +20221,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38673a8148962a24a9efd2422ec8368b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawningIn: {fileID: 0}
-  spawnerPosition: {fileID: 583253603}
+  enemySpawningIn: {fileID: 583253603}
+  spawnerPosition: {fileID: 940691961}
   enemySpawnRate: 25
 --- !u!1 &1312555842
 GameObject:
@@ -32489,7 +32494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c119886726dca443b547b1f965d0f0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesLeftToKill: 15
+  enemiesLeftToKill: 10
   boss: {fileID: 755109649}
   Ultimate: {fileID: 1187005069}
   BossHealth: {fileID: 473344370}
