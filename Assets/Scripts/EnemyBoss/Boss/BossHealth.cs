@@ -14,7 +14,7 @@ public class BossHealth : MonoBehaviour
     private SpriteRenderer bossSpriteRenderer;
     private Color originalColor;
     public GameObject boss;
-    public GameObject deathSplosion;
+    public GameObject Effect;
     public float ultimateEffectDuration = 2.0f; // Duration for the ultimate effect animation
 
     [Header("iFrames")]
@@ -26,7 +26,7 @@ public class BossHealth : MonoBehaviour
     private PlayerControllera playerController;
 
     [Header("Death Animation")]
-    [SerializeField] private float deathAnimationDuration = 2.0f;
+    [SerializeField] private float deathAnimationDuration = 3.0f;
 
     // References to PawMouth and PawEye animators
     public Animator pawMouthAnimator;
@@ -170,17 +170,14 @@ public class BossHealth : MonoBehaviour
 
     private IEnumerator HandleDeathAnimation()
     {
-        // Instantiate the deathSplosion effect at the boss's position
-        if (deathSplosion != null)
-        {
-            GameObject explosion = Instantiate(deathSplosion, boss.transform.position, Quaternion.identity);
-            // Optionally, you can ensure the particle system is played correctly
-            ParticleSystem ps = explosion.GetComponent<ParticleSystem>();
-            if (ps != null)
-            {
-                ps.Play();
-            }
-        }
+            Effect.gameObject.SetActive(true);
+            //// Optionally, you can ensure the particle system is played correctly
+            //ParticleSystem ps = explosion.GetComponent<ParticleSystem>();
+            //if (ps != null)
+            //{
+            //    ps.Play();
+            //}
+
 
         // Play the death animation
         if (animator != null)

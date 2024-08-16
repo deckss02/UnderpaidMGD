@@ -10,6 +10,7 @@ public class EnemyCounter : MonoBehaviour
     public Button Ultimate;
     public GameObject BossHealth;
 
+    public GameObject Intro;
     public PlayerControllera playerController; // Reference to the player's controller script
     public TextMeshProUGUI enemiesLeftText;
     public float freezeTime = 5.0f; // Duration to freeze the player
@@ -93,13 +94,14 @@ public class EnemyCounter : MonoBehaviour
         ES3.gameObject.SetActive(false);
         ES4.gameObject.SetActive(false);
 
+        Intro.gameObject.SetActive(true);
         // Wait for the specified freeze time
         yield return new WaitForSeconds(freezeTime);
 
         BossHealth.gameObject.SetActive(true);
         // Activate the boss
         ActivateBoss();
-
+        Intro.gameObject.SetActive(false);
         // Unfreeze the player
         playerController.FreezePlayer(false);
     }
