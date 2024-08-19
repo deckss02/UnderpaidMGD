@@ -1,21 +1,27 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BossTim : MonoBehaviour
 {
-    public GameObject hairballPrefab; // Prefab for the hairball projectile
-    public Transform[] firePoints; // Points from which hairballs will be fired
-    public GameObject BirdPrefab; // Prefab for the rat enemy
-    public Transform[] spawnPoints; // Points where rats will be spawned
-    public int numberOfBirbs = 6; // Number of rats to spawn
+    public GameObject VinePrefab;
+    public Transform[] firePoints;
+    public GameObject BirdPrefab; // Prefab for the bird enemy
+    public Transform[] spawnPoints;
+    public int numberOfBirds = 6; // Number of birds to spawn
     public PlayerControllera playerControllera; // Reference to the player's controller script
     private bool died = false;
     private string[] attackStages = { "VineLane", "VineTeleport", "ExplodingBird", "SummonMinions" };
     private int currentAttackStage = 0; // Current attack stage index
     public Animator myAnim; // Animator component
     public bool attacking; // Flag to indicate if the boss is currently attacking
-    public int activeRatsCount;
+    public int activeBirdsCount;
+
+    public GameObject seedPrefab;        // The seed prefab to spawn
+    public Transform[] seedSpawnPoints1; // First array of seed spawn points
+    public Transform[] seedSpawnPoints2; // Second array of seed spawn points
+    public Transform[] seedSpawnPoints3; // Third array of seed spawn points
+    public float spawnInterval = 2f;     // Time between each seed spawn
+    public int seedCount = 5;             // Number of seeds to spawn
 
     private void Start()
     {
@@ -29,140 +35,114 @@ public class BossTim : MonoBehaviour
         attacking = true; // Set attacking flag to true
         StartCoroutine(VineLaneAttackCoroutine(onComplete)); // Start the VineLane attack coroutine
     }
+
     public void StartVineTeleportAttack(System.Action onComplete)
     {
         attacking = true; // Set attacking flag to true
         StartCoroutine(VineTeleportAttackCoroutine(onComplete)); // Start the VineTeleport attack coroutine
     }
-    public void StartBirdAttack(System.Action onComplete)
-    {
-        attacking = true; // Set attacking flag to true
-        StartCoroutine(ExplodingBirdAttackCoroutine(onComplete)); // Start the ExplodingBird attack coroutine
-    }
+
     public void StartSummoningAttack(System.Action onComplete)
     {
         attacking = true; // Set attacking flag to true
         StartCoroutine(SummoningAttackCoroutine(onComplete)); // Start the Summoning attack coroutine
     }
-   
+
     private IEnumerator VineLaneAttackCoroutine(System.Action onComplete)
     {
         Debug.Log("Starting VineLane attack");
-        //int minHairballs = 2;        // Random number of hairballs to spawn within a specified range
-        //int maxHairballs = 3;
-        //int numberOfHairballs = Random.Range(minHairballs, maxHairballs + 1);
-        //List<GameObject> pawEyeInstances = new List<GameObject>();
-        //List<GameObject> savePawInstances = new List<GameObject>();
-        //
-        //foreach (Transform firePoint in firePoints)     // Iterate through fire points
-        //{
-        //    bool spawnHairball = Random.value < 0.5f; // Determine if this fire point should spawn a hairball
-        //
-        //    if (spawnHairball && numberOfHairballs > 0)
-        //    {
-        //        GameObject pawEyeInstance = Instantiate(pawEyePrefab, firePoint.position, firePoint.rotation);
-        //        pawEyeInstances.Add(pawEyeInstance);
-        //        yield return new WaitForSeconds(0.5f);
-        //        Instantiate(hairballPrefab, firePoint.position, firePoint.rotation); // Spawn hairball at the selected fire point
-        //        numberOfHairballs--;
-        //    }
-        //    else
-        //    {
-        //        GameObject savePawInstance = Instantiate(SavePaw, firePoint.position, firePoint.rotation);
-        //        savePawInstances.Add(savePawInstance);
-        //    }
-        //}
-        //foreach (GameObject pawEyeInstance in pawEyeInstances) // Schedule deactivation of pawEyes and savePaws after their own fade duration
-        //{
-        //    StartCoroutine(FadeAway(pawEyeInstance));
-        //}
-        //foreach (GameObject savePawInstance in savePawInstances)
-        //{
-        //    StartCoroutine(FadeAway(savePawInstance));
-        //}
+        // Implementation of VineLane attack
         yield return null;  // Ensure the coroutine returns a value
 
         onComplete?.Invoke();
         attacking = false; // Reset attacking flag
     }
-    //
-    //private IEnumerator FadeAway(GameObject instance)
-    //{
-    //    yield return new WaitForSeconds(2.0f);
-    //    Destroy(instance);
-    //}
-    //
+
     private IEnumerator SummoningAttackCoroutine(System.Action onComplete)
     {
         Debug.Log("Starting Summoning attack");
         playerControllera.FreezePlayer(true);
-        //for (int i = 0; i < numberOfRats; i++) // Loop to summon rats at the spawn points
-        //{
-        //    Transform spawnPoint = spawnPoints[i % spawnPoints.Length]; // Select a spawn point from the spawnPoints array
-        //    float distance = Vector3.Distance(transform.position, spawnPoint.position);
-        //    float speed = 5.0f; // Adjust speed as needed
-        //    float duration = distance / speed;
-        //
-        //    GameObject pawInstance = Instantiate(pawEyePrefab, transform.position, Quaternion.identity); // Instantiate the paw at the Boss's position and move towards the spawn point
-        //    StartCoroutine(MovePawTowardsTarget(pawInstance, spawnPoint.position, duration));
-        //
-        //    GameObject ratInstance = Instantiate(ratPrefab, spawnPoint.position, spawnPoint.rotation); // Instantiate the rat at the selected spawn point
-        //    activeRatsCount++;
-        //    yield return new WaitForSeconds(0.4f);
-        //}
+
+        for (int i = 0; i < numberOfBirds; i++) // Loop to summon birds at the spawn points
+        {
+            Transform spawnPoint = spawnPoints[i % spawnPoints.Length]; // Select a spawn point from the spawnPoints array
+            float distance = Vector3.Distance(transform.position, spawnPoint.position);
+            float speed = 5.0f; // Adjust speed as needed
+            float duration = distance / speed;
+
+            GameObject birdInstance = Instantiate(BirdPrefab, spawnPoint.position, spawnPoint.rotation);
+            activeBirdsCount++;
+            yield return new WaitForSeconds(0.4f);
+        }
         yield return null;  // Ensure the coroutine returns a value
 
         playerControllera.FreezePlayer(false);
         onComplete?.Invoke();
         attacking = false; // Reset attacking flag
     }
-    public void KillRat()
+
+    public void KillBird()
     {
-         //activeRatsCount--;
-         //if (activeRatsCount <= 0)
-         //{
-         //    myAnim.SetBool("CoolDown", true); // Set the CoolDown animation state
-         //    myAnim.SetBool("Summon", false); // Set the CoolDown animation state
-         //    attacking = false;
-         //}
+        activeBirdsCount--;
+        if (activeBirdsCount <= 0)
+        {
+            myAnim.SetBool("CoolDown", true); // Set the CoolDown animation state
+            myAnim.SetBool("Summon", false); // Set the CoolDown animation state
+            attacking = false;
+        }
     }
 
     private IEnumerator VineTeleportAttackCoroutine(System.Action onComplete)
     {
         Debug.Log("Starting VineTeleport attack");
+        StartCoroutine(SpawnSeeds());
 
-        yield return null;  // Ensure the coroutine returns a value
+        yield return new WaitForSeconds(7.0f); // Example delay
 
-        myAnim.SetBool("VineT", false);
-        myAnim.SetBool("CoolDown", true);
+        ResetVineTeleport();
         onComplete?.Invoke();
         attacking = false;
     }
 
-    private IEnumerator ExplodingBirdAttackCoroutine(System.Action onComplete)
+    private IEnumerator SpawnSeeds()
     {
-        Debug.Log("Starting Bird attack");
+        // Group the seed spawn points into an array
+        Transform[][] allPatterns = new Transform[][]
+        {
+            seedSpawnPoints1,
+            seedSpawnPoints2,
+            seedSpawnPoints3
+        };
 
-        yield return null;  // Ensure the coroutine returns a value
+        // Pick a random pattern
+        Transform[] selectedPattern = allPatterns[Random.Range(0, allPatterns.Length)];
 
-        onComplete?.Invoke();
-        attacking = false; // Reset attacking flag
-        myAnim.SetBool("Bird", false);
-        myAnim.SetBool("CoolDown", true);
+        // Spawn a specific number of seeds at the selected pattern points
+        for (int i = 0; i < seedCount; i++)
+        {
+            // Check if we have enough spawn points, if not, break
+            if (i >= selectedPattern.Length)
+                break;
+
+            Transform spawnPoint = selectedPattern[i];
+            Instantiate(seedPrefab, spawnPoint.position, Quaternion.identity);
+            yield return new WaitForSeconds(spawnInterval);
+        }
     }
 
-    //private void SpawnBird(Vector3 spawnPosition)
-    //{
-    //    Debug.Log("Spawning Bird at: " + spawnPosition);
-    //    Instantiate(BirdPrefab, spawnPosition, Quaternion.identity);
-    //}
+    private void ResetVineTeleport()
+    {
+        // Reset animator parameters related to VineTeleport
+        myAnim.SetBool("GroundVine", false);
+        myAnim.SetBool("CoolDown", false);
+    }
 
     public bool IsReadyForNextAttack()
     {
         return !myAnim.GetCurrentAnimatorStateInfo(0).IsName("CoolDown"); // Check if CooldownBehaviour is in cooldown state
     }
 
-    private void ProgressToNextAttackStage()     // Progress to the next attack stage
+    private void ProgressToNextAttackStage()
     {
         currentAttackStage = (currentAttackStage + 1) % attackStages.Length; // Move to the next attack stage
         string nextAttack = attackStages[currentAttackStage];

@@ -51,9 +51,6 @@ public class CoolDownTimBehaviour : StateMachineBehaviour
                 case "VineTeleport":
                     VineTeleportPicked(animator);
                     break;
-                case "ExplodingBird":
-                    ExplodingBirdPicked(animator);
-                    break;
                 case "VineLane":
                     VineLanePicked(animator);
                     break;
@@ -94,7 +91,7 @@ public class CoolDownTimBehaviour : StateMachineBehaviour
     // Get the next attack stage based on stagesCompleted
     private string GetNextAttackStage()
     {
-        string[] attackStages = { "VineLane", "VineTeleport", "ExplodingBird", "SummonMinions" };
+        string[] attackStages = { "VineLane", "VineTeleport", "SummonMinions" };
         int index = stagesCompleted % attackStages.Length; // Loop through stages
         stagesCompleted++; // Increment the counter
         return attackStages[index];
@@ -112,14 +109,7 @@ public class CoolDownTimBehaviour : StateMachineBehaviour
     private void VineTeleportPicked(Animator animator)
     {
         ResetAttackBools(animator);
-        animator.SetBool("VineT", true);
-        animator.SetBool("CoolDown", false);
-    }
-
-    private void ExplodingBirdPicked(Animator animator)
-    {
-        ResetAttackBools(animator);
-        animator.SetBool("Bird", true);
+        animator.SetBool("GroundVine", true);
         animator.SetBool("CoolDown", false);
     }
 
@@ -134,8 +124,7 @@ public class CoolDownTimBehaviour : StateMachineBehaviour
     private void ResetAttackBools(Animator animator)
     {
         animator.SetBool("VineL", false);
-        animator.SetBool("VineT", false);
-        animator.SetBool("Bird", false);
+        animator.SetBool("GroundVine", false);
         animator.SetBool("Summon", false);
     }
 }

@@ -31,6 +31,6 @@ public class GettingReadyTimBehaviour : StateMachineBehaviour
     {
         // Perform actions on exiting GettingReady state, if any
         Debug.Log("Exited Ready state");
-        animator.ResetTrigger("GettingReady");
+        animator.ResetTrigger("GR");
     }
 }

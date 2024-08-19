@@ -41,7 +41,7 @@ public class VineTBehaviour : StateMachineBehaviour
     {
         // Reset flags for the next time this state is entered
         animator.SetBool("CoolDown", true);
-        animator.SetBool("VineT", false);
+        animator.SetBool("GroundVine", false);
         Debug.Log("Exited VineTeleport attack state");
     }
 }
