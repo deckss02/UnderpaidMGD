@@ -27,6 +27,18 @@ public class SlashDamage : MonoBehaviour
                     enemyController1.TakeDamage((int)damageAmount);
                 }
 
+                EnemController enemController = hitCollider.GetComponent<EnemController>();
+                if (enemController != null)
+                {
+                    enemController.TakeDamage((int)damageAmount);
+                }
+
+                WolfController wolfController = hitCollider.GetComponent<WolfController>();
+                if (wolfController != null)
+                {
+                    wolfController.TakeDamage((int)damageAmount);
+                }
+
                 ShootingFlower shootingFlower = hitCollider.GetComponent<ShootingFlower>();
                 if (shootingFlower != null)
                 {
@@ -37,6 +49,12 @@ public class SlashDamage : MonoBehaviour
                 if (parasiteRat != null)
                 {
                     parasiteRat.TakeDamage((int)damageAmount);
+                }
+
+                Bird bird = hitCollider.GetComponent<Bird>();
+                if (bird != null)
+                {
+                    bird.TakeDamage((int)damageAmount);
                 }
             }
             else if (hitCollider.CompareTag("Rat"))

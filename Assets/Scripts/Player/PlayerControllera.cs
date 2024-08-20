@@ -14,6 +14,10 @@ public class PlayerControllera : MonoBehaviour
     public float jumpSpeed; // Control the speed that player is moving when jumping
     private Animator myAnim;
 
+    private Collider2D playerCollider;  // Reference to the player's collider
+    public LayerMask enemyLayer;        // LayerMask for identifying enemies
+
+
     public LevelManager theLevelManager; // Make a reference to LevelManager
 
     public float knockbackForce;
@@ -36,6 +40,7 @@ public class PlayerControllera : MonoBehaviour
         rb = GetComponent<Rigidbody2D>(); // Get and store a reference to the Rigidbody2D component so that we can access it
         myAnim = GetComponent<Animator>(); // Get and store a reference to the Animator component so that we can access it
         theLevelManager = FindObjectOfType<LevelManager>();
+        playerCollider = GetComponent<Collider2D>();  // Get the player's collider
     }
 
     // Update is called once per frame
@@ -70,6 +75,16 @@ public class PlayerControllera : MonoBehaviour
 
         myAnim.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
         myAnim.SetBool("Ground", isGrounded);
+
+        // Ignore collisions between the player and all enemies on the enemy layer
+        Collider2D[] enemyColliders = FindObjectsOfType<Collider2D>();
+        foreach (Collider2D enemyCollider in enemyColliders)
+        {
+            if (((1 << enemyCollider.gameObject.layer) & enemyLayer) != 0)
+            {
+                Physics2D.IgnoreCollision(playerCollider, enemyCollider);
+            }
+        }
     }
 
     public void Move(float dir)
