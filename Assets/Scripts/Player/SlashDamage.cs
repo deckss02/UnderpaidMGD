@@ -33,12 +33,6 @@ public class SlashDamage : MonoBehaviour
                     shootingFlower.TakeDamage((int)damageAmount);
                 }
 
-                //Bird bird = hitCollider.GetComponent<Bird>();
-                //if (bird != null)
-                //{
-                //    bird.TakeDamage((int)damageAmount);
-                //}
-
                 ParasiteRat parasiteRat = hitCollider.GetComponent<ParasiteRat>();
                 if (parasiteRat != null)
                 {

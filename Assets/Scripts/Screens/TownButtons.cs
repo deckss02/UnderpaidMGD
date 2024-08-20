@@ -49,7 +49,7 @@ public class TownButtons : MonoBehaviour
     {
         Transitionanim.SetTrigger("Start");
         yield return new WaitForSeconds(1.5f);
-        SceneManager.LoadScene("Inn");
+        SceneManager.LoadScene("HallofFame");
     }
 
     IEnumerator LoadingGuild()

@@ -28,11 +28,10 @@ public class GuildButtons : MonoBehaviour
     {
         switch (LevelNumber)
         {
-
-            case 0:
+            case 1:
                 LevelOnePrimerCanvas.SetActive(true);
                 break;
-            case 1:
+            case 2:
                 LevelTwoPrimerCanvas.SetActive(true);
                 break;
         }
@@ -42,22 +41,21 @@ public class GuildButtons : MonoBehaviour
     {
         switch (LevelNumber)
         {
-
-            case 0:
+            case 1:
                 StartCoroutine(LoadingLevelOne());
                 break;
-            case 1:
+            case 2:
                 StartCoroutine(LoadingLevelTwo());
                 break;
         }
     }
 
- /*
+   
     public void StartLevelOne()
     {
-        SceneManager.LoadScene("MGD");
+        SceneManager.LoadScene("Tutorial");
     }
-*/
+   
     public void MainMenu()
     {
         StartCoroutine(LoadingMainMenu());
@@ -68,6 +66,13 @@ public class GuildButtons : MonoBehaviour
         Transitionanim.SetTrigger("Start");
         yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene("Town");
+    }
+
+    IEnumerator LoadingLevelTutorial()
+    {
+        Transitionanim.SetTrigger("Start");
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene("Tutorial");
     }
 
     IEnumerator LoadingLevelOne()

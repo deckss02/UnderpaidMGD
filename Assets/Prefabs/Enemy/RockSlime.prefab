@@ -16,7 +16,8 @@ GameObject:
   - component: {fileID: 1005982540146587835}
   - component: {fileID: 9097665697086162509}
   - component: {fileID: 4341787621744774543}
-  m_Layer: 8
+  - component: {fileID: 984601241781729753}
+  m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -32,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 235591839047802364}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.36, y: 0.137, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -79,12 +80,12 @@ SpriteRenderer:
   m_SortingLayerID: -922086597
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 69a84892db7cdee44b7b064556e6f1c8, type: 3}
+  m_Sprite: {fileID: 1226894660, guid: 31df00a01ade07d49a48a6caf308148c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.85333335, y: 0.85333335}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -144,10 +145,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 1
   direction: 1
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 1606340665009594970}
   damageAmount: 1
   maxHealth: 1
   enemycounter: {fileID: 0}
+  initialFlipX: 0
 --- !u!95 &1005982540146587835
 Animator:
   serializedVersion: 5
@@ -182,7 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashMaterial: {fileID: 2100000, guid: 66f6719254263c54a9d946ac21992f50, type: 2}
-  duration: 0
+  duration: 0.25
 --- !u!61 &4341787621744774543
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -215,19 +217,33 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.05583489}
+  m_Offset: {x: -0.010392994, y: -0.17631018}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.85333335, y: 0.85333335}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 0.85333335, y: 0.85333335}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.85333335, y: 0.7416636}
+  m_Size: {x: 0.5573661, y: 0.4228232}
   m_EdgeRadius: 0
+--- !u!114 &984601241781729753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 235591839047802364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32f6240ad37a5424abb0faee486f6691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 1
+  currentHealth: 1
 --- !u!1 &996174167265082782
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,7 +255,7 @@ GameObject:
   - component: {fileID: 49419968554191479}
   m_Layer: 0
   m_Name: RockSlime
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

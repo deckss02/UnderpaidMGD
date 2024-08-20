@@ -121,6 +121,11 @@ public class PlayerControllera : MonoBehaviour
         knockbackCounter = knockbackLength;
     }
 
+    public bool IsMoving
+    {
+        get { return rb.velocity.x != 0; }  // Check if the player has horizontal velocity
+    }
+
     // Method to freeze or unfreeze the player
     public void FreezePlayer(bool freeze)
     {

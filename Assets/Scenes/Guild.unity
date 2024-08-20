@@ -286,7 +286,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1559765422}
         m_TargetAssemblyTypeName: GuildButtons, Assembly-CSharp
-        m_MethodName: AcceptQuest
+        m_MethodName: StartLevelOne
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -453,7 +453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelNumber: 0
   LevelOnePrimerCanvas: {fileID: 1559765417}
-  LevelTwoPrimerCanvas: {fileID: 0}
+  LevelTwoPrimerCanvas: {fileID: 1559765417}
   Transitionanim: {fileID: 757251941}
 --- !u!1 &1668173373
 GameObject:
