@@ -25,6 +25,7 @@ public class PlayerControllera : MonoBehaviour
     private float knockbackCounter; // Count down if time for player being knocked back
     public AudioSource jumpSound;
     public AudioSource hurtSound;
+    public AudioSource SwordSound;
     public bool canMove = true; // When game is paused, player cannot move
 
     private bool facingRight = true;
@@ -95,12 +96,14 @@ public class PlayerControllera : MonoBehaviour
         {
             rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
             transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            SwordSound.Play();
             facingRight = true;
         }
         else if (dir < 0)
         {
             rb.velocity = new Vector2(-moveSpeed, rb.velocity.y); // Move to the left
             transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
+            SwordSound.Play();
             facingRight = false;
         }
         else
