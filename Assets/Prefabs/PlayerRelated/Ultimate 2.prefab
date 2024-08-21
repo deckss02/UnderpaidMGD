@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxCollider: {fileID: -4718106716651090778}
-  colliderDisableDuration: 2
+  colliderDisableDuration: 4
 --- !u!1 &4743356411047964458
 GameObject:
   m_ObjectHideFlags: 0
