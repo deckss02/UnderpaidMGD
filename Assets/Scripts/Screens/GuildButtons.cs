@@ -53,17 +53,17 @@ public class GuildButtons : MonoBehaviour
    
     public void StartLevelOne()
     {
-        SceneManager.LoadScene("Tutorial");
+        StartCoroutine(LoadingLevelTutorial());
     }
 
     public void StartLevelTwo()
     {
-        SceneManager.LoadScene("LevelOne");
+        StartCoroutine(LoadingLevelTwo());
 
     }
     public void StartLevelThree()
     {
-        SceneManager.LoadScene("LevelTwo");
+        StartCoroutine(LoadingLevelTwo());
 
     }
 

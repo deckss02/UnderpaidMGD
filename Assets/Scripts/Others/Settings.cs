@@ -73,12 +73,12 @@ public class Settings : MonoBehaviour
     //    SceneManager.LoadScene("Town");
     //}
 
-    private void ShowSettings()
+    public void ShowSettings()
     {
         SettingsPanel.SetActive(true); // Hide the instruction panel
     }
 
-    private void HideSettings()
+    public void HideSettings()
     {
         SettingsPanel.SetActive(false); // Hide the instruction panel
     }

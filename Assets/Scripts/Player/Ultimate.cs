@@ -35,6 +35,7 @@ public class Ultimate : MonoBehaviour
     {
         if (ultimateReady)
         {
+
             // Instantiate the ultimate visual effect at the button's position
             ultimateInstance = Instantiate(ultimatePrefab, bossHealth.transform.position, Quaternion.identity);
 

@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class UltimateEffect1 : MonoBehaviour
 {
+    public AudioSource UltimateSource;
+    public AudioClip UltimateClip;
+
     private BossHealthTim bossHealth; // Reference to the BossHealthTim script
     private float ultimateDamage; // Damage dealt by the ultimate
     private bool hasDamaged = false; // Flag to ensure damage is dealt only once
@@ -17,6 +20,8 @@ public class UltimateEffect1 : MonoBehaviour
 
     public void ActivateUltimateEffect()
     {
+        UltimateSource.PlayOneShot(UltimateClip);
+
         gameObject.SetActive(true);
 
         if (boxCollider != null)
