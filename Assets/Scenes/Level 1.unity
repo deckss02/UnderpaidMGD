@@ -2656,11 +2656,6 @@ Transform:
   - {fileID: 1309122725}
   m_Father: {fileID: 1061161460}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &166119865 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 235591839047802364, guid: 2c9dd3dc8e6006f45b389c6b24a09076, type: 3}
-  m_PrefabInstance: {fileID: 90072394}
-  m_PrefabAsset: {fileID: 0}
 --- !u!212 &166119897 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 1606340665009594970, guid: 2c9dd3dc8e6006f45b389c6b24a09076, type: 3}
@@ -4236,7 +4231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38673a8148962a24a9efd2422ec8368b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawningIn: {fileID: 166119865}
+  enemySpawningIn: {fileID: 803115589}
   spawnerPosition: {fileID: 273468057}
   enemySpawnRate: 16
 --- !u!1 &275634920
@@ -8983,6 +8978,7 @@ GameObject:
   - component: {fileID: 628132334}
   - component: {fileID: 628132333}
   - component: {fileID: 628132337}
+  - component: {fileID: 628132338}
   m_Layer: 5
   m_Name: Skill Button - Rhea
   m_TagString: Untagged
@@ -9022,8 +9018,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 628132337}
-  RheaHeals: {fileID: 8300000, guid: ad142f6c92c6a434989b241784780571, type: 3}
+  RheaHeals: {fileID: 8300000, guid: cbd3486d9f9db1545818696042ee23ba, type: 3}
   healAmount: 200
+  healCooldown: 5
 --- !u!114 &628132334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9101,7 +9098,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: e88ba0088bcd0c345b1fb186f597547d, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -9128,7 +9125,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ad142f6c92c6a434989b241784780571, type: 3}
+  m_audioClip: {fileID: 8300000, guid: cbd3486d9f9db1545818696042ee23ba, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -9214,6 +9211,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &628132338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 628132331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4699ed2dee77ace4ea0e4b8f7e6e1f71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &628765150
 GameObject:
   m_ObjectHideFlags: 0
@@ -17284,7 +17293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38673a8148962a24a9efd2422ec8368b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawningIn: {fileID: 166119865}
+  enemySpawningIn: {fileID: 803115589}
   spawnerPosition: {fileID: 2052687963}
   enemySpawnRate: 25
 --- !u!1 &1132995684
@@ -24583,7 +24592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38673a8148962a24a9efd2422ec8368b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawningIn: {fileID: 166119865}
+  enemySpawningIn: {fileID: 803115589}
   spawnerPosition: {fileID: 1709618079}
   enemySpawnRate: 18
 --- !u!1 &1711911189
@@ -29171,7 +29180,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 68e5d6ce8c4549b45bb2265261c37234, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -29200,6 +29209,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4a3ca6d81df8d243b20202731fb3975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ClaymoreSound: {fileID: 0}
+  ClaymoreSoundClip: {fileID: 8300000, guid: 800a407d0e61acd45b690310a13e224e, type: 3}
   StartingPrefab: {fileID: 1755786976323437683, guid: a0a6236d97f0f934884e6f57e4a4ccb4, type: 3}
   ClaymorePrefab: {fileID: 1420708988299721867, guid: c669d071abe78884fbf795a7a99ab8b0, type: 3}
   SkillPoint: {fileID: 629956615}
@@ -31174,7 +31185,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: af12aaa1aec42df4db20c6636bba6829, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 47c4f7385f561de40acb5b190bf5b1f0, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.13
   m_Pitch: 1

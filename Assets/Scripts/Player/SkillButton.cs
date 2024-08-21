@@ -14,6 +14,8 @@ public class SkillButton : MonoBehaviour
 
     public int healAmount = 200; // Amount of health to restore
 
+    public float cooldownValue = 5f;
+
     void Start()
     {
         theLevelManager = FindObjectOfType<LevelManager>();
@@ -26,7 +28,7 @@ public class SkillButton : MonoBehaviour
         {
             audioSource.PlayOneShot(RheaHeals);
             theLevelManager.Heal(healAmount);
-        }
+        } 
     }
 }
 
