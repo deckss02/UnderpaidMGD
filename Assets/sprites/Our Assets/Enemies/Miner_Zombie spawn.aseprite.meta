@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 571820af1c250d54383341098a76ec3b
+guid: d77443c7963404a4dab47b281a7c7087
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -35,7 +35,7 @@ ScriptedImporter:
     spriteMeshType: 1
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 65
+    spritePixelsToUnits: 55
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -95,7 +95,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638598331596427443
+  platformSettingsDirtyTick: 638598333045173370
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -119,78 +119,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Rat SpawnIn_Frame_1
+  - name: Miner_Zombie spawn_Frame_6
     originalName: 
-    pivot: {x: 0.5121951, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 75
-      y: 42
-      width: 41
-      height: 17
-    spriteID: ff79e0a57d5b8f842862f1806489137c
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 75, y: 42}
-  - name: Rat SpawnIn_Frame_2
-    originalName: 
-    pivot: {x: 0.54901963, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 79
-      width: 51
-      height: 23
-    spriteID: 29033292c7ec4fa428da333f4b6ad44f
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 79}
-  - name: Rat SpawnIn_Frame_3
-    originalName: 
-    pivot: {x: 0.50793654, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 42
-      width: 63
-      height: 29
-    spriteID: b95b8a1f770e52741bb71500d337cacc
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 42}
-  - name: Rat SpawnIn_Frame_4
-    originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.5272727, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 62
-      height: 30
-    spriteID: 3ca4bf9a5463a9149824669e6445e0d8
+      width: 55
+      height: 51
+    spriteID: a125e535990928c41a0d7127233986e8
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -199,18 +139,18 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: Rat SpawnIn_Frame_0
+  - name: Miner_Zombie spawn_Frame_4
     originalName: 
-    pivot: {x: 0.42105263, y: 0}
+    pivot: {x: 0.58181816, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 74
-      y: 4
-      width: 19
-      height: 5
-    spriteID: 2c7aab8f33ca28f4abed7a196901f3e7
+      x: 4
+      y: 99
+      width: 55
+      height: 14
+    spriteID: b5d55992588590a4f95bc6c53556c881
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -218,56 +158,172 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 74, y: 4}
+    uvTransform: {x: 4, y: 99}
+  - name: Miner_Zombie spawn_Frame_5
+    originalName: 
+    pivot: {x: 0.5272727, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 63
+      width: 55
+      height: 28
+    spriteID: 8b39f138b0445014a8690a963b8c9d64
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 63}
+  - name: Miner_Zombie spawn_Frame_0
+    originalName: 
+    pivot: {x: 0.85, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 32
+      y: 146
+      width: 20
+      height: 9
+    spriteID: a08c8bbf22c1b3f408a121b06f7699ee
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 32, y: 146}
+  - name: Miner_Zombie spawn_Frame_1
+    originalName: 
+    pivot: {x: 0.85, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 146
+      width: 20
+      height: 22
+    spriteID: 6aed5c6be8258e4448612935c019f5f1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 146}
+  - name: Miner_Zombie spawn_Frame_2
+    originalName: 
+    pivot: {x: 0.60714287, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 121
+      width: 28
+      height: 17
+    spriteID: c80848e584107a04faad70f85e95c94e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 121}
+  - name: Miner_Zombie spawn_Frame_3
+    originalName: 
+    pivot: {x: 0.5862069, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 176
+      width: 29
+      height: 7
+    spriteID: aac78678757c6774abef6836184d8057
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 176}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 781474311
-    name: Rat SpawnIn
+    guid: -1519940373
+    name: Miner_Zombie spawn
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Rat SpawnIn_Frame_1
-      frameIndex: 1
+    - name: Miner_Zombie spawn_Frame_6
+      frameIndex: 6
       cellRect:
-        x: 11
+        x: 3
         y: 0
-        width: 41
-        height: 17
-      spriteId: ff79e0a57d5b8f842862f1806489137c
-    - name: Rat SpawnIn_Frame_2
-      frameIndex: 2
-      cellRect:
-        x: 4
-        y: 0
-        width: 51
-        height: 23
-      spriteId: 29033292c7ec4fa428da333f4b6ad44f
-    - name: Rat SpawnIn_Frame_3
-      frameIndex: 3
+        width: 55
+        height: 51
+      spriteId: a125e535990928c41a0d7127233986e8
+    - name: Miner_Zombie spawn_Frame_4
+      frameIndex: 4
       cellRect:
         x: 0
         y: 0
-        width: 63
-        height: 29
-      spriteId: b95b8a1f770e52741bb71500d337cacc
-    - name: Rat SpawnIn_Frame_4
-      frameIndex: 4
+        width: 55
+        height: 14
+      spriteId: b5d55992588590a4f95bc6c53556c881
+    - name: Miner_Zombie spawn_Frame_5
+      frameIndex: 5
       cellRect:
-        x: 1
+        x: 3
         y: 0
-        width: 62
-        height: 30
-      spriteId: 3ca4bf9a5463a9149824669e6445e0d8
-    - name: Rat SpawnIn_Frame_0
+        width: 55
+        height: 28
+      spriteId: 8b39f138b0445014a8690a963b8c9d64
+    - name: Miner_Zombie spawn_Frame_0
       frameIndex: 0
       cellRect:
-        x: 24
+        x: 15
         y: 0
-        width: 19
-        height: 5
-      spriteId: 2c7aab8f33ca28f4abed7a196901f3e7
+        width: 20
+        height: 9
+      spriteId: a08c8bbf22c1b3f408a121b06f7699ee
+    - name: Miner_Zombie spawn_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 15
+        y: 0
+        width: 20
+        height: 22
+      spriteId: 6aed5c6be8258e4448612935c019f5f1
+    - name: Miner_Zombie spawn_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 15
+        y: 0
+        width: 28
+        height: 17
+      spriteId: c80848e584107a04faad70f85e95c94e
+    - name: Miner_Zombie spawn_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 15
+        y: 0
+        width: 29
+        height: 7
+      spriteId: aac78678757c6774abef6836184d8057
     linkedCells: []
     parentIndex: -1
   platformSettings:

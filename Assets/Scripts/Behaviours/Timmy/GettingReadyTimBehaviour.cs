@@ -22,7 +22,7 @@ public class GettingReadyTimBehaviour : StateMachineBehaviour
         // Transition to HairBall state if the boss is ready for the next attack
         if (bossTim != null && bossTim.IsReadyForNextAttack())
         {
-            animator.SetBool("VineL", true);
+            animator.SetBool("Summon", true);
         }
     }
 

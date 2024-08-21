@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7452379098171467852}
   - component: {fileID: 1394414276958673218}
   - component: {fileID: 2917768786131542755}
-  - component: {fileID: -1799129714845606740}
+  - component: {fileID: 7716015477000978196}
   m_Layer: 0
   m_Name: Slash
   m_TagString: Untagged
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shiftSpeed: 2
   maxShiftDistance: 5
---- !u!114 &-1799129714845606740
+--- !u!114 &7716015477000978196
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

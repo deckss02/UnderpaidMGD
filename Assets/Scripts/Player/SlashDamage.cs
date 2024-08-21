@@ -39,6 +39,12 @@ public class SlashDamage : MonoBehaviour
                     wolfController.TakeDamage((int)damageAmount);
                 }
 
+                BirdController birdController = hitCollider.GetComponent<BirdController>();
+                if (birdController != null)
+                {
+                    birdController.TakeDamage((int)damageAmount);
+                }
+
                 ShootingFlower shootingFlower = hitCollider.GetComponent<ShootingFlower>();
                 if (shootingFlower != null)
                 {

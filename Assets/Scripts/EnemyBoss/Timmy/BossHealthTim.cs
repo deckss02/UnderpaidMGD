@@ -14,7 +14,7 @@ public class BossHealthTim : MonoBehaviour
     private Color originalColor;
     public GameObject boss;
     public GameObject deathSplosion;
-    public float ultimateEffectDuration = 2.0f; // Duration for the ultimate effect animation
+    public float ultimateEffectDuration = 1.0f; // Duration for the ultimate effect animation
 
     [Header("iFrames")]
     [SerializeField] private float iFramesDuration = 50.0f;
@@ -181,7 +181,7 @@ public class BossHealthTim : MonoBehaviour
       // animator.SetBool("HairBall", false);
       // animator.SetBool("CoolDown", false);
       // animator.SetBool("Damage", false);
-      // animator.SetBool("Idle", false);
+      //x animator.SetBool("Idle", false);
     }
 
     public void TriggerWinScreen()

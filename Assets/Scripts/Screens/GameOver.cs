@@ -2,25 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
 
 public class GameOver : MonoBehaviour
 {
     public GameObject UIHolder;
 
     [SerializeField] private GameObject tryAgainButton;
-    // Start is called before the first frame update
+
     void Start()
     {
-
+        // Initialization if needed
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        // Update logic if needed
     }
-    
+
     public void BackToMainMenu()
     {
         SceneManager.LoadScene("Town");
@@ -28,7 +26,7 @@ public class GameOver : MonoBehaviour
         UIHolder.SetActive(false);
     }
 
-    //Quit Game
+    // Quit Game
     public void QuitGame()
     {
         Application.Quit();
@@ -38,9 +36,15 @@ public class GameOver : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("Level 1");
+
+        // Get the currently active scene
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        // Reload the current scene
+        SceneManager.LoadScene(currentScene.name);
+
+        // Optionally manage UI visibility here
         tryAgainButton.SetActive(true);
         UIHolder.SetActive(true);
     }
-
 }

@@ -87,6 +87,7 @@ public class TimEC : MonoBehaviour
         yield return new WaitForSeconds(freezeTime);
 
         BossHealth.gameObject.SetActive(true);
+        Ultimate.gameObject.SetActive(true);
 
         // Activate the boss and start the fade-in coroutine
         StartCoroutine(FadeInBoss());

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 571820af1c250d54383341098a76ec3b
+guid: ef9ca2c3368a66045ac6613ae65372f4
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -35,7 +35,7 @@ ScriptedImporter:
     spriteMeshType: 1
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 65
+    spritePixelsToUnits: 75
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -95,7 +95,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638598331596427443
+  platformSettingsDirtyTick: 638598333234007650
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -119,18 +119,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Rat SpawnIn_Frame_1
+  - name: Rock_Slime_spawn_Frame_5
     originalName: 
-    pivot: {x: 0.5121951, y: 0}
+    pivot: {x: 0.51111114, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 75
-      y: 42
-      width: 41
-      height: 17
-    spriteID: ff79e0a57d5b8f842862f1806489137c
+      x: 55
+      y: 4
+      width: 45
+      height: 20
+    spriteID: 98e1d135de4b22f4a8ad9e64b839442e
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -138,39 +138,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 75, y: 42}
-  - name: Rat SpawnIn_Frame_2
+    uvTransform: {x: 55, y: 4}
+  - name: Rock_Slime_spawn_Frame_6
     originalName: 
-    pivot: {x: 0.54901963, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 79
-      width: 51
-      height: 23
-    spriteID: 29033292c7ec4fa428da333f4b6ad44f
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 79}
-  - name: Rat SpawnIn_Frame_3
-    originalName: 
-    pivot: {x: 0.50793654, y: 0}
+    pivot: {x: 0.5116279, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 42
-      width: 63
-      height: 29
-    spriteID: b95b8a1f770e52741bb71500d337cacc
+      y: 88
+      width: 43
+      height: 32
+    spriteID: ab8340ec9fb743143a2076b391542d10
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -178,19 +158,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 42}
-  - name: Rat SpawnIn_Frame_4
+    uvTransform: {x: 4, y: 88}
+  - name: Rock_Slime_spawn_Frame_7
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.5116279, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 62
-      height: 30
-    spriteID: 3ca4bf9a5463a9149824669e6445e0d8
+      width: 43
+      height: 34
+    spriteID: a0e11b76be20752419eea44102404e24
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -199,18 +179,18 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: Rat SpawnIn_Frame_0
+  - name: Rock_Slime_spawn_Frame_0
     originalName: 
-    pivot: {x: 0.42105263, y: 0}
+    pivot: {x: 0.4615385, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 74
-      y: 4
-      width: 19
-      height: 5
-    spriteID: 2c7aab8f33ca28f4abed7a196901f3e7
+      x: 55
+      y: 32
+      width: 26
+      height: 12
+    spriteID: ad6ff4fa19d86184cba52c9b550767f5
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -218,56 +198,188 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 74, y: 4}
+    uvTransform: {x: 55, y: 32}
+  - name: Rock_Slime_spawn_Frame_1
+    originalName: 
+    pivot: {x: 0.47826087, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 160
+      width: 23
+      height: 31
+    spriteID: c1a02e4aa9d7370498b1e9e8aeefb543
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 160}
+  - name: Rock_Slime_spawn_Frame_2
+    originalName: 
+    pivot: {x: 0.5185185, y: -0.84210527}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 199
+      width: 27
+      height: 19
+    spriteID: d49ca0af912860d44ae395c654baf17e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 199}
+  - name: Rock_Slime_spawn_Frame_3
+    originalName: 
+    pivot: {x: 0.53125, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 128
+      width: 32
+      height: 24
+    spriteID: 2fab1f2d23adc724fbc2c357e3139dd7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 128}
+  - name: Rock_Slime_spawn_Frame_4
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 226
+      width: 42
+      height: 10
+    spriteID: 6b66fcf383aa5954b9a3140e4786666d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 226}
+  - name: Rock_Slime_spawn_Frame_8
+    originalName: 
+    pivot: {x: 0.5116279, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 46
+      width: 43
+      height: 34
+    spriteID: c1e72c25240c5ca45b53755000f5c308
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 46}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 781474311
-    name: Rat SpawnIn
+    guid: 1086140204
+    name: Rock_Slime_spawn
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Rat SpawnIn_Frame_1
+    - name: Rock_Slime_spawn_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 9
+        y: 0
+        width: 45
+        height: 20
+      spriteId: 98e1d135de4b22f4a8ad9e64b839442e
+    - name: Rock_Slime_spawn_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 10
+        y: 0
+        width: 43
+        height: 32
+      spriteId: ab8340ec9fb743143a2076b391542d10
+    - name: Rock_Slime_spawn_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 10
+        y: 0
+        width: 43
+        height: 34
+      spriteId: a0e11b76be20752419eea44102404e24
+    - name: Rock_Slime_spawn_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 20
+        y: 0
+        width: 26
+        height: 12
+      spriteId: ad6ff4fa19d86184cba52c9b550767f5
+    - name: Rock_Slime_spawn_Frame_1
       frameIndex: 1
+      cellRect:
+        x: 21
+        y: 0
+        width: 23
+        height: 31
+      spriteId: c1a02e4aa9d7370498b1e9e8aeefb543
+    - name: Rock_Slime_spawn_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 18
+        y: 16
+        width: 27
+        height: 19
+      spriteId: d49ca0af912860d44ae395c654baf17e
+    - name: Rock_Slime_spawn_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 15
+        y: 0
+        width: 32
+        height: 24
+      spriteId: 2fab1f2d23adc724fbc2c357e3139dd7
+    - name: Rock_Slime_spawn_Frame_4
+      frameIndex: 4
       cellRect:
         x: 11
         y: 0
-        width: 41
-        height: 17
-      spriteId: ff79e0a57d5b8f842862f1806489137c
-    - name: Rat SpawnIn_Frame_2
-      frameIndex: 2
+        width: 42
+        height: 10
+      spriteId: 6b66fcf383aa5954b9a3140e4786666d
+    - name: Rock_Slime_spawn_Frame_8
+      frameIndex: 8
       cellRect:
-        x: 4
+        x: 10
         y: 0
-        width: 51
-        height: 23
-      spriteId: 29033292c7ec4fa428da333f4b6ad44f
-    - name: Rat SpawnIn_Frame_3
-      frameIndex: 3
-      cellRect:
-        x: 0
-        y: 0
-        width: 63
-        height: 29
-      spriteId: b95b8a1f770e52741bb71500d337cacc
-    - name: Rat SpawnIn_Frame_4
-      frameIndex: 4
-      cellRect:
-        x: 1
-        y: 0
-        width: 62
-        height: 30
-      spriteId: 3ca4bf9a5463a9149824669e6445e0d8
-    - name: Rat SpawnIn_Frame_0
-      frameIndex: 0
-      cellRect:
-        x: 24
-        y: 0
-        width: 19
-        height: 5
-      spriteId: 2c7aab8f33ca28f4abed7a196901f3e7
+        width: 43
+        height: 34
+      spriteId: c1e72c25240c5ca45b53755000f5c308
     linkedCells: []
     parentIndex: -1
   platformSettings:
