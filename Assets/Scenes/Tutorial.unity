@@ -9552,9 +9552,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 80
+  m_MaxValue: 40
   m_WholeNumbers: 1
-  m_Value: 80
+  m_Value: 40
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -11514,9 +11514,6 @@ MonoBehaviour:
   - {fileID: 284689731}
   - {fileID: 680806837}
   - {fileID: 369535213}
-  - {fileID: 1444392234}
-  - {fileID: 438116228}
-  - {fileID: 1860183708}
   IntroPopUp: {fileID: 1838369245}
   waitTime: 2
   upButton: {fileID: 1902170990}
@@ -16040,16 +16037,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbaf3bc8c36180846b9479b17e72b249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 80
+  maxHealth: 40
   currentHealth: 0
   healthBar: {fileID: 473344372}
   theWinScreen: {fileID: 605438709}
   boss: {fileID: 755109649}
   Effect: {fileID: 413708370}
-  ultimateEffectDuration: 2
+  ultimateEffectDuration: 1
   iFramesDuration: 50
   numberOfFlashes: 1
-  deathAnimationDuration: 3
+  deathAnimationDuration: 1
 --- !u!114 &755109661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23155,8 +23152,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1187005072}
-        m_TargetAssemblyTypeName: Ultimate1, Assembly-CSharp
-        m_MethodName: 
+        m_TargetAssemblyTypeName: UW, Assembly-CSharp
+        m_MethodName: UseUltimate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -23216,7 +23213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9da259ad691ae82468bd9bd0b1ea8106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossHealthW: {fileID: 755109660}
+  bossGameObject: {fileID: 755109649}
   ultimatePrefab: {fileID: 3222365377777732540, guid: 54e1df5ae09a26345a8631d1fc282cc9, type: 3}
   ultimateDamage: 50
   ultimateButton: {fileID: 1187005069}

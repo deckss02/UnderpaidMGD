@@ -38,8 +38,6 @@ public class TutorialManager : MonoBehaviour
     private bool isCornSkillPressed = false; // Flag to check if Corn's skill has been pressed
     private bool isSwapButtonPressed = false; // Flag to check if Swap button has been interacted with
     private bool hasAppliedDamage = false; // Flag to ensure damage is only applied once
-    private bool isBossInCooldown = false; // Flag to check if the boss is in cooldown state
-
     private Vector3 wolfOriginalPosition; // Original position of Wolf
 
     void Start()
@@ -161,30 +159,6 @@ public class TutorialManager : MonoBehaviour
                     StartCoroutine(CheckEnemiesLeft());
                 }
             }
-            else if (popUpIndex == 7)
-            {
-                if (Ec != null && Ec.boss.activeSelf)
-                {
-                    StartCoroutine(BossSpawned());
-                }
-            }
-            else if (popUpIndex == 8)
-            {
-                if (isBossInCooldown)
-                {
-                    White.SetActive(true); // Turn on the White GameObject
-
-                    // Freeze the boss's actions or movements
-                    FreezeBoss();
-
-                    if (Ultimate != null && Ultimate.GetComponent<Button>().interactable) // Assuming Ultimate is the attack button
-                    {
-                        // Once the player attacks the boss, unfreeze the boss and advance the tutorial
-                        UnfreezeBoss();
-                        popUpIndex++;
-                    }
-                }
-            }
         }
     }
 
@@ -203,16 +177,6 @@ public class TutorialManager : MonoBehaviour
     IEnumerator Starting()
     {
         yield return new WaitForSeconds(4f);
-    }
-
-    IEnumerator BossSpawned()
-    {
-        yield return new WaitForSeconds(4f); // Wait for 4 seconds
-
-        popUpIndex++;
-
-        // Assuming the boss has a cooldown state. Set `isBossInCooldown` to true when it enters this state
-        isBossInCooldown = true;
     }
 
     // Method called when Corn's skill button is pressed
@@ -267,29 +231,5 @@ public class TutorialManager : MonoBehaviour
         movedDown = false;
         movedLeft = false;
         movedRight = false;
-    }
-
-    void FreezeBoss()
-    {
-        if (boss != null)
-        {
-            // Assuming the boss has a movement script, disable it
-            boss.GetComponent<Boss1>().enabled = false;
-
-            // If the boss has any AI or attack scripts, disable them as well
-            boss.GetComponent<Boss1>().enabled = false;
-        }
-    }
-
-    void UnfreezeBoss()
-    {
-        if (boss != null)
-        {
-            // Re-enable the boss's movement script
-            boss.GetComponent<Boss1>().enabled = true;
-
-            // Re-enable the boss's AI or attack scripts
-            boss.GetComponent<Boss1>().enabled = true;
-        }
     }
 }
